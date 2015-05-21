@@ -1,0 +1,21 @@
+body {
+    background-color: ghostwhite;
+}
+
+table{
+    width: 500px;
+    font-family: verdana;
+    font-size: 12px;
+    
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+table th {
+    color: black;
+    background-color: lightgray;
+} 
