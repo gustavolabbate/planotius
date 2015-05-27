@@ -1,11 +1,11 @@
-package com.lenovo.controller;
+package org.planotius.controller;
 
-import com.lenovo.controller.functions.Element;
-import com.lenovo.controller.functions.FindBy;
-import com.lenovo.controller.functions.ElementDiscover;
-import com.lenovo.controller.functions.SeleniumServer;
-import com.lenovo.helper.Config;
-import com.lenovo.helper.PropertiesLoader;
+import org.planotius.controller.functions.Element;
+import org.planotius.controller.functions.FindBy;
+import org.planotius.controller.functions.ElementDiscover;
+import org.planotius.controller.functions.SeleniumServer;
+import org.planotius.helper.Config;
+import org.planotius.helper.PropertiesLoader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.annotation.Annotation;

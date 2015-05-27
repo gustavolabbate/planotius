@@ -1,4 +1,4 @@
-package com.lenovo.helper;
+package org.planotius.helper;
 
 import org.apache.log4j.Logger;
 

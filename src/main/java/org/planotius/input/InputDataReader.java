@@ -1,4 +1,4 @@
-package com.lenovo.input;
+package org.planotius.input;
 
 /**
  *

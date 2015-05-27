@@ -1,4 +1,4 @@
-package com.lenovo.input;
+package org.planotius.input;
 
 import java.util.List;
 import java.util.Map;

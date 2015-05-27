@@ -1,4 +1,4 @@
-package com.lenovo.helper;
+package org.planotius.helper;
 
 import java.io.*;
 import java.util.Properties;

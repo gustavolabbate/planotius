@@ -1,6 +1,6 @@
-package com.lenovo.functions;
+package org.planotius.functions;
 
-import com.lenovo.helper.PropertiesLoader;
+import org.planotius.helper.PropertiesLoader;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;

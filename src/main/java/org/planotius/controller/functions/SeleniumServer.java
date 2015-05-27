@@ -1,8 +1,8 @@
-package com.lenovo.controller.functions;
+package org.planotius.controller.functions;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.lenovo.helper.Config;
+import org.planotius.helper.Config;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.log4j.Logger;

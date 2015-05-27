@@ -1,7 +1,8 @@
-package com.lenovo.input.csv;
+package org.planotius.input.csv;
 
-import com.lenovo.helper.CSVReader;
-import com.lenovo.input.*;
+import org.planotius.input.InputDataReader;
+import org.planotius.input.InputData;
+import org.planotius.helper.CSVReader;
 import java.io.File;
 import java.net.URL;
 import org.apache.log4j.Logger;

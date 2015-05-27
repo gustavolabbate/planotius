@@ -1,6 +1,6 @@
-package com.lenovo.functions.helper;
+package org.planotius.functions.helper;
 
-import com.lenovo.helper.CSVReader;
+import org.planotius.helper.CSVReader;
 import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;

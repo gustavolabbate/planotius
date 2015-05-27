@@ -1,4 +1,4 @@
-package com.lenovo.helper;
+package org.planotius.controller.functions;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,12 +10,11 @@ import java.lang.annotation.Target;
  * @author ggodoy
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface LoadInputData {
+@Target({ElementType.FIELD})
+public @interface ElementDiscover {
+    String value() default "";
+    String key() default "";
+    String frame() default "";
     
-    /**
-     * load a file on classpath or by complete path
-     * @return 
-     */
-    String filename();
+    
 }

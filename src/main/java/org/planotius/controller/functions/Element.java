@@ -1,6 +1,6 @@
-package com.lenovo.controller.functions;
+package org.planotius.controller.functions;
 
-import com.lenovo.controller.Controller;
+import org.planotius.controller.Controller;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;

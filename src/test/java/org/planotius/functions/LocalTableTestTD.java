@@ -1,7 +1,7 @@
-package com.lenovo.functions;
+package org.planotius.functions;
 
-import com.lenovo.controller.Controller;
-import com.lenovo.pageobjects.LocalTable;
+import org.planotius.controller.Controller;
+import org.planotius.pageobjects.LocalTable;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;

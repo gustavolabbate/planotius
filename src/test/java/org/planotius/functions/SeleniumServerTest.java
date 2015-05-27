@@ -1,6 +1,6 @@
-package com.lenovo.functions;
+package org.planotius.functions;
 
-import com.lenovo.controller.functions.SeleniumServer;
+import org.planotius.controller.functions.SeleniumServer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;

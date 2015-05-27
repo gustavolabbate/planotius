@@ -1,8 +1,8 @@
-package com.lenovo.pageobjects;
+package org.planotius.pageobjects;
 
-import com.lenovo.controller.Controller;
-import com.lenovo.controller.functions.Element;
-import com.lenovo.controller.functions.ElementDiscover;
+import org.planotius.controller.Controller;
+import org.planotius.controller.functions.Element;
+import org.planotius.controller.functions.ElementDiscover;
 
 /**
  *
