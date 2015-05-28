@@ -1,5 +1,11 @@
 package org.planotius.pageobjects;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.planotius.controller.Controller;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
@@ -26,6 +32,9 @@ public class LocalTable extends Controller {
     @ElementDiscover("changedByjs")
     public Element myInputText;
 
+    @ElementDiscover("complete")
+    public Element autoCompleteField;
+
     public String getTextfromTD() {
         return elementFromTDID.getText();
     }
@@ -34,38 +43,58 @@ public class LocalTable extends Controller {
         return elementFromSecondTD.getText();
     }
 
-//    public String getValueFromTableWithHeader(String rowValue, String columnValue) {
-//        System.out.print(".");
-//        return tableWithHeader.getCellValue(rowValue, columnValue);
-//    }
-//    public String getValueByColumnIndexFromTableWithHeader(String value, int col) {
-//        System.out.print("|");
-//        return tableWithHeader.getCellValuebyColumnIndex(value, col);
-//    }
-//    public String getValueByRowIndexFromTableWithHeader(int row, String value) {
-//        System.out.print(".");
-//        return tableWithHeader.getCellValueByRowIndex(row, value);
-//    }
-//    public String getValueByRowAndColumnIndexFromTableWithHeader(int rowIndex, int columnIndex) {
-//        System.out.print("|");
-//        return tableWithHeader.getCellValueByRowAndColumnIndex(rowIndex, columnIndex);
-//    }
-//    public String getValueFromHeadlessTable(String rowValue, String columnValue) {
-//        System.out.print(".");
-//        return headlessTable.getCellValue(rowValue, columnValue);
-//    }
-//    public String getValueByColumnIndexFromHeadlessTable(String value, int col) {
-//        System.out.print("|");
-//        return headlessTable.getCellValuebyColumnIndex(value, col);
-//    }
-//    public String getValueByRowIndexFromHeadlessTable(int row, String value) {
-//        System.out.print(".");
-//        return headlessTable.getCellValueByRowIndex(row, value);
-//    }
-//    public String getValueByRowAndColumnIndexFromHeadlessTable(int rowIndex, int columnIndex) {
-//        System.out.print("|");
-//        return headlessTable.getCellValueByRowAndColumnIndex(rowIndex, columnIndex);
-//    }
+    public String isValueInAutocompleteField(String stripedString, int down) {
+
+        autoCompleteField.sendKeys(stripedString);
+
+        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+        printScreen("target/localTableAutoComplete.png");
+        
+        System.out.println(down);
+        for (int i = 1; i <= down; i++) {
+            autoCompleteField.sendKeys(Keys.ARROW_DOWN);
+            System.out.print("|");
+        }
+
+        autoCompleteField.sendKeys(Keys.ENTER);
+//        autoCompleteField.click();
+        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+        return autoCompleteField.getAttribute("value");
+    }
+
+    public String isValueInAutocompleteField(String stripedString) {
+
+        autoCompleteField.sendKeys(stripedString);
+
+        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+        printScreen("target/localTableAutoComplete.png");
+
+        autoCompleteField.sendKeys(Keys.ARROW_DOWN);
+        autoCompleteField.sendKeys(Keys.ARROW_DOWN);
+        autoCompleteField.sendKeys(Keys.ENTER);
+//        autoCompleteField.click();
+        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+        return autoCompleteField.getAttribute("value");
+//        if (autoCompleteField.getAttribute("value").equals(expectedString)){
+//            return true;
+//        }
+
+//        
+//        System.out.println("Check1");
+////        if (listSugestion.isDisplayed()) {
+//        System.out.println("Check2");
+//        List<WebElement> options = getDriver().findElements(By.name("browsers"));
+//
+//        for (WebElement option : options) {
+//            System.out.println("CheckOption: " + option.getAttribute("value"));
+//        }
+//        System.out.println("Check3");
+//        System.out.println("aComplete>> " + options.contains(expectedString));
+//        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+////        }
+//        return false;
+    }
+
     public String getCellValueFromTableWithHeader(Object row, Object column) {
         System.out.print(".");
         return tableWithHeader.getCellValueFromTable(row, column);

@@ -88,10 +88,9 @@ public class Element extends Controller implements WebElement {
 
     public void click() {
         reload();
-        try{
+        try {
             this.webElement.click();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             log.warn("Element not finded for click. Trying by JS...");
             runJavaScript("$('" + this.webElement + "').click()");
         }
