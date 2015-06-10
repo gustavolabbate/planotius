@@ -83,6 +83,8 @@ public class Element extends Controller implements WebElement {
         } catch (StaleElementReferenceException stale) {
             this.webElement = null;
             reload();
+        } catch (NullPointerException npe) {
+            this.webElement = null;
         }
     }
 
@@ -91,7 +93,7 @@ public class Element extends Controller implements WebElement {
         try {
             this.webElement.click();
         } catch (Exception e) {
-            log.warn("Element not finded for click. Trying by JS...");
+            log.warn("Element ["+this.key+":"+this.value+"] not finded for click. Trying by JS...");
             runJavaScript("$('" + this.webElement + "').click()");
         }
         waitPageLoad();
