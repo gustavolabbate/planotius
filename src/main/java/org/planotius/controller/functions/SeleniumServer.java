@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -69,12 +70,23 @@ public class SeleniumServer {
             profile.setPreference("intl.accept_languages", firefoxLocale);
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
             desiredCapabilities.setCapability("firefox_profile", profile.toString());
-            
+
             if (Config.getConfiguration("firefox.home") != null) {
                 capability.setCapability("binary", Config.getConfiguration("firefox.home"));
                 System.setProperty("webdriver.firefox.bin", Config.getConfiguration("firefox.home"));
             }
 
+        }
+        if (browser.equalsIgnoreCase("googlechrome") || browser.equalsIgnoreCase("chromium")) {
+            capability = DesiredCapabilities.chrome();
+            capability.setBrowserName("Google Chrome");
+            capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
+            capability.setPlatform(org.openqa.selenium.Platform.ANY);
+
+            if (Config.getConfiguration("chrome.home") != null) {
+                capability.setCapability("binary", Config.getConfiguration("chrome.home"));
+                System.setProperty("webdriver.chrome.driver", Config.getConfiguration("chrome.home"));
+            }
         } else if (browser.equalsIgnoreCase("iexplore")) {
             capability = DesiredCapabilities.internetExplorer();
             capability.setBrowserName("internet explorer");
@@ -98,6 +110,8 @@ public class SeleniumServer {
                 driver = new FirefoxDriver(profile);
             } else if (browser.equalsIgnoreCase("iexplore")) {
                 driver = new InternetExplorerDriver();
+            } else if (browser.equalsIgnoreCase("googlechrome") || browser.equalsIgnoreCase("chromium")) {
+                driver = new ChromeDriver(capability);
             } else if (browser.equalsIgnoreCase("htmlunitdriver") || browser.equalsIgnoreCase("nobrowser")) {
                 HtmlUnitDriver driver = new HtmlUnitDriver() {
                     @Override
