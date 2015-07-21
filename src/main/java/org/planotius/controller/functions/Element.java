@@ -25,13 +25,11 @@ public class Element extends Controller implements WebElement {
 
     String key;
     String keyValue;
-    
     String frame;
     WebElement webElement;
     Class aclass;
     Field field;
     
-
     public int linhaEsperada = 0;
     public String valorEsperado = null;
     public String rowItemValue = null;
