@@ -24,22 +24,44 @@ public class Element extends Controller implements WebElement {
     private static final Logger log = Logger.getLogger(Element.class.getName());
 
     String key;
+    String keyValue;
+    
     String frame;
     WebElement webElement;
     Class aclass;
     Field field;
-    String value;
+    
 
     public int linhaEsperada = 0;
     public String valorEsperado = null;
     public String rowItemValue = null;
 
-    public String getValue() {
-        return value;
+    /**
+     * Get the attribute 'keyValue' of an WebElement.
+     * The same of WebElement.getAttribute("keyValue");
+     * @return 
+     */
+    public String getAttributeValue() {
+        reload();
+        return this.webElement.getAttribute("value");
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    /**
+     * Returns the value set to the key, on the element,
+     * key=value in a property.
+     * @return 
+     */
+    public String getKeyValue() {
+        return keyValue;
+    }
+
+    /**
+     * Set the value to the key, on the element,
+     * key=value in a property.
+     * @return 
+     */
+    public void setKeyValue(String value) {
+        this.keyValue = value;
     }
 
     public void setAclass(Class aclass) {
@@ -93,7 +115,7 @@ public class Element extends Controller implements WebElement {
         try {
             this.webElement.click();
         } catch (Exception e) {
-            log.warn("Element ["+this.key+":"+this.value+"] not finded for click. Trying by JS...");
+            log.warn("Element [" + this.key + ":" + this.keyValue + "] not finded for click. Trying by JS...");
             runJavaScript("$('" + this.webElement + "').click()");
         }
         waitPageLoad();
@@ -248,7 +270,7 @@ public class Element extends Controller implements WebElement {
     }
 
     /**
-     * Return a cell value based on provided parameters for column and row. For
+     * Return a cell keyValue based on provided parameters for column and row. For
      * row and columns, inform String or Integer types.
      *
      * @param lookupRow

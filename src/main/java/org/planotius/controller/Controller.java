@@ -111,12 +111,12 @@ public abstract class Controller {
 
                 //[init] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
                 if (myAnnotation.key().equals("")) {
-                    element.setValue(myAnnotation.value());
+                    element.setKeyValue(myAnnotation.value());
                     element.setKey(myAnnotation.value());
                 } else {
                     PropertiesLoader map = new PropertiesLoader(interfaceMapName);
                     element.setKey(myAnnotation.key());
-                    element.setValue(map.getValue(myAnnotation.key()));
+                    element.setKeyValue(map.getValue(myAnnotation.key()));
                 }
                 //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
 

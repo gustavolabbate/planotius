@@ -1,11 +1,6 @@
 package org.planotius.pageobjects;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.planotius.controller.Controller;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;

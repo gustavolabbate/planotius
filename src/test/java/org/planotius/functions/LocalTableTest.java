@@ -84,7 +84,7 @@ public class LocalTableTest {
     @Test
     public void shouldVerifyJavascriptExecution() {
         assertEquals("valor", table.myInputText.getAttribute("value"));
-        table.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getValue() + "\");");
+        table.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getKeyValue() + "\");");
         assertEquals("teste", table.myInputText.getAttribute("value"));
     }
 
