@@ -14,22 +14,46 @@
         <selenium.server.version>[2.44.0,)</selenium.server.version>
     </properties>
 	
-	<reporting>
-  <plugins>
-    <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>cobertura-maven-plugin</artifactId>
-      <version>2.4</version>
-    </plugin>
-  </plugins>
-</reporting>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>lic-snapshot</id>
-			<name>planotius</name>
-			<url>http://10.35.102.135:8081/nexus/content/repositories/lic-snapshot/</url>
-		</snapshotRepository>
-	</distributionManagement> 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>lic-snapshot</id>
+            <name>planotius</name>
+            <url>http://10.35.102.135:8081/nexus/content/repositories/lic-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement> 
     
     <dependencies>
         <dependency>
