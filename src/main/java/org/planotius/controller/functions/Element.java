@@ -113,8 +113,8 @@ public class Element extends Controller implements WebElement {
         try {
             this.webElement.click();
         } catch (Exception e) {
-            log.warn("Element [" + this.key + ":" + this.keyValue + "] not finded for click. Trying by JS...");
-            runJavaScript("$('" + this.webElement + "').click()");
+            log.warn("Element [" + this.key + ":" + this.keyValue + "] not finded for click. Trying by JS: $('" + this.keyValue + "').click();");
+            runJavaScript("$('" + this.keyValue + "').click()");
         }
         waitPageLoad();
     }
