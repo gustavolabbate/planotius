@@ -1,10 +1,12 @@
 package org.planotius.controller.functions;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
+import java.io.IOException;
 import org.planotius.helper.Config;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -60,16 +62,24 @@ public class SeleniumServer {
             capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
 
-            //change locale to pt-br
+            //change locale to en_US default
             String firefoxLocale = "en_US";
 
             if (System.getProperty("firefox.locale") != null) {
                 firefoxLocale = System.getProperty("firefox.locale");
             }
-            log.info("Firefox locale is: " + firefoxLocale);
+            
             profile.setPreference("intl.accept_languages", firefoxLocale);
-            capability.setCapability("firefox_profile", profile.toString());
-
+            
+            try {
+                capability.setCapability("firefox_profile", profile.toJson());
+            } catch (IOException ex) {
+                log.error(ex.getMessage(), ex);;
+            }
+            log.info("Firefox locale is: " + firefoxLocale);
+            
+            
+            
             if (Config.getConfiguration("firefox.home") != null) {
                 capability.setCapability("binary", Config.getConfiguration("firefox.home"));
                 System.setProperty("webdriver.firefox.bin", Config.getConfiguration("firefox.home"));
