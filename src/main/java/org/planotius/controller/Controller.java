@@ -331,7 +331,7 @@ public abstract class Controller {
      * Search in the current html for the desired text
      *
      * @param text
-     * @return
+     * @return boolean
      */
     public boolean searchHtmlContents(String text) {
         boolean exist = driver.getPageSource().contains(text);

@@ -68,8 +68,7 @@ public class SeleniumServer {
             }
             log.info("Firefox locale is: " + firefoxLocale);
             profile.setPreference("intl.accept_languages", firefoxLocale);
-            DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
-            desiredCapabilities.setCapability("firefox_profile", profile.toString());
+            capability.setCapability("firefox_profile", profile.toString());
 
             if (Config.getConfiguration("firefox.home") != null) {
                 capability.setCapability("binary", Config.getConfiguration("firefox.home"));
