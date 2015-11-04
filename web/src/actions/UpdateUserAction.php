@@ -31,32 +31,9 @@ $status=$_POST['status'];
 
 	
 	fclose($file);
-  
-  
-  	//$file = fopen("../data/user.csv","w+");
-	
-/*		$list = array(
-		$name,$login,$password,$status
-		);
-
-		$file = fopen("../data/user.csv","a");
-
-
-		fputcsv($file,$list);
-
-		fclose($file);
-	*/
-
-
-    /*foreach($arr as $line) 
-	{ 
-	fwrite($file,$line); 
-	
-	}*/
-
-	
 		
-header("location: ../CreateUserSuccess.php?name=$name&login=$login&password=$password&status=$status");
+header("location: ../UserResult.php?msg=User succesfuly updated!");
+	
 	
 }
 

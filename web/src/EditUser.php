@@ -57,10 +57,18 @@ if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
 </tr><tr>
 <td>Status:</td><td>
 <select name="status">
-	<option value="<?php echo $status ?>" selected><?php echo $status ?></option>
-	<option value="active">Active</option>
-	<option value="inactive">Inactive</option>
-	<option value="waiting">Waiting Approval</option>
+<?php
+$options = array("active", "inactive", "pending");
+
+foreach ($options as $value){ 
+	if ($value == $status){
+			echo "<option selected value='" . $value . "'>" . $value . "</option>";
+	}
+	else{
+			echo "<option value='" . $value . "'>" . $value . "</option>";
+	}
+}
+?>
 </select>
 </td>
 </tr><tr>
