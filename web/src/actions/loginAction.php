@@ -13,7 +13,7 @@ if ($resultLogin==0){
 header("location: ../main.php");
 }
 else{
-header("location: ../login.php?e=$resultLogin");
+header("location: ../index.php?e=$resultLogin");
 
 }
 }
