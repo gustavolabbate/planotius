@@ -135,10 +135,15 @@ public class Element extends Controller implements WebElement {
         this.webElement.sendKeys(css);
     }
 
-    public void selectOnlist(String value) {
+    
+    public void selectOnlist(Object value) {
         reload();
         waitCurrentPageLoad();
         List<WebElement> options = this.webElement.findElements(By.tagName("option"));
+        
+        
+        if (value instanceof String){
+        
         if (!value.equals("")) {
             for (WebElement option : options) {
                 if (option.getText().equals(value)) {
@@ -146,18 +151,14 @@ public class Element extends Controller implements WebElement {
                     return;
                 }
             }
-            int index = Integer.parseInt(value);
-            selectOnlist(index);
+        }
+        }
+        else if (value instanceof Integer){
+            int index = (Integer) value;
+            options.get(index).click();
         }
     }
-
-    public void selectOnlist(int index) {
-        reload();
-        waitCurrentPageLoad();
-        List<WebElement> options = this.webElement.findElements(By.tagName("option"));
-        options.get(index).click();
-
-    }
+    
 
     public void clear() {
         reload();

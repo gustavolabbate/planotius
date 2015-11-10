@@ -1,2 +1,3 @@
 target/
 .sonar/
+/web/nbproject/private/

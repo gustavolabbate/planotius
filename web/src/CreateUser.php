@@ -18,9 +18,9 @@ include('menu.php');
 <tr>
 <td>Name:</td><td><input type="text" name="name" size="10" /></td>
 </tr><tr>
-<td>Login:</td><td><input type="text" name="login" size="10"/></td>
+<td>Login:</td><td><input type="text" name="login" size="10" maxlength="10"/></td>
 </tr><tr>
-<td>Password:</td><td><input type="text" name="password" size="10"/></td>
+<td>Password:</td><td><input type="text" name="password" size="10" maxlength="10"/></td>
 </tr><tr>
 <td>Status:</td><td>
 <select name="status">
