@@ -1,5 +1,28 @@
 <?php
 
+function checkUser($username, $password)
+{
+
+if (!strlen($username) || !strlen($password)) {
+	return 2;
+}
+
+$success = 1;
+
+$handle = fopen("../data/user.csv", "r");
+
+while (($data = fgetcsv($handle)) !== FALSE) {
+    if ($data[1] == $username && $data[2] == $password) {
+        return 0;
+        break;
+    }
+}
+
+fclose($handle);
+
+return  1;
+}
+
 function checkUnique($username)
 {
 $handle = fopen("../data/user.csv", "r");
@@ -50,37 +73,4 @@ $status=$_POST['status'];
 		header("location: ../CreateUserSuccess.php?name=$name&login=$login&password=$password&status=$status");
 	}
 }
-
-
-
-function checkUser($username, $password)
-{
-
-if (!strlen($username) || !strlen($password)) {
-	return 2;
-}
-
-$success = 1;
-
-$handle = fopen("../data/user.csv", "r");
-
-while (($data = fgetcsv($handle)) !== FALSE) {
-    if ($data[1] == $username && $data[2] == $password) {
-        return 0;
-        break;
-    }
-}
-
-fclose($handle);
-
-return  1;
-}
-
-
-
-
-
-
-
-
 ?>	

@@ -45,7 +45,9 @@
 <!--<li><a href="">Item1</a></li>
 <li><a href="">Item2</a></li>
 <li><a href="">Item3</a></li>-->
-<li><a href="index.php">logout</a></li>
+<li><a href="help.php">Help</a></li>
+<li><a href="about.php">About</a></li>
+<li><a href="index.php">Logout</a></li>
 </ul>
 </li>
 

@@ -10,7 +10,7 @@ include('menu.php');
 </div>
 
 
-<div class="message">
+<div class="message" name="message">
 <?php 
 
 if (isset($_GET['msg']))

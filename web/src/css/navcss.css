@@ -3,7 +3,8 @@
 	padding: 0;
 	width: 98%;
 	height: 35px;
-	background: #6D929B;
+	//background: #6D929B;
+        background: #44707a;
 }
 
 #navmenu ul{
@@ -18,7 +19,8 @@
 	list-style: none;
 	float: left;
 	position: relative;
-	background:#6D929B;
+	//background:#6D929B;
+        background: #44707a;
 	
 }
 
@@ -49,7 +51,8 @@
 }
 
 #navmenu ul li:hover ul li a:hover{
-	background:#3E6069;
+	//background:#3E6069;
+        background: #6397a5;
 	color:#FFFFFF;
 }
  

@@ -26,11 +26,11 @@ include('menu.php');
 <select name="status">
 	<option value="active">Active</option>
 	<option value="inactive">Inactive</option>
-	<option value="waiting">Waiting Approval</option>
+	<option value="pending">Pending</option>
 </select>
 </td>
 </tr><tr>
-<td colspan=2 align="center"><input type="submit" value="Create" /></td>
+<td colspan=2 align="center"><input type="submit" id="Create" value="Create" /></td>
 </tr><tr>
 
 </tr><tr>
@@ -40,7 +40,9 @@ include('menu.php');
 
 if (isset($_GET['e']))
 {
-	echo $_GET['e'];
+        echo "<div name=message>". $_GET['e'] . "</div>";
+    
+    
 }
 
 ?></font></td>

@@ -152,9 +152,10 @@ if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
 		
 		
   	?>
-  	<div id="chart-1" align="center"><!-- Fusion Charts will render here--></div>
+    
+        <div id="chart-1" align="center"><!-- Fusion Charts will render here--></div>
 	<div id="chart-2" align="center"><!-- Fusion Charts will render here--></div>
-
+    
 <!--
 bla
 <div align="center" id="chartContainer">
