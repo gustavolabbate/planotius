@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="css/style_sheet.css">
     </head>
-    <body style="background-image: url('http://localhost:8888/images/bg1.jpg')">
+    <body style="background-image: url('http://localhost:8080/images/bg1.jpg')">
 
         <div class="login">
             <div style="float: left; width: 60%;">
