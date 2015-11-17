@@ -28,7 +28,7 @@ public class LoginTest {
     public void shouldAccess() {
         login.fillFieldsAndClickSubmit("admin", "admin123");
         login.printScreen("target/shouldAccess.png");
-        assertTrue(login.verifyMessage("bla"));
+        assertTrue(login.verifyMessage("Users"));
     }
 
     @Test
