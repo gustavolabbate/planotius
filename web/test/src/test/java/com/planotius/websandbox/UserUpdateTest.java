@@ -40,10 +40,10 @@ public class UserUpdateTest {
     public void shouldUpdateUser() {
         userSearch.doSearch("");
         userResult.clickUpdateIconByRow(6);
-        userUpdate.fillName("Troquei o Nome!");
+        userUpdate.fillName("The name was changed");
         userUpdate.clickUpdateButton();
         assertEquals("User succesfuly updated!", userResult.getMessage());
-        assertEquals("Troquei o Nome!", userResult.getNameFromRowNumber(6));
+        assertEquals("The name was changed", userResult.getNameFromRowNumber(6));
     }
 
     @After
