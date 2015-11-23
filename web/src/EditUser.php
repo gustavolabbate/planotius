@@ -49,9 +49,9 @@ if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
 
 <table class="create">
 <tr>
-<td>Name:</td><td><input type="text" name="name" size="10" value="<?php echo $name ?>"/></td>
+<td>Name:</td><td><input type="text" name="name" size="30" value="<?php echo $name ?>"/></td>
 </tr><tr>
-<td>Login:</td><td><input type="text" name="login" size="10" readonly value="<?php echo $login ?>"/></td>
+<td>Login:</td><td><input type="text" name="login" size="20" readonly value="<?php echo $login ?>"/></td>
 </tr><tr>
 <td>Password:</td><td><input type="text" name="password" size="10" value="<?php echo $password ?>"/></td>
 </tr><tr>
@@ -72,7 +72,7 @@ foreach ($options as $value){
 </select>
 </td>
 </tr><tr>
-<td colspan=2 align="center"><input type="submit" value="Update" /></td>
+<td colspan=2 align="center"><input type="submit" value="Update" name="Update" /></td>
 </tr><tr>
 
 </tr><tr>

@@ -19,7 +19,7 @@ $userLine = $_GET['r'];
 $row = 1;
 if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
 	echo "<form action='actions/DeleteUserAction.php' method='POST'>";
-	echo "<table>";
+	echo "<table name='user_delete'>";
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	echo "<tr>";
         $num = count($data);
@@ -41,7 +41,7 @@ if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
     }
 	echo "</table>";
 	echo "<input type='hidden' value='$userLine' name='row'/>";
-	echo "<input type='submit' value='Confirm' />";
+	echo "<input type='submit' value='Confirm' name='Confirm'/>";
 	echo "</form>";
 	
     fclose($handle);

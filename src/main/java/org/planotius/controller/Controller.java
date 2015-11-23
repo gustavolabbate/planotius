@@ -97,6 +97,61 @@ public abstract class Controller {
         return page;
     }
 
+    public Element getElement(String identifier) {
+        Element element = new Element();
+        FindBy findBy = new FindBy(server.getDriver());
+        if (identifier != null) {
+
+            element = new Element(findBy.id(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.name(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.partialLinkText(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.xpath(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.cssSelector(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.linkText(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.tagName(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.className(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+            element = new Element(findBy.imageAlt(identifier));
+            if (element.webElement != null) {
+                return element;
+            }
+
+        }
+
+        return element;
+    }
+
     private Element loadnewInputData(Class aClass, Field field) {
         Element element = new Element();
 
@@ -157,7 +212,7 @@ public abstract class Controller {
                     try {
                         driver.switchTo().frame(myElement.getFrame());
                     } catch (Exception e) {
-                        
+
                     }
                 }
 

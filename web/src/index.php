@@ -13,17 +13,9 @@
                     <tr>
                         <td><img src="images/sandbox.jpg" height="110px"/></td>
                         <td><h4>Welcome to the test automation sandbox.</h4>
-                            Here you are invited to explore all features on you test framework tool.
+                            Here you are invited to explore all features on your test framework tool.
                         </td><td rowspan="4" align="middle">&nbsp</td>
-                    </tr><tr>
-                        <td>&nbsp</td><td>&nbsp</td>
-                    </tr><tr>
-                        <td align="center" colspan=2>&nbsp</td>
                     </tr>
-                    <tr>
-                        <td colspan=2 align="center"></td>
-                    </tr>
-
                 </table>
             </div>
             <div style="float: left; width: 5%;">&nbsp</div>
@@ -38,9 +30,9 @@
                         </tr><tr>
                             <td>password</td><td><input type="password" name="password" size=30/></td>
                         </tr><tr>
-                            <td align="center" colspan=2><input type="submit" id="submit" value="enter"/></td>
+                            <td style="text-align: center;" colspan=3><input type="submit" id="submit" value="enter"/></td>
                         </tr><tr>
-                            <td colspan=2 align="center"><font color="red" size= 2px>
+                            <td colspan=3 style="text-align: center;"><font color="red" size= 2px>
                                 <?php
                                 if (isset($_GET['e'])) {
                                     if ($_GET['e'] == 1) {

@@ -26,14 +26,22 @@ public class Element extends Controller implements WebElement {
     String key;
     String keyValue;
     String frame;
-    WebElement webElement;
+    public WebElement webElement;
     Class aclass;
     Field field;
     
-    public int linhaEsperada = 0;
-    public String valorEsperado = null;
-    public String rowItemValue = null;
+    public Element(WebElement element) {
+        System.out.println("ELEMENTO > "+ element);
+        this.webElement = element;
+        System.out.println("ELEMENTO SETADO> "+ this.webElement);
+    }
 
+    public Element() {
+    }
+
+    
+    
+    
     /**
      * Get the attribute 'keyValue' of an WebElement.
      * The same of WebElement.getAttribute("keyValue");
@@ -108,6 +116,7 @@ public class Element extends Controller implements WebElement {
         }
     }
 
+    
     public void click() {
         reload();
         try {
@@ -354,6 +363,9 @@ public class Element extends Controller implements WebElement {
 
     }
 
+    
+    
+    
     //    /*Percorre o header de uma tabela e encontra a coluna desejada,
 //     após localizada o método retornará o número da coluna*/
 //    @Deprecated

@@ -83,8 +83,8 @@ if (($handle = fopen("data/user.csv", "r")) !== FALSE) {
 	}
 	else{
 		if($row == $validRow || $validRow == -1){
-	echo "<td align='center' width='5px'><a href='DeleteUser.php?r=$row'><img src='images/del_icon.png' width='15px' /> </a></td>";	
-	echo "<td align='center' width='5px'><a href='EditUser.php?r=$row'><img src='images/edit_icon.png' width='20px' /></a></td>";	
+	echo "<td align='center' width='5px'><a href='DeleteUser.php?r=$row' name='delete".($row-1)."'><img src='images/del_icon.png' width='15px' /> </a></td>";	
+	echo "<td align='center' width='5px'><a href='EditUser.php?r=$row' name='update".($row-1)."'><img src='images/edit_icon.png' width='20px' /></a></td>";	
 		}
 	}
 	echo "</tr>";
