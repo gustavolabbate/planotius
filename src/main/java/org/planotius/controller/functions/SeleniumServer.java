@@ -70,6 +70,7 @@ public class SeleniumServer {
             }
             
             profile.setPreference("intl.accept_languages", firefoxLocale);
+            profile.setPreference("xpinstall.signatures.required", false);
             
             try {
                 capability.setCapability("firefox_profile", profile.toJson());
