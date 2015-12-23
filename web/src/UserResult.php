@@ -1,6 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/style_sheet.css">
+  <title>User Results</title>
 </head>
 <body>
 <div id="menu">
