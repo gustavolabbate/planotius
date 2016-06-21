@@ -1,35 +1,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.lenovo</groupId>
-    <artifactId>testFramework</artifactId>
+    <groupId>org.planotius</groupId>
+    <artifactId>planotius</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <name>testFramework</name>
+    <name>planotius</name>
     <url>http://maven.apache.org</url>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenium.version>[2.32.0,)</selenium.version>
+        <selenium.version>2.48.0</selenium.version>
         <selenium.server.version>[2.44.0,)</selenium.server.version>
     </properties>
 	
-	<reporting>
-  <plugins>
-    <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>cobertura-maven-plugin</artifactId>
-      <version>2.4</version>
-    </plugin>
-  </plugins>
-</reporting>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>lic-snapshot</id>
-			<name>tsmcli-tests</name>
-			<url>http://10.35.102.135:8081/nexus/content/repositories/lic-snapshot/</url>
-		</snapshotRepository>
-	</distributionManagement> 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <build>
+        <plugins>
+            <plugin>
+                <version>2.9</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>lic-snapshot</id>
+            <name>planotius</name>
+            <url>http://10.35.102.135:8081/nexus/content/repositories/lic-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement> 
     
     <dependencies>
         <dependency>
@@ -82,6 +98,11 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-    
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>2.46.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>
