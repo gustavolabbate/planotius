@@ -61,6 +61,7 @@ public class SeleniumServer {
             capability.setBrowserName("firefox");
             capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
+             
 
             //change locale to en_US default
             String firefoxLocale = "en_US";
@@ -71,6 +72,9 @@ public class SeleniumServer {
             
             profile.setPreference("intl.accept_languages", firefoxLocale);
             profile.setPreference("xpinstall.signatures.required", false);
+            
+            //https://groups.google.com/forum/#!topic/selenium-users/Zd5WYVZFXU0
+            //profile.setPreference("browser.startup.homepage","http://www.google.com");
             
             try {
                 capability.setCapability("firefox_profile", profile.toJson());
