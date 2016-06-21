@@ -39,6 +39,10 @@ public class SeleniumServer {
      * @param port
      */
     public SeleniumServer(String browser, String testServer, String port) {
+        if (browser == null){
+            log.warn("You didn´t set the browser. Setting to default 'firefox'");
+            browser = "firefox";
+        }
         this.browser = browser;
         this.testServer = testServer;
         this.port = port;
@@ -118,7 +122,7 @@ public class SeleniumServer {
             capability.setBrowserName("HtmlUnitDriver");
 
         }
-
+        
         if (testServer.equalsIgnoreCase("localhost")) {
             if (browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("chrome")) {
                 driver = new FirefoxDriver(profile);
