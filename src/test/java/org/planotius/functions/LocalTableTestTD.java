@@ -15,7 +15,7 @@ public class LocalTableTestTD {
     LocalTable table;
 
     public LocalTableTestTD() {
-        table = new LocalTable().init(LocalTable.class);
+        table = new LocalTable().init();
     }
 
     @Test

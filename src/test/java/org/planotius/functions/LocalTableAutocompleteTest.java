@@ -17,7 +17,7 @@ public class LocalTableAutocompleteTest {
 
     @BeforeClass
     public static void setup() {
-        table = new LocalTable().init(LocalTable.class);
+        table = new LocalTable().init();
         table.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
         table.openUrl();
     }
