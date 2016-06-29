@@ -56,9 +56,15 @@ public abstract class Controller {
     }
 
     public <T> T init() {
-        return (T) PageFactory.initElements(server.getDriver(), this.getClass());
+        return (T) init(this.getClass());
+        //return (T) PageFactory.initElements(server.getDriver(), this.getClass());
     }
 
+    /**
+     * 
+     * @deprecated Use init() instead!
+     */
+    @Deprecated
     public <T> T init(Class<T> aClass) {
         Class<?> poClass = this.getClass();
         T page = (T) aClass;
