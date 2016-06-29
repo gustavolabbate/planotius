@@ -302,6 +302,11 @@ public abstract class Controller {
 
     public void connectServer() {
         server = new SeleniumServer(browser, testServer, port);
+        
+        if (server.getDriver() == null){
+        driver = server.startServer();
+        }
+        
         driver = server.getDriver();
     }
 

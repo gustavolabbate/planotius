@@ -3,7 +3,9 @@ package org.planotius.functions;
 import org.planotius.controller.functions.SeleniumServer;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
+import org.planotius.helper.Config;
 
 public class SeleniumServerTest {
 
@@ -12,6 +14,12 @@ public class SeleniumServerTest {
     String url;
     String testServer;
     String port;
+
+    @Test
+    public void emptyBrowserPropertyShouldBeFirefox() {
+        server = new SeleniumServer(browser, testServer, port);
+        assertEquals("firefox", server.getBrowser());
+    }
 
     @Test
     public void testLocal() {
@@ -24,7 +32,13 @@ public class SeleniumServerTest {
             port = "5555";
 
             server = new SeleniumServer(browser, testServer, port);
-            WebDriver driver = server.getDriver();
+
+            WebDriver driver = null;
+            if (server.getDriver() == null) {
+                driver = server.startServer();
+            }
+
+            driver = server.getDriver();
             driver.get(url);
 
             try {
@@ -35,16 +49,9 @@ public class SeleniumServerTest {
 
             driver.close();
             SeleniumServer.stopServer();
-            /*WebElement busca = driver.findElement(By.name("q"));
-             busca.sendKeys("Thinkserver");
-             busca.submit();
-             assertTrue(driver.getPageSource().contains("Tower Servers"));*/
 
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        /*finally {
-         SeleniumServer.stopServer();
-         }*/
     }
 }

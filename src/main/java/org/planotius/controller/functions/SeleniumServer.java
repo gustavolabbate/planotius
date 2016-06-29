@@ -5,8 +5,6 @@ import java.io.IOException;
 import org.planotius.helper.Config;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,6 +25,12 @@ public class SeleniumServer {
     protected static WebDriver driver = null;
     protected static boolean serverStarted = false;
     protected String browser;
+    
+    
+    private static final String FF_BROWSER = "firefox";
+    private static final String CHROME_HOME = "chrome.home";
+    
+    
     protected String testServer;
     protected String port;
     private static final Logger log = Logger.getLogger(SeleniumServer.class.getName());
@@ -39,16 +43,14 @@ public class SeleniumServer {
      * @param port
      */
     public SeleniumServer(String browser, String testServer, String port) {
-        if (browser == null){
+        if (browser == null) {
             log.warn("You didn´t set the browser. Setting to default 'firefox'");
-            browser = "firefox";
+            this.browser = FF_BROWSER;
+        } else {
+            this.browser = browser;
         }
-        this.browser = browser;
         this.testServer = testServer;
         this.port = port;
-        if (driver == null) {
-            driver = startServer();
-        }
     }
 
     /**
@@ -58,14 +60,15 @@ public class SeleniumServer {
      * @return
      */
     public WebDriver startServer() {
+        String FF_HOME = "firefox.home";
+        
         DesiredCapabilities capability = null;
         FirefoxProfile profile = new FirefoxProfile();
-        if (browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("chrome")) {
+        if (browser.equalsIgnoreCase(FF_BROWSER) || browser.equalsIgnoreCase("chrome")) {
             capability = DesiredCapabilities.firefox();
-            capability.setBrowserName("firefox");
+            capability.setBrowserName(FF_BROWSER);
             capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
-             
 
             //change locale to en_US default
             String firefoxLocale = "en_US";
@@ -73,25 +76,21 @@ public class SeleniumServer {
             if (System.getProperty("firefox.locale") != null) {
                 firefoxLocale = System.getProperty("firefox.locale");
             }
-            
+
             profile.setPreference("intl.accept_languages", firefoxLocale);
             profile.setPreference("xpinstall.signatures.required", false);
-            
+
             //https://groups.google.com/forum/#!topic/selenium-users/Zd5WYVZFXU0
-            //profile.setPreference("browser.startup.homepage","http://www.google.com");
-            
             try {
                 capability.setCapability("firefox_profile", profile.toJson());
             } catch (IOException ex) {
                 log.error(ex.getMessage(), ex);;
             }
             log.info("Firefox locale is: " + firefoxLocale);
-            
-            
-            
-            if (Config.getConfiguration("firefox.home") != null) {
-                capability.setCapability("binary", Config.getConfiguration("firefox.home"));
-                System.setProperty("webdriver.firefox.bin", Config.getConfiguration("firefox.home"));
+
+            if (Config.getConfiguration(FF_HOME) != null) {
+                capability.setCapability("binary", Config.getConfiguration(FF_HOME));
+                System.setProperty("webdriver.firefox.bin", Config.getConfiguration(FF_HOME));
             }
 
         }
@@ -101,9 +100,9 @@ public class SeleniumServer {
             capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
 
-            if (Config.getConfiguration("chrome.home") != null) {
-                capability.setCapability("binary", Config.getConfiguration("chrome.home"));
-                System.setProperty("webdriver.chrome.driver", Config.getConfiguration("chrome.home"));
+            if (Config.getConfiguration(CHROME_HOME) != null) {
+                capability.setCapability("binary", Config.getConfiguration(CHROME_HOME));
+                System.setProperty("webdriver.chrome.driver", Config.getConfiguration(CHROME_HOME));
             }
         } else if (browser.equalsIgnoreCase("iexplore")) {
             capability = DesiredCapabilities.internetExplorer();
@@ -122,7 +121,7 @@ public class SeleniumServer {
             capability.setBrowserName("HtmlUnitDriver");
 
         }
-        
+
         if (testServer.equalsIgnoreCase("localhost")) {
             if (browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("chrome")) {
                 driver = new FirefoxDriver(profile);
