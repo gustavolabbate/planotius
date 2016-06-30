@@ -28,7 +28,7 @@ Do a git clone of this repository.
 Change to the planotius branch
 
 ```
-git branch planotius
+git branch development
 ```
 
 Perform a maven install:
@@ -47,7 +47,7 @@ Maven dependency (pom.xml)
         <dependency>
             <groupId>com.lenovo</groupId>
             <artifactId>testFramework</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 …
 </dependencies>
