@@ -3,9 +3,8 @@ package org.planotius.functions;
 import org.planotius.controller.functions.SeleniumServer;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
-import org.planotius.helper.Config;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 
 public class SeleniumServerTest {
 
@@ -34,11 +33,7 @@ public class SeleniumServerTest {
             server = new SeleniumServer(browser, testServer, port);
 
             WebDriver driver = null;
-            if (server.getDriver() == null) {
-                driver = server.startServer();
-            }
-
-            driver = server.getDriver();
+            driver = server.startServer();
             driver.get(url);
 
             try {
@@ -47,11 +42,13 @@ public class SeleniumServerTest {
                 fail(e.getMessage());
             }
 
-            driver.close();
-            SeleniumServer.stopServer();
+            driver.quit();
 
+        } catch (UnreachableBrowserException ube) {
+            System.err.println("Unreachable browser exception..." + ube.getMessage());
         } catch (Exception e) {
             fail(e.getMessage());
         }
+
     }
 }

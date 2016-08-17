@@ -1,7 +1,9 @@
 package org.planotius.pageobjects;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.openqa.selenium.Keys;
-import org.planotius.controller.Controller;
+import org.planotius.controller.PageObjectFactory;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
 
@@ -9,19 +11,19 @@ import org.planotius.controller.functions.ElementDiscover;
  *
  * @author ggodoy
  */
-public class LocalTable extends Controller {
+public class LocalTable extends PageObjectFactory {
 
     //Tables
     @ElementDiscover("//table[@id='table_test']/tbody/tr[2]/td[2]")
     public Element elementFromSecondTD;
 
-    @ElementDiscover(key = "tableHeader")
+    @ElementDiscover("table_test")
     public Element tableWithHeader;
 
-    @ElementDiscover(key = "headlessTable")
+    @ElementDiscover("headless")
     public Element headlessTable;
 
-    @ElementDiscover(key = "myNumber1")
+    @ElementDiscover("myNumber1")
     public Element elementFromTDID;
 
     @ElementDiscover("changedByjs")
@@ -29,6 +31,9 @@ public class LocalTable extends Controller {
 
     @ElementDiscover("complete")
     public Element autoCompleteField;
+    
+    @ElementDiscover("submit_button")
+    public Element submitButton;
 
     public String getTextfromTD() {
         return elementFromTDID.getText();
@@ -38,21 +43,27 @@ public class LocalTable extends Controller {
         return elementFromSecondTD.getText();
     }
 
+    public void clickMe(){
+        submitButton.click();
+    }
+    
     public String isValueInAutocompleteField(String stripedString, int down) {
-
+        
         autoCompleteField.sendKeys(stripedString);
 
-        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-        printScreen("target/localTableAutoComplete.png");
+        //System.out.println("-->> " + autoCompleteField.getAttribute("value"));
+        //printScreen("target/localTableAutoComplete.png");
         
-        System.out.println(down);
+        //System.out.println(down);
         for (int i = 1; i <= down; i++) {
             autoCompleteField.sendKeys(Keys.ARROW_DOWN);
-            System.out.print("|");
+          //  System.out.print("|");
         }
 
         autoCompleteField.sendKeys(Keys.ENTER);
-//        autoCompleteField.click();
+        
+
+        
         System.out.println("-->> " + autoCompleteField.getAttribute("value"));
         return autoCompleteField.getAttribute("value");
     }
@@ -62,7 +73,7 @@ public class LocalTable extends Controller {
         autoCompleteField.sendKeys(stripedString);
 
         System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-        printScreen("target/localTableAutoComplete.png");
+        //printScreen("target/localTableAutoComplete.png");
 
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
@@ -99,5 +110,6 @@ public class LocalTable extends Controller {
         System.out.print("|");
         return headlessTable.getCellValueFromTable(row, column);
     }
+
 
 }

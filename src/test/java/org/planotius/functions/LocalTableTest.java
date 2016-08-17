@@ -14,16 +14,25 @@ import org.junit.BeforeClass;
 public class LocalTableTest {
 
     static LocalTable table;
+    static Controller controller = new Controller();
 
     @BeforeClass
     public static void setup() {
         table = new LocalTable().init();
-        table.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
-        table.openUrl();
+
+        controller.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+        controller.openUrl();
+
     }
 
     @Test
+    public void shouldVerifyTextOnPage(){
+        assertTrue(controller.verifyMessage("Headless Table"));
+    }
+    
+    @Test
     public void shouldGetValuesBasedOnStringRow() {
+
         assertEquals("Jackson", table.getCellValueFromTableWithHeader("1", "Last Name"));
         assertEquals("Doe", table.getCellValueFromTableWithHeader("John", "Last Name"));
         assertEquals("50", table.getCellValueFromTableWithHeader("Smith", "Points"));
@@ -84,13 +93,18 @@ public class LocalTableTest {
     @Test
     public void shouldVerifyJavascriptExecution() {
         assertEquals("valor", table.myInputText.getAttribute("value"));
-        table.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getKeyValue() + "\");");
-        assertEquals("teste", table.myInputText.getAttribute("value"));
+        controller.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getKeyValue() + "\");");
+        assertEquals("teste", table.myInputText.getAttributeValue());
+    }
+
+    @Test
+    public void clickMe() {
+        table.clickMe();
     }
 
     @AfterClass
     public static void tearDown() {
-        Controller.stop();
+        controller.quit();
     }
 
 }
