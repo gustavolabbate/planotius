@@ -113,6 +113,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Run a JavaScript function.
+     * @param function
+     * @return 
+     */
     public Object runJavaScript(String function) {
         try {
             return ((JavascriptExecutor) getDriver()).executeScript(function);
@@ -123,6 +128,15 @@ public class Controller {
 
     }
 
+    /**
+     * Get the title of the page.
+     * @return 
+     */
+    public String getPageTitle(){
+        return driver.getTitle();
+    }
+    
+    
     /**
      * Search in the current html for the desired text
      *
