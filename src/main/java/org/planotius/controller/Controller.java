@@ -29,8 +29,9 @@ public class Controller {
     private String url;
     public static Config config;
 
-    public void setUrl(String url) {
+    public Controller setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public Config getConfig() {
@@ -168,10 +169,11 @@ public class Controller {
      * Open the desired url
      *
      */
-    public void openUrl() {
+    public Controller openUrl() {
         driver.get(this.url.replace("\"", ""));
         driver.manage().window().maximize();
         log.info("Url acessed: '" + this.url.replace("\"", "") + "'");
+        return this;
     }
 
     public String getTestServer() {
