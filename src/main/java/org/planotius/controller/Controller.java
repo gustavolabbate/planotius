@@ -1,37 +1,27 @@
 package org.planotius.controller;
 
-import org.planotius.controller.functions.Element;
-import org.planotius.controller.functions.FindBy;
-import org.planotius.controller.functions.ElementDiscover;
 import org.planotius.controller.functions.SeleniumServer;
 import org.planotius.helper.Config;
 import org.planotius.helper.PropertiesLoader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 
 /**
  *
  * @author ggodoy
  */
-public abstract class Controller {
+public class Controller {
 
     private static final Logger log = Logger.getLogger(Controller.class.getName());
-    private static SeleniumServer server;
+    public static SeleniumServer server;
     private static WebDriver driver;
     private String browser;
     private String testServer;
@@ -47,232 +37,20 @@ public abstract class Controller {
         return config;
     }
 
+    public void quit() {
+        try {
+            driver.quit();
+        } catch (UnreachableBrowserException ube) {
+            log.warn("Unreachable browser exception raised (Selenium bug). " + ube.getMessage());
+        }
+    }
+
     public SeleniumServer getServer() {
         return server;
     }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         return driver;
-    }
-
-    public <T> T init() {
-        return (T) init(this.getClass());
-        //return (T) PageFactory.initElements(server.getDriver(), this.getClass());
-    }
-
-    /**
-     * 
-     * @deprecated Use init() instead!
-     */
-    @Deprecated
-    public <T> T init(Class<T> aClass) {
-        Class<?> poClass = this.getClass();
-        T page = (T) aClass;
-
-        try {
-            Constructor<T> constructor = aClass.getConstructor();
-            page = constructor.newInstance();
-        } catch (NoSuchMethodException ex) {
-            log.error(ex.getMessage(), ex);
-        } catch (SecurityException ex) {
-            log.error(ex.getMessage(), ex);
-        } catch (InstantiationException ex) {
-            log.error(ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            log.error(ex.getMessage(), ex);
-        } catch (IllegalArgumentException ex) {
-            log.error(ex.getMessage(), ex);
-        } catch (InvocationTargetException ex) {
-            log.error(ex.getMessage(), ex);
-        }
-
-        Field[] fields = poClass.getDeclaredFields();
-        for (Field field : fields) {
-            try {
-                Element element = loadnewInputData(aClass, field);
-
-                if (element.getKey() != null) {
-                    field.set(page, element);
-                }
-            } catch (IllegalArgumentException ex) {
-                log.error(ex.getMessage(), ex);
-            } catch (IllegalAccessException ex) {
-                log.error(ex.getMessage(), ex);
-            }
-        }
-        return page;
-    }
-
-    public Element getElement(String identifier) {
-        Element element = new Element();
-        FindBy findBy = new FindBy(server.getDriver());
-        if (identifier != null) {
-
-            element = new Element(findBy.id(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.name(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.partialLinkText(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.xpath(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.cssSelector(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.linkText(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.tagName(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.className(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-            element = new Element(findBy.imageAlt(identifier));
-            if (element.webElement != null) {
-                return element;
-            }
-
-        }
-
-        return element;
-    }
-
-    private Element loadnewInputData(Class aClass, Field field) {
-        Element element = new Element();
-
-        String interfaceMapName = aClass.getSimpleName();
-
-        field.setAccessible(true);
-        Annotation[] annotations = field.getDeclaredAnnotations();
-        for (Annotation annotation : annotations) {
-
-            if (annotation instanceof ElementDiscover) {
-                ElementDiscover myAnnotation = (ElementDiscover) annotation;
-
-                //[init] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
-                if (myAnnotation.key().equals("")) {
-                    element.setKeyValue(myAnnotation.value());
-                    element.setKey(myAnnotation.value());
-                } else {
-                    PropertiesLoader map = new PropertiesLoader(interfaceMapName);
-                    element.setKey(myAnnotation.key());
-                    element.setKeyValue(map.getValue(myAnnotation.key()));
-                }
-                //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
-
-                if (!myAnnotation.frame().equals("")) {
-                    element.setFrame(myAnnotation.frame());
-                }
-
-                element.setAclass(aClass);
-                element.setField(field);
-            }
-        }
-        return element;
-    }
-
-    public WebElement loadInputData(Element myElement) {
-        String value;
-        WebElement element = null;
-        FindBy findBy = new FindBy(server.getDriver());
-
-        String interfaceMapName = myElement.getAclass().getSimpleName();
-
-        Annotation[] annotations = myElement.getField().getDeclaredAnnotations();
-        for (Annotation annotation : annotations) {
-            if (annotation instanceof ElementDiscover) {
-                ElementDiscover myAnnotation = (ElementDiscover) annotation;
-
-                //[init] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
-                if (myAnnotation.key().equals("")) {
-                    value = myAnnotation.value();
-                } else {
-                    PropertiesLoader map = new PropertiesLoader(interfaceMapName);
-                    value = map.getValue(myAnnotation.key());
-                }
-                //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
-
-                if (myElement.getFrame() != "") {
-                    //TODO: Adjust Frame navigation (This is a temporary solution...
-                    try {
-                        driver.switchTo().frame(myElement.getFrame());
-                    } catch (Exception e) {
-
-                    }
-                }
-
-                if (value != null) {
-
-                    element = findBy.id(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.name(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.partialLinkText(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.xpath(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.cssSelector(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.linkText(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.tagName(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.className(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.imageAlt(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                }
-            }
-        }
-        return null;
     }
 
     public Controller() {
@@ -306,19 +84,15 @@ public abstract class Controller {
         connectServer();
     }
 
-    public void connectServer() {
+    private void connectServer() {
         server = new SeleniumServer(browser, testServer, port);
-        
-        if (server.getDriver() == null){
         driver = server.startServer();
-        }
-        
-        driver = server.getDriver();
+        log.info("Selenium started: [" + browser + ", " + testServer + ", " + port + "]");
     }
 
     public String getAlertMessage() {
         try {
-            Alert alert = server.getDriver().switchTo().alert();
+            Alert alert = driver.switchTo().alert();
             String alertMessage = alert.getText();
             return alertMessage;
         } catch (Exception e) {
@@ -328,7 +102,7 @@ public abstract class Controller {
 
     public String clickAlert() {
         try {
-            Alert alert = server.getDriver().switchTo().alert();
+            Alert alert = driver.switchTo().alert();
             String msg = alert.getText();
             alert.accept();
             return msg;
@@ -349,6 +123,24 @@ public abstract class Controller {
     }
 
     /**
+     * Search in the current html for the desired text
+     *
+     * @param text
+     * @return boolean
+     */
+    public boolean searchHtmlContents(String text) {
+        boolean exist = Controller.getDriver().getPageSource().contains(text);
+        log.info("Text : '" + text + "' finded? " + exist);
+        return exist;
+
+    }
+
+    public boolean verifyMessage(String text) {
+        boolean b = searchHtmlContents(text);
+        return b;
+    }
+
+    /**
      * PrintScreen and save with the desired file name.
      *
      * @param fileName
@@ -356,31 +148,20 @@ public abstract class Controller {
      */
     public String printScreen(String fileName) {
         try {
-            if (this.server.getTestServer().equalsIgnoreCase("localhost")) {
-                String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
+            String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
 
-                byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes());
-                FileOutputStream fos = new FileOutputStream(new File(fileName));
-                fos.write(decodedScreenshot);
-                fos.close();
+            byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes());
+            FileOutputStream fos = new FileOutputStream(new File(fileName));
+            fos.write(decodedScreenshot);
+            fos.close();
 
-                File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            } else {
-                File f = ((RemoteWebDriver) driver).getScreenshotAs(OutputType.FILE);
-                File o = new File(fileName);
-                FileUtils.copyFile(f, o);
-            }
-            log.info("imagem capturada do servidor '" + server.getTestServer() + "' em: '" + fileName + "'");
+            File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            log.info("Screenshot from server '" + server.getTestServer() + "' saved in: '" + fileName + "'");
             return fileName;
         } catch (Exception e) {
-            log.error(e.getMessage() + " Erro ao capturar imagem do servidor '" + server.getTestServer() + "' em: '" + fileName + "'", e);
+            log.error(e.getMessage() + " Error when getting screenshot from server '" + server.getTestServer() + "' in: '" + fileName + "'", e);
             return null;
         }
-    }
-
-    public boolean verifyMessage(String texto) {
-        boolean b = searchHtmlContents(texto);
-        return b;
     }
 
     /**
@@ -390,25 +171,7 @@ public abstract class Controller {
     public void openUrl() {
         driver.get(this.url.replace("\"", ""));
         driver.manage().window().maximize();
-        log.info("acessou a url: '" + this.url.replace("\"", "") + "'");
-    }
-
-    /**
-     * Search in the current html for the desired text
-     *
-     * @param text
-     * @return boolean
-     */
-    public boolean searchHtmlContents(String text) {
-        boolean exist = driver.getPageSource().contains(text);
-        log.info("Texto : '" + text + "' encontrado? " + exist);
-
-        return exist;
-
-    }
-
-    public static void stop() {
-        SeleniumServer.stopServer();
+        log.info("Url acessed: '" + this.url.replace("\"", "") + "'");
     }
 
     public String getTestServer() {

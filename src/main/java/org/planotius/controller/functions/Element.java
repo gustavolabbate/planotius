@@ -6,20 +6,23 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.planotius.controller.PageObjectFactory;
 
 /**
  * @author ggodoy
  */
-public class Element extends Controller implements WebElement {
+public class Element implements WebElement {
 
     private static final Logger log = Logger.getLogger(Element.class.getName());
 
@@ -29,23 +32,19 @@ public class Element extends Controller implements WebElement {
     public WebElement webElement;
     Class aclass;
     Field field;
-    
+
     public Element(WebElement element) {
-        System.out.println("ELEMENTO > "+ element);
         this.webElement = element;
-        System.out.println("ELEMENTO SETADO> "+ this.webElement);
     }
 
     public Element() {
     }
 
-    
-    
-    
     /**
-     * Get the attribute 'keyValue' of an WebElement.
-     * The same of WebElement.getAttribute("keyValue");
-     * @return 
+     * Get the attribute 'keyValue' of an WebElement. The same of
+     * WebElement.getAttribute("keyValue");
+     *
+     * @return
      */
     public String getAttributeValue() {
         reload();
@@ -53,18 +52,19 @@ public class Element extends Controller implements WebElement {
     }
 
     /**
-     * Returns the value set to the key, on the element,
-     * key=value in a property.
-     * @return 
+     * Returns the value set to the key, on the element, key=value in a
+     * property.
+     *
+     * @return
      */
     public String getKeyValue() {
         return keyValue;
     }
 
     /**
-     * Set the value to the key, on the element,
-     * key=value in a property.
-     * @return 
+     * Set the value to the key, on the element, key=value in a property.
+     *
+     * @param value
      */
     public void setKeyValue(String value) {
         this.keyValue = value;
@@ -103,9 +103,7 @@ public class Element extends Controller implements WebElement {
     }
 
     private void reload() {
-        if (this.webElement == null) {
-            this.webElement = loadInputData(this);
-        }
+        this.webElement = PageObjectFactory.loadInputData(this);
         try {
             this.webElement.isDisplayed();
         } catch (StaleElementReferenceException stale) {
@@ -116,14 +114,12 @@ public class Element extends Controller implements WebElement {
         }
     }
 
-    
     public void click() {
         reload();
         try {
             this.webElement.click();
         } catch (Exception e) {
-            log.warn("Element [" + this.key + ":" + this.keyValue + "] not finded for click. Trying by JS: $('" + this.keyValue + "').click();");
-            runJavaScript("$('" + this.keyValue + "').click()");
+            log.error("Can not click on [" + this.webElement.getAttribute("value") + "] : " + e.getMessage());
         }
         waitPageLoad();
     }
@@ -144,30 +140,26 @@ public class Element extends Controller implements WebElement {
         this.webElement.sendKeys(css);
     }
 
-    
     public void selectOnlist(Object value) {
         reload();
         waitCurrentPageLoad();
         List<WebElement> options = this.webElement.findElements(By.tagName("option"));
-        
-        
-        if (value instanceof String){
-        
-        if (!value.equals("")) {
-            for (WebElement option : options) {
-                if (option.getText().equals(value)) {
-                    option.click();
-                    return;
+
+        if (value instanceof String) {
+
+            if (!value.equals("")) {
+                for (WebElement option : options) {
+                    if (option.getText().equals(value)) {
+                        option.click();
+                        return;
+                    }
                 }
             }
-        }
-        }
-        else if (value instanceof Integer){
+        } else if (value instanceof Integer) {
             int index = (Integer) value;
             options.get(index).click();
         }
     }
-    
 
     public void clear() {
         reload();
@@ -236,10 +228,10 @@ public class Element extends Controller implements WebElement {
 
     private void waitCurrentPageLoad() {
         try {
-            By element = By.xpath("//*[not (.='')]");
-            WebDriverWait wait = new WebDriverWait(getDriver(), 120);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+            Controller.getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         } catch (Exception e) {
+            log.error(e.getMessage());
+
         }
     }
 
@@ -258,14 +250,13 @@ public class Element extends Controller implements WebElement {
     /**
      * Cause a webDriver wait until all elements is visible.
      *
-     * @return
      */
     public void waitPageLoad() {
         try {
             Calendar init = Calendar.getInstance();
             waitCurrentPageLoad();
             Calendar finish = Calendar.getInstance();
-            log.debug(getDriver().getCurrentUrl() + " levou  " + (finish.getTimeInMillis() - init.getTimeInMillis()) + " ms. para carregar.");
+            log.info(Controller.getDriver().getCurrentUrl() + " took  " + (finish.getTimeInMillis() - init.getTimeInMillis()) + " ms. to load.");
         } catch (Exception e) {
             Controller controller = new Controller() {
             };
@@ -278,8 +269,8 @@ public class Element extends Controller implements WebElement {
     }
 
     /**
-     * Return a cell keyValue based on provided parameters for column and row. For
-     * row and columns, inform String or Integer types.
+     * Return a cell keyValue based on provided parameters for column and row.
+     * For row and columns, inform String or Integer types.
      *
      * @param lookupRow
      * @param lookupColumn
@@ -363,66 +354,11 @@ public class Element extends Controller implements WebElement {
 
     }
 
-    
-    
-    
-    //    /*Percorre o header de uma tabela e encontra a coluna desejada,
-//     após localizada o método retornará o número da coluna*/
-//    @Deprecated
-//    private Integer numeroDaColuna(String nomeColuna) {
-//        String nomeTabela = this.getValue();
-//        int numeroDaColuna = 0;
-//        List<WebElement> columns = this.findElements(By.cssSelector("td[id^='td_solicitacaoPlanejamentoAluno']"));
-//        int qtdeColunas = columns.size();
-//        for (int i = 1; i <= qtdeColunas; i++) {
-//            String sValue = null;
-//            sValue = getDriver().findElement(By.xpath(".//*[@id='" + nomeTabela + "']/thead/tr[1]/th[" + i + "]")).getText();
-//            if (sValue.equalsIgnoreCase(nomeColuna)) {
-//                numeroDaColuna = i;
-//                break;
-//            }
-//        }
-//        return numeroDaColuna;
-//    }
-//    
-//    @Deprecated
-//    private void selecionarCheckboxTabelaResultado(String valorReferencia, String colunaReferencia, Element botaoNext) {
-//        List<WebElement> linhas = this.findElements(By.cssSelector("tr[class^='tableRow']"));
-//        int qtdeLinhas = linhas.size();
-//        int coluna1 = this.numeroDaColuna(colunaReferencia);
-//
-//        for (int j = 1; j <= qtdeLinhas; j++) {
-//
-//            rowItemValue = getDriver().findElement(By.xpath("./*//*[@id='" + this.getValue() + "']/tbody/tr[" + j + "]/td[" + coluna1 + "]")).getText();
-//
-//            if (qtdeLinhas == 0) {
-//                rowItemValue = null;
-//                System.out.println("Consulta sem resultado! Linha:" + rowItemValue);
-//            }
-//            if (qtdeLinhas == 1) {
-//                if (rowItemValue.equalsIgnoreCase(valorReferencia)) {
-//                    linhaEsperada = j;
-//                    break;
-//                } else {
-//                    System.out.println("Valor de referencia não encontrado na lista:" + rowItemValue);
-//                }
-//            }
-//        }
-//
-//        if (botaoNext.isEnabled() && qtdeLinhas > 1) {
-//            while (!valorReferencia.equals(rowItemValue)) {
-//                for (int j = 1; j <= qtdeLinhas; j++) {
-//                    rowItemValue = getDriver().findElement(By.xpath("./*//*[@id='" + this.getValue() + "']/tbody/tr[" + j + "]/td[" + coluna1 + "]")).getText();
-//                    linhaEsperada = j;
-//                    if (j == qtdeLinhas) {
-//                        botaoNext.click();
-//                        j = 1;
-//                    } else if (valorReferencia.equalsIgnoreCase(rowItemValue)) {
-//                        break;
-//                    }
-//                }
-//            }
-//            getDriver().findElement(By.xpath("./*//*[@id='" + this.getValue() + "']/tbody/tr[" + linhaEsperada + "]/td[1]/input")).click();
-//        }
-//    }
+    public Rectangle getRect() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public <X> X getScreenshotAs(OutputType<X> ot) throws WebDriverException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
