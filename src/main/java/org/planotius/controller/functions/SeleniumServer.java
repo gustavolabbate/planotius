@@ -66,6 +66,7 @@ public class SeleniumServer {
             capability = DesiredCapabilities.firefox();
             capability.setBrowserName(FF_BROWSER);
             capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
+            capability.setCapability("marionette", true);
             capability.setPlatform(org.openqa.selenium.Platform.ANY);
 
             //change locale to en_US default

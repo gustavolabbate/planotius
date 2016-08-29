@@ -17,7 +17,7 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.planotius.controller.PageObjectFactory;
+import org.planotius.pageobjectfactory.PageObjectFactory;
 
 /**
  * @author ggodoy

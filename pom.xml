@@ -14,6 +14,7 @@
         <selenium.server.version>[2.44.0,)</selenium.server.version>-->
         <selenium.version>3.0.0-beta2</selenium.version>
         <selenium.server.version>3.0.0-beta2</selenium.server.version>
+                <jackson-2-version>2.8.1</jackson-2-version>
     </properties>
 	
     <reporting>
@@ -136,6 +137,7 @@
             <version>1.2.4</version>
         </dependency>
         
+        
         <!--
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -173,5 +175,58 @@
             <type>jar</type>
         </dependency>
         -->
+        
+        
+        <!-- RestAPI -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-smile</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
+
+        
+                        
     </dependencies>
 </project>

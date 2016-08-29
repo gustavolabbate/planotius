@@ -1,4 +1,4 @@
-package org.planotius.controller;
+package org.planotius.pageobjectfactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.planotius.controller.Controller;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
 import org.planotius.controller.functions.FindBy;

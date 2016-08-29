@@ -1,9 +1,7 @@
 package org.planotius.pageobjects;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openqa.selenium.Keys;
-import org.planotius.controller.PageObjectFactory;
+import org.planotius.pageobjectfactory.PageObjectFactory;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
 
