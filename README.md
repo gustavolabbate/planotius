@@ -2,12 +2,14 @@
 ####test framework tool
 
 This framework will provide common features that other frameworks provides, but in a friendly way to use.
-Only minor coding is needed on the test codes! 
+The purpose is to write few lines of code to get automation running!
 
 ####Frameworks available:
 
 * Selenium
 * Junit
+* RestAPI testing
+* BDD with cucumber
 
 ####Features available:
 
@@ -17,15 +19,17 @@ Only minor coding is needed on the test codes!
 * You can provide all your test data in csv files;
 * Maven compiled and maven provided;
 
+####Latest improvements:
 
-
-
+* Now it is possible to hint a locator when using @ElementDiscover:
+    @ElementDiscover(value = "submit_button", locator = "id") 
+* Cucumber libraries already included, only start creating .features and steps files!
 
 #### Install
 
 Do a git clone of this repository.
 
-Change to the planotius branch
+Change to the development branch
 
 ```
 git branch development
@@ -39,7 +43,7 @@ mvn clean install
 
 
 
-Maven dependency (pom.xml)
+Include as maven dependency on your project (pom.xml)
 
 ```
 <dependencies>
@@ -47,9 +51,10 @@ Maven dependency (pom.xml)
         <dependency>
             <groupId>com.lenovo</groupId>
             <artifactId>testFramework</artifactId>
-            <version>1.1.0-SNAPSHOT</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
 …
 </dependencies>
 ```
 
+Or add the jar as usual...
