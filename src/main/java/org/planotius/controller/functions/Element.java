@@ -24,11 +24,12 @@ import org.planotius.pageobjectfactory.PageObjectFactory;
  */
 public class Element implements WebElement {
 
-    private static final Logger log = Logger.getLogger(Element.class.getName());
+    private static final Logger LOG = Logger.getLogger(Element.class.getName());
 
     String key;
     String keyValue;
     String frame;
+    String locator;
     public WebElement webElement;
     Class aclass;
     Field field;
@@ -102,15 +103,23 @@ public class Element implements WebElement {
         this.frame = frame;
     }
 
+    public String getLocator() {
+        return locator;
+    }
+
+    public void setLocator(String locator) {
+        this.locator = locator;
+    }
+
     private void reload() {
-        this.webElement = PageObjectFactory.loadInputData(this);
-        try {
-            this.webElement.isDisplayed();
-        } catch (StaleElementReferenceException stale) {
-            this.webElement = null;
-            reload();
-        } catch (NullPointerException npe) {
-            this.webElement = null;
+        if (this.webElement == null) {
+            try {
+                this.webElement.isDisplayed();
+            } catch (StaleElementReferenceException | NullPointerException stale) {
+//                this.webElement = null;
+                LOG.debug("Reloading the object because : [" + stale.getMessage() + "]");
+                this.webElement = PageObjectFactory.loadInputData(this);
+            }
         }
     }
 
@@ -119,7 +128,7 @@ public class Element implements WebElement {
         try {
             this.webElement.click();
         } catch (Exception e) {
-            log.error("Can not click on [" + this.webElement.getAttribute("value") + "] : " + e.getMessage());
+            LOG.error("Can not click on [" + this.webElement.getAttribute("value") + "] : " + e.getMessage());
         }
         waitPageLoad();
     }
@@ -230,7 +239,7 @@ public class Element implements WebElement {
         try {
             Controller.getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            LOG.error(e.getMessage());
 
         }
     }
@@ -242,7 +251,7 @@ public class Element implements WebElement {
             }
             return true;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
             return false;
         }
     }
@@ -256,7 +265,7 @@ public class Element implements WebElement {
             Calendar init = Calendar.getInstance();
             waitCurrentPageLoad();
             Calendar finish = Calendar.getInstance();
-            log.info(Controller.getDriver().getCurrentUrl() + " took  " + (finish.getTimeInMillis() - init.getTimeInMillis()) + " ms. to load.");
+            LOG.info(Controller.getDriver().getCurrentUrl() + " took  " + (finish.getTimeInMillis() - init.getTimeInMillis()) + " ms. to load.");
         } catch (Exception e) {
             Controller controller = new Controller() {
             };
@@ -279,6 +288,7 @@ public class Element implements WebElement {
     public String getCellValueFromTable(Object lookupRow, Object lookupColumn) {
         try {
             reload();
+
             List<WebElement> lines = this.findElements(By.tagName("tr"));
 
             int rowNum, colNum, headerNum;

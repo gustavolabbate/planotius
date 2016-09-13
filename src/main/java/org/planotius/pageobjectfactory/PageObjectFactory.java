@@ -18,7 +18,7 @@ import org.planotius.helper.PropertiesLoader;
  */
 public class PageObjectFactory {
 
-    private static final Logger log = Logger.getLogger(PageObjectFactory.class.getName());
+    private static final Logger LOG = Logger.getLogger(PageObjectFactory.class.getName());
 
     public <T> T init() {
         return (T) init(this.getClass());
@@ -32,17 +32,17 @@ public class PageObjectFactory {
             Constructor<T> constructor = aClass.getConstructor();
             page = constructor.newInstance();
         } catch (NoSuchMethodException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         } catch (SecurityException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         } catch (InstantiationException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         } catch (IllegalArgumentException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         } catch (InvocationTargetException ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
         Field[] fields = poClass.getDeclaredFields();
@@ -54,9 +54,9 @@ public class PageObjectFactory {
                     field.set(page, element);
                 }
             } catch (IllegalArgumentException ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             } catch (IllegalAccessException ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
         }
         return page;
@@ -89,6 +89,11 @@ public class PageObjectFactory {
                     element.setFrame(myAnnotation.frame());
                 }
 
+                //Setting locator
+                if (!myAnnotation.locator().equals("")) {
+                    element.setLocator(myAnnotation.locator());
+                }
+
                 element.setAclass(aClass);
                 element.setField(field);
             }
@@ -98,7 +103,7 @@ public class PageObjectFactory {
 
     public static WebElement loadInputData(Element myElement) {
         String value;
-        WebElement element = null;
+        String locator;
         FindBy findBy = new FindBy(Controller.getDriver());
 
         String interfaceMapName = myElement.getAclass().getSimpleName();
@@ -114,6 +119,8 @@ public class PageObjectFactory {
                     PropertiesLoader map = new PropertiesLoader(interfaceMapName);
                     value = map.getValue(myAnnotation.key());
                 }
+
+                locator = myAnnotation.locator();
                 //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
 
                 /*if (myElement.getFrame() != "") {
@@ -124,54 +131,98 @@ public class PageObjectFactory {
                  }
                  }*/
                 if (value != null) {
-
-                    element = findBy.id(value);
-                    if (element != null) {
-                        return element;
+                    switch (locator.toLowerCase()) {
+                        case "id":
+                            LOG.debug("Using 'id' to find '" + value + "'.");
+                            return findBy.id(value);
+                        case "name":
+                            LOG.debug("Using 'name' to find '" + value + "'.");
+                            return findBy.name(value);
+                        case "partiallinktest":
+                            LOG.debug("Using 'partialLinkText' to find '" + value + "'.");
+                            return findBy.partialLinkText(value);
+                        case "xpath":
+                            LOG.debug("Using 'xpath' to find '" + value + "'.");
+                            return findBy.xpath(value);
+                        case "css":
+                            LOG.debug("Using 'css' to find '" + value + "'.");
+                            return findBy.cssSelector(value);
+                        case "linktext":
+                            LOG.debug("Using 'linkText' to find '" + value + "'.");
+                            return findBy.linkText(value);
+                        case "tag":
+                            LOG.debug("Using 'tagName' to find '" + value + "'.");
+                            return findBy.tagName(value);
+                        case "class":
+                            LOG.debug("Using 'className' to find '" + value + "'.");
+                            return findBy.className(value);
+                        case "imageAlt":
+                            LOG.debug("Using 'imageAlt' to find '" + value + "'.");
+                            return findBy.imageAlt(value);
+                        default:
+                            LOG.debug("Locator undefined, trying to search a locator for '" + value + "'.");
+                            return searchAll(findBy, value);
                     }
-
-                    element = findBy.name(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.partialLinkText(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.xpath(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.cssSelector(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.linkText(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.tagName(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.className(value);
-                    if (element != null) {
-                        return element;
-                    }
-
-                    element = findBy.imageAlt(value);
-                    if (element != null) {
-                        return element;
-                    }
-
                 }
             }
+        }
+        return null;
+    }
+
+    private static WebElement searchAll(FindBy findBy, String value) {
+        WebElement element = null;
+        element = findBy.id(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'id'.");
+            return element;
+        }
+
+        element = findBy.className(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'className'.");
+            return element;
+        }
+
+        element = findBy.tagName(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'tagName'.");
+            return element;
+        }
+
+        element = findBy.name(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'name'.");
+            return element;
+        }
+
+        element = findBy.linkText(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'linkText'.");
+            return element;
+        }
+
+        element = findBy.partialLinkText(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'partialLinkText'.");
+            return element;
+        }
+
+        element = findBy.cssSelector(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'css'.");
+            return element;
+        }
+
+        element = findBy.xpath(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'xpath'.");
+            return element;
+        }
+
+        element = findBy.imageAlt(value);
+        if (element != null) {
+            LOG.debug("Found '" + value + "'by 'imageAlt'.");
+            return element;
         }
         return null;
     }

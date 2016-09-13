@@ -16,11 +16,11 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 
 /**
  *
- * @author ggodoy
+ * @author gustavolabbate
  */
 public class Controller {
 
-    private static final Logger log = Logger.getLogger(Controller.class.getName());
+    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     public static SeleniumServer server;
     private static WebDriver driver;
     private String browser;
@@ -42,7 +42,7 @@ public class Controller {
         try {
             driver.quit();
         } catch (UnreachableBrowserException ube) {
-            log.warn("Unreachable browser exception raised (Selenium bug). " + ube.getMessage());
+            LOG.warn("Unreachable browser exception raised (Selenium bug).");
         }
     }
 
@@ -55,6 +55,19 @@ public class Controller {
     }
 
     public Controller() {
+
+        try {
+            PropertiesLoader prop = new PropertiesLoader(System.getProperty("user.dir") + "\\info.properties");
+            LOG.debug("--------------------------------------------------");
+            LOG.debug("Build-Version: " + prop.getValue("version"));
+            LOG.debug("Selenium-Version: " + prop.getValue("selenium.version"));
+            LOG.debug("Release-date: " + prop.getValue("release.date"));
+            LOG.debug("--------------------------------------------------");
+        } catch (ExceptionInInitializerError ex) {
+            LOG.debug("Can´t read 'info.properties' for header info... ");
+            LOG.debug("Reason: " + ex.getMessage());
+        }
+
         PropertiesLoader properties = new PropertiesLoader();
         this.browser = properties.getValue("browser");
 
@@ -88,7 +101,7 @@ public class Controller {
     private void connectServer() {
         server = new SeleniumServer(browser, testServer, port);
         driver = server.startServer();
-        log.info("Selenium started: [" + browser + ", " + testServer + ", " + port + "]");
+        LOG.info("Selenium started: [" + browser + ", " + testServer + ", " + port + "]");
     }
 
     public String getAlertMessage() {
@@ -108,21 +121,22 @@ public class Controller {
             alert.accept();
             return msg;
         } catch (Exception e) {
-            log.info("no alert found.");
+            LOG.info("no alert found.");
             return null;
         }
     }
 
     /**
      * Run a JavaScript function.
+     *
      * @param function
-     * @return 
+     * @return
      */
     public Object runJavaScript(String function) {
         try {
             return ((JavascriptExecutor) getDriver()).executeScript(function);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
             return e;
         }
 
@@ -130,13 +144,13 @@ public class Controller {
 
     /**
      * Get the title of the page.
-     * @return 
+     *
+     * @return
      */
-    public String getPageTitle(){
+    public String getPageTitle() {
         return driver.getTitle();
     }
-    
-    
+
     /**
      * Search in the current html for the desired text
      *
@@ -145,7 +159,7 @@ public class Controller {
      */
     public boolean searchHtmlContents(String text) {
         boolean exist = Controller.getDriver().getPageSource().contains(text);
-        log.info("Text : '" + text + "' finded? " + exist);
+        LOG.info("Text : '" + text + "' finded? " + exist);
         return exist;
 
     }
@@ -171,10 +185,10 @@ public class Controller {
             fos.close();
 
             File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            log.info("Screenshot from server '" + server.getTestServer() + "' saved in: '" + fileName + "'");
+            LOG.info("Screenshot from server '" + server.getTestServer() + "' saved in: '" + fileName + "'");
             return fileName;
         } catch (Exception e) {
-            log.error(e.getMessage() + " Error when getting screenshot from server '" + server.getTestServer() + "' in: '" + fileName + "'", e);
+            LOG.error(e.getMessage() + " Error when getting screenshot from server '" + server.getTestServer() + "' in: '" + fileName + "'", e);
             return null;
         }
     }
@@ -186,7 +200,7 @@ public class Controller {
     public Controller openUrl() {
         driver.get(this.url.replace("\"", ""));
         driver.manage().window().maximize();
-        log.info("Url acessed: '" + this.url.replace("\"", "") + "'");
+        LOG.info("Url acessed: '" + this.url.replace("\"", "") + "'");
         return this;
     }
 

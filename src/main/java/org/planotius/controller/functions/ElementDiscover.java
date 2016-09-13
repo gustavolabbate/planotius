@@ -12,9 +12,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface ElementDiscover {
-    String value() default "";
+    String value();
     String key() default "";
-    String frame() default "";
+    String frame() default "";  
+    String locator() default "";
     
     
 }

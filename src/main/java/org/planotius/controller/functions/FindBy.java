@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  */
 public class FindBy {
 
-    private static final Logger log = Logger.getLogger(FindBy.class.getName());
+    private static final Logger LOG = Logger.getLogger(FindBy.class.getName());
     private WebDriver driver = null;
 
     public FindBy(WebDriver driver) {

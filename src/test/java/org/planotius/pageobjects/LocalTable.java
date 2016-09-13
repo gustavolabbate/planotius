@@ -30,9 +30,12 @@ public class LocalTable extends PageObjectFactory {
     @ElementDiscover("complete")
     public Element autoCompleteField;
     
-    @ElementDiscover("submit_button")
+    @ElementDiscover(value = "submit_button", locator = "id")
     public Element submitButton;
-
+    
+    @ElementDiscover(value = "filledByButton", locator = "id")
+    public Element textFieldforButton;
+    
     public String getTextfromTD() {
         return elementFromTDID.getText();
     }
@@ -60,19 +63,12 @@ public class LocalTable extends PageObjectFactory {
 
         autoCompleteField.sendKeys(Keys.ENTER);
         
-
-        
-        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
         return autoCompleteField.getAttribute("value");
     }
 
     public String isValueInAutocompleteField(String stripedString) {
 
         autoCompleteField.sendKeys(stripedString);
-
-        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-        //printScreen("target/localTableAutoComplete.png");
-
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
         autoCompleteField.sendKeys(Keys.ENTER);
@@ -100,12 +96,10 @@ public class LocalTable extends PageObjectFactory {
     }
 
     public String getCellValueFromTableWithHeader(Object row, Object column) {
-        System.out.print(".");
         return tableWithHeader.getCellValueFromTable(row, column);
     }
 
     public String getCellValueFromHeadlessTable(Object row, Object column) {
-        System.out.print("|");
         return headlessTable.getCellValueFromTable(row, column);
     }
 
