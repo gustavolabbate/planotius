@@ -22,8 +22,9 @@ The purpose is to write few lines of code to get automation running!
 ####Latest improvements:
 
 * Now it is possible to hint a locator when using @ElementDiscover:
-
+```
     @ElementDiscover(value = "submit_button", locator = "id") 
+```
 * Cucumber libraries already included, only start creating .features and steps files!
 
 #### Install
