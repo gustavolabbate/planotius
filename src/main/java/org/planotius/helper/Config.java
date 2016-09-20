@@ -1,26 +1,12 @@
 package org.planotius.helper;
 
-import org.apache.log4j.Logger;
-
 /**
  *
- * @author ggodoy
+ * @author gustavolabbate
  */
 public class Config {
     private static Config config = null;
     private static PropertiesLoader configuration;
-    
-    protected Config(){
-        
-    }
-    
-//    public static Config getInstance(){
-//        if ( config == null){
-//            config = new Config();
-//            configuration = new PropertiesLoader();
-//        }
-//        return config;
-//    }
     
     public static String getConfiguration(String key) {
         if ( config == null){

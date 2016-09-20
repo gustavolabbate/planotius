@@ -1,10 +1,13 @@
 package org.planotius.browserFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.planotius.helper.Config;
 
 /**
@@ -24,6 +27,22 @@ public class InternetExplorer implements Browser {
 
     @Override
     public WebDriver getWebDriver() {
+        return new InternetExplorerDriver(defineCapabilities());
+    }
+
+    @Override
+    public WebDriver getRemoteWebDriver(String testServer, String port) {
+        try {
+            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
+            return remote;
+        } catch (MalformedURLException ex) {
+            LOG.error(ex.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public DesiredCapabilities defineCapabilities() {
         DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
         capability.setBrowserName("internet explorer");
         capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
@@ -35,7 +54,7 @@ public class InternetExplorer implements Browser {
             capability.setCapability("binary", Config.getConfiguration(IE_HOME));
             System.setProperty("webdriver.ie.driver", Config.getConfiguration(IE_HOME));
         }
-        return new InternetExplorerDriver();
+        return capability;
     }
 
 }

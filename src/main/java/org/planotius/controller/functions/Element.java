@@ -123,6 +123,7 @@ public class Element implements WebElement {
         }
     }
 
+    @Override
     public void click() {
         reload();
         try {
@@ -138,11 +139,13 @@ public class Element implements WebElement {
         this.webElement.click();
     }
 
+    @Override
     public void submit() {
         reload();
         this.webElement.submit();
     }
 
+    @Override
     public void sendKeys(CharSequence... css) {
         reload();
         this.webElement.clear();
@@ -170,46 +173,55 @@ public class Element implements WebElement {
         }
     }
 
+    @Override
     public void clear() {
         reload();
         this.webElement.clear();
     }
 
+    @Override
     public String getTagName() {
         reload();
         return this.webElement.getTagName();
     }
 
+    @Override
     public String getAttribute(String string) {
         reload();
         return this.webElement.getAttribute(string);
     }
 
+    @Override
     public boolean isSelected() {
         reload();
         return this.webElement.isSelected();
     }
 
+    @Override
     public boolean isEnabled() {
         reload();
         return this.webElement.isEnabled();
     }
 
+    @Override
     public String getText() {
         reload();
         return this.webElement.getText();
     }
 
+    @Override
     public List<WebElement> findElements(By by) {
         reload();
         return this.webElement.findElements(by);
     }
 
+    @Override
     public WebElement findElement(By by) {
         reload();
         return this.webElement.findElement(by);
     }
 
+    @Override
     public boolean isDisplayed() {
         reload();
 
@@ -220,16 +232,19 @@ public class Element implements WebElement {
         }
     }
 
+    @Override
     public Point getLocation() {
         reload();
         return this.webElement.getLocation();
     }
 
+    @Override
     public Dimension getSize() {
         reload();
         return this.webElement.getSize();
     }
 
+    @Override
     public String getCssValue(String string) {
         reload();
         return this.webElement.getCssValue(string);
@@ -364,10 +379,12 @@ public class Element implements WebElement {
 
     }
 
+    @Override
     public Rectangle getRect() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public <X> X getScreenshotAs(OutputType<X> ot) throws WebDriverException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

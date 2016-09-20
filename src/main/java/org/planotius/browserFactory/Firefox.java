@@ -1,12 +1,16 @@
 package org.planotius.browserFactory;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.planotius.helper.Config;
 
 /**
@@ -18,7 +22,7 @@ public class Firefox implements Browser {
     private static final String FF_BROWSER = "firefox";
     private static final String FF_HOME = "firefox.home";
     private static final Logger LOG = Logger.getLogger(Firefox.class.getName());
-    
+
     @Override
     public String getBrowserName() {
         return FF_BROWSER;
@@ -26,7 +30,11 @@ public class Firefox implements Browser {
 
     @Override
     public WebDriver getWebDriver() {
-        
+        return new FirefoxDriver(defineCapabilities());
+    }
+
+    @Override
+    public DesiredCapabilities defineCapabilities() {
         FirefoxProfile profile = new FirefoxProfile();
         DesiredCapabilities capability = DesiredCapabilities.firefox();
         capability.setBrowserName(FF_BROWSER);
@@ -50,7 +58,7 @@ public class Firefox implements Browser {
         try {
             capability.setCapability("firefox_profile", profile.toJson());
         } catch (IOException ex) {
-            LOG.error(ex.getMessage(), ex);;
+            LOG.error(ex.getMessage(), ex);
         }
         LOG.info("Firefox locale is: " + firefoxLocale);
 
@@ -59,7 +67,18 @@ public class Firefox implements Browser {
             System.setProperty("webdriver.gecko.driver", Config.getConfiguration(FF_HOME));
         }
 
-        return new FirefoxDriver(profile);
+        return capability;
+    }
+
+    @Override
+    public WebDriver getRemoteWebDriver(String testServer, String port) {
+        try {
+            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
+            return remote;
+        } catch (MalformedURLException ex) {
+            LOG.error(ex.getMessage());
+        }
+        return null;
     }
 
 }

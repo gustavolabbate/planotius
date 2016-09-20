@@ -5,11 +5,15 @@
  */
 package org.planotius.browserFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.planotius.helper.Config;
 
 /**
@@ -29,6 +33,11 @@ public class GoogleChrome implements Browser {
 
     @Override
     public WebDriver getWebDriver() {
+        return new ChromeDriver(defineCapabilities());
+    }
+
+    @Override
+    public DesiredCapabilities defineCapabilities() {
         DesiredCapabilities capability = DesiredCapabilities.chrome();
         capability.setBrowserName("Google Chrome");
         capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
@@ -38,7 +47,18 @@ public class GoogleChrome implements Browser {
             capability.setCapability("binary", Config.getConfiguration(CHROME_HOME));
             System.setProperty("webdriver.chrome.driver", Config.getConfiguration(CHROME_HOME));
         }
-        return new ChromeDriver(capability);
+        return capability;
+    }
+
+    @Override
+    public WebDriver getRemoteWebDriver(String testServer, String port) {
+        try {
+            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
+            return remote;
+        } catch (MalformedURLException ex) {
+            LOG.error(ex.getMessage());
+        }
+        return null;
     }
 
 }

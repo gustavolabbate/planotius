@@ -13,14 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * Use to read an CSV file.
  *
- * @author ggodoy
+ * @author gustavolabbate
  */
 public class CSVReader {
+
+    private static final Logger LOG = Logger.getLogger(CSVReader.class.getName());
 
     private static String delimiter;
     private static String encoding;
@@ -60,10 +62,8 @@ public class CSVReader {
             }
 
             return rows;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            LOG.error(ex.getMessage());
         }
         return null;
     }
@@ -113,19 +113,19 @@ public class CSVReader {
             try {
                 br = new BufferedReader(new InputStreamReader(stream, CSVReader.encoding));
             } catch (NullPointerException npe) {
-                Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, "The file {0} was not found. Check if exists or is acessible.", file);
+                LOG.error("The file '" + file + "' was not found. Check if exists or is acessible.", npe);
             }
 
             return createCollection(br);
 
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Encoding error.", ex);
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.error("IO Exception", ex);
                 }
             }
         }
@@ -139,10 +139,10 @@ public class CSVReader {
             List<Object[]> rows = new ArrayList<Object[]>();
             while ((line = br.readLine()) != null) {
 
-                //Permite a inclusao do backslash para escapar um caracter igual ao delimitador.
-                // Ex. 
+                //Allows using the same character as the delimiter.
+                // Example. 
                 // fld1, fld2, descricao
-                // campo1, campo2, cada campo\, uma coluna 
+                // field1, field2, each field\, one column
                 if (line.contains("\\")) {
                     line = line.replace("\\" + delimiter, "$&$&$&");
                 }
@@ -157,7 +157,8 @@ public class CSVReader {
             }
             return rows;
         } catch (IOException ex) {
-            Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("IO Exception", ex);
+
         }
         return null;
 

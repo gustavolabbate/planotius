@@ -1,5 +1,6 @@
 package org.planotius.functions;
 
+import org.apache.log4j.Logger;
 import org.planotius.controller.functions.SeleniumServer;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -7,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
 public class SeleniumServerTest {
+
+    private static final Logger LOG = Logger.getLogger(SeleniumServerTest.class.getName());
 
     @Test
     public void testLocal() {
@@ -20,12 +23,11 @@ public class SeleniumServerTest {
 
             SeleniumServer server = new SeleniumServer(browser, testServer, port);
 
-            WebDriver driver = null;
-            driver = server.startServer();
+            WebDriver driver = server.startServer();
             driver.get(url);
 
             try {
-                System.out.println(driver.getTitle());
+                LOG.info(driver.getTitle());
             } catch (Exception e) {
                 fail(e.getMessage());
             }
@@ -33,7 +35,38 @@ public class SeleniumServerTest {
             driver.quit();
 
         } catch (UnreachableBrowserException ube) {
-            System.err.println("Unreachable browser exception..." + ube.getMessage());
+            LOG.error("Unreachable browser exception..." + ube.getMessage());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testRemote() {
+
+        try {
+
+            String browser = "firefox";
+            String url = "http://www.lenovo.com/br/pt/";
+            String testServer = "10.35.102.136";
+            String port = "4444";
+
+            SeleniumServer server = new SeleniumServer(browser, testServer, port);
+
+            WebDriver driver = server.startServer();
+            driver.get(url);
+
+            try {
+                LOG.info(driver.getTitle());
+            } catch (Exception e) {
+                fail(e.getMessage());
+            }
+
+            driver.quit();
+
+        } catch (UnreachableBrowserException ube) {
+            LOG.error("Unreachable browser exception..." + ube.getMessage());
         } catch (Exception e) {
             fail(e.getMessage());
         }

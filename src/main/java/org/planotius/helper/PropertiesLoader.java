@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 /**
  * Class to open and read properties files.
  *
- * @author ggodoy
+ * @author gustavolabbate
  */
 public class PropertiesLoader {
 
-    private static final Logger log = Logger.getLogger(PropertiesLoader.class.getName());
+    private static final Logger LOG = Logger.getLogger(PropertiesLoader.class.getName());
 
     private static Properties props;
 
@@ -45,13 +45,13 @@ public class PropertiesLoader {
 
             } else {
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                InputStream stream = loader.getResourceAsStream("config.properties");
-                props.load(stream);
-                stream.close();
+                try (InputStream stream = loader.getResourceAsStream("config.properties")) {
+                    props.load(stream);
+                }
 
             }
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
 
         } finally {
             try {
@@ -59,13 +59,15 @@ public class PropertiesLoader {
                     input.close();
                 }
             } catch (IOException ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
         }
     }
 
     /**
      * Constructor open default custom properties file from classpath
+     *
+     * @param propertiesFileName
      */
     public PropertiesLoader(String propertiesFileName) {
         props = new Properties();
@@ -77,11 +79,11 @@ public class PropertiesLoader {
         } catch (IOException e) {
             try {
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                InputStream stream = loader.getResourceAsStream(propertiesFileName);
-                props.load(stream);
-                stream.close();
+                try (InputStream stream = loader.getResourceAsStream(propertiesFileName)) {
+                    props.load(stream);
+                }
             } catch (IOException e1) {
-                log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
 
         }
@@ -101,12 +103,12 @@ public class PropertiesLoader {
             JarFile jarFile = new JarFile(file);
             InputStream inputStream = jarFile.getInputStream(jarFile.getEntry(propertiesPath));
 
-            Properties props = new Properties();
-            props.load(inputStream);
-            return props;
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            return properties;
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
 

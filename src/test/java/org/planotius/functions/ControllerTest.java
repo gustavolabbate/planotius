@@ -1,6 +1,7 @@
 package org.planotius.functions;
 
 import java.io.File;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.planotius.controller.Controller;
@@ -13,16 +14,21 @@ import org.junit.BeforeClass;
  */
 public class ControllerTest {
 
-    static Controller controller = new Controller();
+    private static final Logger LOG = Logger.getLogger(ControllerTest.class.getName());
+
+    static Controller controller;
     static String url = "file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html";
 
     @BeforeClass
     public static void setUp() {
+        controller = new Controller();
         controller.setUrl(url).openUrl();
+
     }
 
     @Test
     public void shouldCaptureScreenshotEvidence() {
+        LOG.info("Starting test: shouldCaptureScreenshotEvidence");
         String filename = "target/screenshotCaptured.png";
 
         controller.printScreen(filename);
@@ -34,16 +40,19 @@ public class ControllerTest {
 
     @Test
     public void shouldOpenUrlAndGetPageTitle() {
+        LOG.info("Starting test: shouldOpenUrlAndGetPageTitle");
         assertEquals("Test Page for Planotius!", controller.getPageTitle());
     }
 
     @Test
     public void shouldVerifyMessageOnPage() {
+        LOG.info("Starting test: shouldVerifyMessageOnPage");
         assertTrue(controller.verifyMessage("Table with Header"));
     }
 
     @Test
     public void shouldSearchInHtmlContents() {
+        LOG.info("Starting test: shouldSearchInHtmlContents");
         assertTrue(controller.searchHtmlContents("Headless Table"));
         assertTrue(controller.searchHtmlContents("<td>Number</td>"));
     }
@@ -52,7 +61,6 @@ public class ControllerTest {
 //    public void shouldVerifyJavascriptExecution() {
 //        assertEquals("teste", controller.runJavaScript("return changeInputTextValue(\"teste\", \"changedByjs\");"));
 //    }
-
     @AfterClass
     public static void tearDown() {
         controller.quit();

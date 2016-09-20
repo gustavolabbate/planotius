@@ -6,6 +6,7 @@
 package org.planotius.browserFactory;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  *
@@ -17,6 +18,8 @@ public interface Browser {
     
     public WebDriver getWebDriver();
     
+    public WebDriver getRemoteWebDriver(String testServer, String port);
     
+    DesiredCapabilities defineCapabilities();
     
 }

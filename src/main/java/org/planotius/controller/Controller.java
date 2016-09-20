@@ -5,6 +5,7 @@ import org.planotius.helper.Config;
 import org.planotius.helper.PropertiesLoader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -12,6 +13,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
 /**
@@ -95,6 +97,13 @@ public class Controller {
             this.url = properties.getValue("url");
         }
 
+        LOG.info("--------------------------------------------------");
+        LOG.info("Properties loaded by Controller:");
+        LOG.info("browser: " + this.browser);
+        LOG.info("testServer: " + this.testServer);
+        LOG.info("port: " + this.port);
+        LOG.info("--------------------------------------------------");
+
         connectServer();
     }
 
@@ -159,14 +168,13 @@ public class Controller {
      */
     public boolean searchHtmlContents(String text) {
         boolean exist = Controller.getDriver().getPageSource().contains(text);
-        LOG.info("Text : '" + text + "' finded? " + exist);
+        LOG.info("Text : '" + text + "' found ? " + exist);
         return exist;
 
     }
 
     public boolean verifyMessage(String text) {
-        boolean b = searchHtmlContents(text);
-        return b;
+        return searchHtmlContents(text);
     }
 
     /**
@@ -180,14 +188,14 @@ public class Controller {
             String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
 
             byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes());
-            FileOutputStream fos = new FileOutputStream(new File(fileName));
-            fos.write(decodedScreenshot);
-            fos.close();
+            try (FileOutputStream fos = new FileOutputStream(new File(fileName))) {
+                fos.write(decodedScreenshot);
+            }
 
             File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             LOG.info("Screenshot from server '" + server.getTestServer() + "' saved in: '" + fileName + "'");
             return fileName;
-        } catch (Exception e) {
+        } catch (WebDriverException | IOException e) {
             LOG.error(e.getMessage() + " Error when getting screenshot from server '" + server.getTestServer() + "' in: '" + fileName + "'", e);
             return null;
         }
@@ -196,11 +204,12 @@ public class Controller {
     /**
      * Open the desired url
      *
+     * @return 
      */
     public Controller openUrl() {
         driver.get(this.url.replace("\"", ""));
         driver.manage().window().maximize();
-        LOG.info("Url acessed: '" + this.url.replace("\"", "") + "'");
+        LOG.info("Acessing url: '" + this.url.replace("\"", "") + "'");
         return this;
     }
 

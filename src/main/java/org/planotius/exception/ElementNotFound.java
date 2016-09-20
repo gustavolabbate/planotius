@@ -9,12 +9,12 @@ package org.planotius.exception;
  *
  * @author ggodoy
  */
-public class ElementNotFinded extends RuntimeException{
+public class ElementNotFound extends RuntimeException{
 
-    public ElementNotFinded() {
+    public ElementNotFound() {
     }
 
-    public ElementNotFinded(String message) {
+    public ElementNotFound(String message) {
         super(message);
     }
     

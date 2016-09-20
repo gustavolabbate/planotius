@@ -7,10 +7,13 @@ import org.apache.log4j.Logger;
  * @author gustavolabbate
  */
 public class BrowserFactory {
+
     private static final Logger LOG = Logger.getLogger(BrowserFactory.class.getName());
 
+    private boolean remote = false;
+
     public Browser getBrowser(String browser) {
-        
+
         if (browser == null || browser.equalsIgnoreCase("firefox")) {
             LOG.debug("Using FIREFOX browser.");
             return new Firefox();
@@ -30,4 +33,13 @@ public class BrowserFactory {
 
         return null;
     }
+
+    public boolean isRemote() {
+        return remote;
+    }
+
+    public void setRemote(boolean remote) {
+        this.remote = remote;
+    }
+
 }

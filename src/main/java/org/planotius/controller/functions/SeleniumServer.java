@@ -38,7 +38,11 @@ public class SeleniumServer {
      */
     public WebDriver startServer() {
         log.info(" browser: '" + browser + "' testServer: '" + testServer + "'");
-        return browserFactory.getBrowser(browser).getWebDriver();
+        if (this.testServer.equalsIgnoreCase("localhost")) {
+            return browserFactory.getBrowser(browser).getWebDriver();
+        } else {
+            return browserFactory.getBrowser(browser).getRemoteWebDriver(testServer, port);
+        }
     }
 
     public String getTestServer() {
