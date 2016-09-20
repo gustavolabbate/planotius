@@ -4,6 +4,7 @@ import org.openqa.selenium.Keys;
 import org.planotius.pageobjectfactory.PageObjectFactory;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
+import org.planotius.controller.functions.Locator;
 
 /**
  *
@@ -30,10 +31,10 @@ public class LocalTable extends PageObjectFactory {
     @ElementDiscover("complete")
     public Element autoCompleteField;
     
-    @ElementDiscover(value = "submit_button", locator = "id")
+    @ElementDiscover(value = "submit_button", locator = Locator.ID)
     public Element submitButton;
     
-    @ElementDiscover(value = "filledByButton", locator = "id")
+    @ElementDiscover(value = "filledByButton", locator = Locator.ID)
     public Element textFieldforButton;
     
     public String getTextfromTD() {
