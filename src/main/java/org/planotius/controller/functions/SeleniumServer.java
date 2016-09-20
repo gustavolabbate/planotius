@@ -44,8 +44,4 @@ public class SeleniumServer {
     public String getTestServer() {
         return testServer;
     }
-
-    public String getBrowser() {
-        return browser;
-    }
 }
