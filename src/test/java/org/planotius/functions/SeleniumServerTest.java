@@ -8,29 +8,17 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 
 public class SeleniumServerTest {
 
-    SeleniumServer server;
-    String browser;
-    String url;
-    String testServer;
-    String port;
-
-    @Test
-    public void emptyBrowserPropertyShouldBeFirefox() {
-        server = new SeleniumServer(browser, testServer, port);
-        assertEquals("firefox", server.getBrowser());
-    }
-
     @Test
     public void testLocal() {
 
         try {
 
-            browser = "firefox";
-            url = "http://www.lenovo.com/br/pt/";
-            testServer = "localhost";
-            port = "5555";
+            String browser = "firefox";
+            String url = "http://www.lenovo.com/br/pt/";
+            String testServer = "localhost";
+            String port = "5555";
 
-            server = new SeleniumServer(browser, testServer, port);
+            SeleniumServer server = new SeleniumServer(browser, testServer, port);
 
             WebDriver driver = null;
             driver = server.startServer();
