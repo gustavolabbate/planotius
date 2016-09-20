@@ -2,6 +2,7 @@ package org.planotius.browserFactory;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -11,31 +12,31 @@ import org.planotius.helper.Config;
  *
  * @author gustavolabbate
  */
-public class InternetExplorer implements Browser {
+public class Edge implements Browser {
 
-    private static final String IE_BROWSER = "iexplore";
-    private static final String IE_HOME = "iexplore.home";
-    private static final Logger LOG = Logger.getLogger(InternetExplorer.class.getName());
+    private static final String EDGE_BROWSER = "edge";
+    private static final String EDGE_HOME = "edge.home";
+    private static final Logger LOG = Logger.getLogger(Edge.class.getName());
 
     @Override
     public String getBrowserName() {
-        return IE_BROWSER;
+        return EDGE_BROWSER;
     }
 
     @Override
     public WebDriver getWebDriver() {
         DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
-        capability.setBrowserName("internet explorer");
+        capability.setBrowserName("Edge");
         capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
         capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
         capability.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         capability.setCapability("ensureCleanSession", true);
 
-        if (Config.getConfiguration(IE_HOME) != null) {
-            capability.setCapability("binary", Config.getConfiguration(IE_HOME));
-            System.setProperty("webdriver.ie.driver", Config.getConfiguration(IE_HOME));
+        if (Config.getConfiguration(EDGE_HOME) != null) {
+            capability.setCapability("binary", Config.getConfiguration(EDGE_HOME));
+            System.setProperty("webdriver.ie.driver", Config.getConfiguration(EDGE_HOME));
         }
-        return new InternetExplorerDriver();
+        return new EdgeDriver();
     }
 
 }

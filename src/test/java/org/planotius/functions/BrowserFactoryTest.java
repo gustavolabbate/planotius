@@ -4,6 +4,7 @@ import org.planotius.browserFactory.Browser;
 import org.planotius.browserFactory.BrowserFactory;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.planotius.browserFactory.Edge;
 import org.planotius.browserFactory.Firefox;
 import org.planotius.browserFactory.GoogleChrome;
 import org.planotius.browserFactory.HtmlUnit;
@@ -43,6 +44,13 @@ public class BrowserFactoryTest {
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("htmlunitdriver");
         assertTrue(browser instanceof HtmlUnit);
+    }
+    
+    @Test
+    public void browserShouldBeEdge() {
+        BrowserFactory browserFactory = new BrowserFactory();
+        Browser browser = browserFactory.getBrowser("edge");
+        assertTrue(browser instanceof Edge);
     }
 
 }
