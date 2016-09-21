@@ -37,10 +37,6 @@
         <appender-ref ref="FILE" />
     </logger>
     
-    
-    
-        
-
     <root>
         <priority value="debug" />
         <appender-ref ref="FILE" />

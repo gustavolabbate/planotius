@@ -14,7 +14,7 @@ import org.planotius.helper.Config;
  *
  * @author gustavolabbate
  */
-public class InternetExplorer implements Browser {
+public class InternetExplorer extends BrowserDecorator {
 
     private static final String IE_BROWSER = "iexplore";
     private static final String IE_HOME = "iexplore.home";
@@ -28,17 +28,6 @@ public class InternetExplorer implements Browser {
     @Override
     public WebDriver getWebDriver() {
         return new InternetExplorerDriver(defineCapabilities());
-    }
-
-    @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage());
-        }
-        return null;
     }
 
     @Override

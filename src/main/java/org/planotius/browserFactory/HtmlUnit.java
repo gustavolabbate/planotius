@@ -13,7 +13,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  *
  * @author gustavolabbate
  */
-public class HtmlUnit implements Browser {
+public class HtmlUnit extends BrowserDecorator {
 
     private static final String HTMLUNIT_BROWSER = "htmlunitdriver";
     private static final Logger LOG = Logger.getLogger(InternetExplorer.class.getName());
@@ -29,17 +29,6 @@ public class HtmlUnit implements Browser {
         capability.setBrowserName("HtmlUnitDriver");
 
         return new PhantomJSDriver(capability);
-    }
-
-    @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(HtmlUnit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
     @Override

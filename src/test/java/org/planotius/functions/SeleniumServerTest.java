@@ -35,7 +35,7 @@ public class SeleniumServerTest {
             driver.quit();
 
         } catch (UnreachableBrowserException ube) {
-            LOG.error("Unreachable browser exception..." + ube.getMessage());
+            LOG.error("Unreachable browser exception...");
         } catch (Exception e) {
             fail(e.getMessage());
         }

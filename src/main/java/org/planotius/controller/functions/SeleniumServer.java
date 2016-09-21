@@ -3,6 +3,7 @@ package org.planotius.controller.functions;
 import org.planotius.browserFactory.BrowserFactory;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.planotius.browserFactory.Browser;
 
 /**
  *

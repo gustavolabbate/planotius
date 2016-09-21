@@ -1,22 +1,18 @@
 package org.planotius.browserFactory;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.planotius.helper.Config;
 
 /**
  *
  * @author gustavolabbate
  */
-public class Edge implements Browser {
+public class Edge extends BrowserDecorator {
 
     private static final String EDGE_BROWSER = "edge";
     private static final String EDGE_HOME = "edge.home";
@@ -47,16 +43,4 @@ public class Edge implements Browser {
         }
         return capability;
     }
-
-    @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage());
-        }
-        return null;
-    }
-
 }

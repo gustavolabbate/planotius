@@ -20,7 +20,7 @@ import org.planotius.helper.Config;
  *
  * @author ggodoy
  */
-public class GoogleChrome implements Browser {
+public class GoogleChrome extends BrowserDecorator {
 
     private static final String CHROME_BROWSER = "googlechrome";
     private static final String CHROME_HOME = "googlechrome.home";
@@ -48,17 +48,6 @@ public class GoogleChrome implements Browser {
             System.setProperty("webdriver.chrome.driver", Config.getConfiguration(CHROME_HOME));
         }
         return capability;
-    }
-
-    @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage());
-        }
-        return null;
     }
 
 }

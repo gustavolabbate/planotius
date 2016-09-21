@@ -1,23 +1,19 @@
 package org.planotius.browserFactory;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.planotius.helper.Config;
 
 /**
  *
  * @author gustavolabbate
  */
-public class Firefox implements Browser {
+public class Firefox extends BrowserDecorator {
 
     private static final String FF_BROWSER = "firefox";
     private static final String FF_HOME = "firefox.home";
@@ -40,6 +36,7 @@ public class Firefox implements Browser {
         capability.setBrowserName(FF_BROWSER);
         capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
         capability.setCapability("marionette", true);
+        System.setProperty("marionette.logging", "OFF");
         capability.setPlatform(org.openqa.selenium.Platform.ANY);
 
         //change locale to en_US default
@@ -69,16 +66,4 @@ public class Firefox implements Browser {
 
         return capability;
     }
-
-    @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage());
-        }
-        return null;
-    }
-
 }
