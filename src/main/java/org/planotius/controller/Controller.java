@@ -58,17 +58,17 @@ public class Controller {
 
     public Controller() {
 
-        try {
-            PropertiesLoader prop = new PropertiesLoader(System.getProperty("user.dir") + "\\info.properties");
-            LOG.debug("--------------------------------------------------");
-            LOG.debug("Build-Version: " + prop.getValue("version"));
-            LOG.debug("Selenium-Version: " + prop.getValue("selenium.version"));
-            LOG.debug("Release-date: " + prop.getValue("release.date"));
-            LOG.debug("--------------------------------------------------");
-        } catch (ExceptionInInitializerError ex) {
-            LOG.debug("Can´t read 'info.properties' for header info... ");
-            LOG.debug("Reason: " + ex.getMessage());
-        }
+//        try {
+//            PropertiesLoader prop = new PropertiesLoader(System.getProperty("user.dir") + "\\info.properties");
+//            LOG.debug("--------------------------------------------------");
+//            LOG.debug("Build-Version: " + prop.getValue("version"));
+//            LOG.debug("Selenium-Version: " + prop.getValue("selenium.version"));
+//            LOG.debug("Release-date: " + prop.getValue("release.date"));
+//            LOG.debug("--------------------------------------------------");
+//        } catch (ExceptionInInitializerError | NullPointerException ex) {
+//            LOG.debug("Can´t read 'info.properties' for header info... ");
+//            LOG.debug("Reason: " + ex.getMessage());
+//        }
 
         PropertiesLoader properties = new PropertiesLoader();
         this.browser = properties.getValue("browser");
