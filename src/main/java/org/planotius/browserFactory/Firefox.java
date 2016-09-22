@@ -48,6 +48,7 @@ public class Firefox extends BrowserDecorator {
 
         profile.setPreference("intl.accept_languages", firefoxLocale);
         profile.setPreference("xpinstall.signatures.required", false);
+        profile.setPreference("accept_untrusted_certs", true);
 
         /*  Info about firefox profile
          https://groups.google.com/forum/#!topic/selenium-users/Zd5WYVZFXU0
