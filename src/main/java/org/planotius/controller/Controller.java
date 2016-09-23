@@ -2,7 +2,6 @@ package org.planotius.controller;
 
 import org.planotius.controller.functions.SeleniumServer;
 import org.planotius.helper.Config;
-import org.planotius.helper.PropertiesLoader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,19 +24,12 @@ public class Controller {
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     public static SeleniumServer server;
     private static WebDriver driver;
-    private String browser;
-    private String testServer;
-    private String port;
     private String url;
     public static Config config;
 
     public Controller setUrl(String url) {
         this.url = url;
         return this;
-    }
-
-    public Config getConfig() {
-        return config;
     }
 
     public void quit() {
@@ -64,47 +56,22 @@ public class Controller {
         LOG.debug("Release-date: september, 2016");
         LOG.debug("--------------------------------------------------");
 
-        PropertiesLoader properties = new PropertiesLoader();
-        this.browser = properties.getValue("browser");
-
-        if (System.getProperty("browser") != null) {
-            this.browser = System.getProperty("browser");
-        } else {
-            this.browser = properties.getValue("browser");
-        }
-
-        if (System.getProperty("testserver") != null) {
-            this.testServer = System.getProperty("testserver");
-        } else {
-            this.testServer = properties.getValue("testserver");
-        }
-
-        if (System.getProperty("port") != null) {
-            this.port = System.getProperty("port");
-        } else {
-            this.port = properties.getValue("port");
-        }
-
-        if (System.getProperty("url") != null) {
-            this.url = System.getProperty("url");
-        } else {
-            this.url = properties.getValue("url");
-        }
+        config = new Config();
 
         LOG.info("--------------------------------------------------");
         LOG.info("Properties loaded by Controller:");
-        LOG.info("browser: " + this.browser);
-        LOG.info("testServer: " + this.testServer);
-        LOG.info("port: " + this.port);
+        LOG.info("browser: " + Config.getBrowser());
+        LOG.info("testServer: " + Config.getTestServer());
+        LOG.info("port: " + Config.getPort());
         LOG.info("--------------------------------------------------");
 
         connectServer();
     }
 
     private void connectServer() {
-        server = new SeleniumServer(browser, testServer, port);
+        server = new SeleniumServer(Config.getBrowser(), Config.getTestServer(), Config.getPort());
         driver = server.startServer();
-        LOG.info("Selenium started: [" + browser + ", " + testServer + ", " + port + "]");
+        LOG.info("Selenium started: [" + Config.getBrowser() + ", " + Config.getTestServer() + ", " + Config.getPort() + "]");
     }
 
     public String getAlertMessage() {
@@ -201,22 +168,15 @@ public class Controller {
      * @return
      */
     public Controller openUrl() {
-        driver.get(this.url.replace("\"", ""));
+        try{
+            driver.get(this.url);
+        }catch (Exception e)
+        {
+            LOG.error(e);
+        }
         driver.manage().window().maximize();
         LOG.info("Acessing url: '" + this.url.replace("\"", "") + "'");
         return this;
-    }
-
-    public String getTestServer() {
-        return testServer;
-    }
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public String getPort() {
-        return port;
     }
 
     public String getUrl() {

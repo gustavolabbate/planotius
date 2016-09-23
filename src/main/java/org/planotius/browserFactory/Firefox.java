@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.planotius.helper.Config;
@@ -16,7 +17,6 @@ import org.planotius.helper.Config;
 public class Firefox extends BrowserDecorator {
 
     private static final String FF_BROWSER = "firefox";
-    private static final String FF_HOME = "firefox.home";
     private static final Logger LOG = Logger.getLogger(Firefox.class.getName());
 
     @Override
@@ -32,6 +32,13 @@ public class Firefox extends BrowserDecorator {
     @Override
     public DesiredCapabilities defineCapabilities() {
         FirefoxProfile profile = new FirefoxProfile();
+        
+        if (Config.getFirefoxProfile() != null ) {
+            ProfilesIni profIni = new ProfilesIni();
+            profile = profIni.getProfile(Config.getFirefoxProfile());
+
+        }
+
         DesiredCapabilities capability = DesiredCapabilities.firefox();
         capability.setBrowserName(FF_BROWSER);
         capability.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
@@ -39,16 +46,8 @@ public class Firefox extends BrowserDecorator {
         System.setProperty("marionette.logging", "OFF");
         capability.setPlatform(org.openqa.selenium.Platform.ANY);
 
-        //change locale to en_US default
-        String firefoxLocale = "en_US";
-
-        if (System.getProperty("firefox.locale") != null) {
-            firefoxLocale = System.getProperty("firefox.locale");
-        }
-
-        profile.setPreference("intl.accept_languages", firefoxLocale);
+        profile.setPreference("intl.accept_languages", Config.getFirefoxLocale());
         profile.setPreference("xpinstall.signatures.required", false);
-        profile.setPreference("accept_untrusted_certs", true);
 
         /*  Info about firefox profile
          https://groups.google.com/forum/#!topic/selenium-users/Zd5WYVZFXU0
@@ -58,11 +57,10 @@ public class Firefox extends BrowserDecorator {
         } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);
         }
-        LOG.info("Firefox locale is: " + firefoxLocale);
 
-        if (Config.getConfiguration(FF_HOME) != null) {
-            capability.setCapability("binary", Config.getConfiguration(FF_HOME));
-            System.setProperty("webdriver.gecko.driver", Config.getConfiguration(FF_HOME));
+        if (Config.getFirefoxHome() != null) {
+            capability.setCapability("binary", Config.getFirefoxHome());
+            System.setProperty("webdriver.gecko.driver", Config.getFirefoxHome());
         }
 
         return capability;
