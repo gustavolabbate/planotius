@@ -2,6 +2,7 @@ package org.planotius.controller.rest;
 
 import java.io.IOException;
 import org.apache.http.HttpStatus;
+import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.planotius.controller.HTTPController;
 public class HTTPControllerTest {
 
     private HTTPController httpController;
+    private static final Logger LOG = Logger.getLogger(HTTPControllerTest.class.getName());
 
     @Test
     public void verifyIDfromGitHubUser() throws IOException, Exception {
@@ -28,7 +30,7 @@ public class HTTPControllerTest {
                 );
 
 //        System.out.println(restController.retrieveJsonAsString());
-        System.out.println(user.getLogin() + " - " + user.getHtml_url());
+        LOG.info(user.getLogin() + " - " + user.getHtml_url());
 
         assertEquals(user.getId(), "2988441");
     }
@@ -38,13 +40,13 @@ public class HTTPControllerTest {
         String rest = "/latest";
         httpController = new HTTPController("http://api.fixer.io" + rest);
 //        httpController.retrieveJsonAsString();
-        
+
         assertEquals(HttpStatus.SC_OK, httpController.getHttpResponse().getStatusLine().getStatusCode());
 
         Currency currency = new Currency();
         currency.setJsonObject(httpController.retrieveJsonObject());
-        System.out.println("Real: " + currency.getBRL());
-        System.out.println("Dolar: " + currency.getUSD());
+        LOG.info("Real: " + currency.getBRL());
+        LOG.info("Dolar: " + currency.getUSD());
         assertNotNull(currency.getBRL());
         assertNotNull(currency.getUSD());
 

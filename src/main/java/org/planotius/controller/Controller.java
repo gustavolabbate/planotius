@@ -169,13 +169,13 @@ public class Controller {
      */
     public Controller openUrl() {
         try{
-            driver.get(this.url);
+            driver.get(Config.getUrl().replace("\"", ""));
         }catch (Exception e)
         {
             LOG.error(e);
         }
         driver.manage().window().maximize();
-        LOG.info("Acessing url: '" + this.url.replace("\"", "") + "'");
+        LOG.info("Acessing url: '" + Config.getUrl().replace("\"", "") + "'");
         return this;
     }
 
