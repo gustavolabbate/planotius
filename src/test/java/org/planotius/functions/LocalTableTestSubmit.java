@@ -6,7 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.planotius.functions.LocalTableTest.table;
+import org.planotius.helper.Config;
 
 /**
  *
@@ -21,7 +21,7 @@ public class LocalTableTestSubmit {
     public static void setup() {
         table = new LocalTable().init();
 
-        controller.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+        Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
         controller.openUrl();
     }
 

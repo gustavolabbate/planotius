@@ -24,13 +24,7 @@ public class Controller {
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     public static SeleniumServer server;
     private static WebDriver driver;
-    private String url;
     public static Config config;
-
-    public Controller setUrl(String url) {
-        this.url = url;
-        return this;
-    }
 
     public void quit() {
         try {
@@ -177,9 +171,5 @@ public class Controller {
         driver.manage().window().maximize();
         LOG.info("Acessing url: '" + Config.getUrl().replace("\"", "") + "'");
         return this;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }

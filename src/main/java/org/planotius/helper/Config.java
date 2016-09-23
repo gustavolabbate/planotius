@@ -53,13 +53,15 @@ public class Config {
             LOG.debug("'port' key not defined, using default '" + Config.port + "'");
         }
 
-        if (System.getProperty("url") != null) {
-            Config.url = System.getProperty("url");
-        } else if (properties.getValue("url") != null) {
-            Config.url = properties.getValue("url");
-        } else {
-            Config.url = "";
-            LOG.debug("'url' key not defined, using empty.");
+        if (Config.url == null) {
+            if (System.getProperty("url") != null) {
+                Config.url = System.getProperty("url");
+            } else if (properties.getValue("url") != null) {
+                Config.url = properties.getValue("url");
+            } else {
+                Config.url = "";
+                LOG.debug("'url' key not defined, using empty.");
+            }
         }
 
         if (System.getProperty("firefox.locale") != null) {

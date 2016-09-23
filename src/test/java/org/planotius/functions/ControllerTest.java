@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.planotius.controller.Controller;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.planotius.helper.Config;
 
 /**
  *
@@ -22,7 +23,9 @@ public class ControllerTest {
     @BeforeClass
     public static void setUp() {
         controller = new Controller();
-        controller.setUrl(url).openUrl();
+        System.out.println("URL: " + url);
+        Config.setUrl(url);
+        controller.openUrl();
 
     }
 

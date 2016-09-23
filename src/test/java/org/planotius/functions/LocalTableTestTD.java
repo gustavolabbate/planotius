@@ -5,6 +5,7 @@ import org.planotius.pageobjects.LocalTable;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.planotius.helper.Config;
 
 /**
  *
@@ -21,7 +22,7 @@ public class LocalTableTestTD {
 
     @Test
     public void openSensorMonitor() {
-        controller.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+        Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
         controller.openUrl();
 
         assertEquals("1", table.getTextfromTD());
@@ -29,7 +30,7 @@ public class LocalTableTestTD {
 
     @AfterClass
     public static void tearDown() {
-    controller.quit();
+        controller.quit();
     }
 
 }
