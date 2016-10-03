@@ -17,6 +17,8 @@ import org.planotius.helper.Config;
 public class Firefox extends BrowserDecorator {
 
     private static final String FF_BROWSER = "firefox";
+    private static final String FF_WIN_HOME = "target/browsers/gw64/geckodriver.exe";
+    private static final String FF_LIN_HOME = "target/browsers/gl64/geckodriver";
     private static final Logger LOG = Logger.getLogger(Firefox.class.getName());
 
     @Override
@@ -32,8 +34,8 @@ public class Firefox extends BrowserDecorator {
     @Override
     public DesiredCapabilities defineCapabilities() {
         FirefoxProfile profile = new FirefoxProfile();
-        
-        if (Config.getFirefoxProfile() != null ) {
+
+        if (Config.getFirefoxProfile() != null) {
             ProfilesIni profIni = new ProfilesIni();
             profile = profIni.getProfile(Config.getFirefoxProfile());
 
@@ -58,11 +60,15 @@ public class Firefox extends BrowserDecorator {
             LOG.error(ex.getMessage(), ex);
         }
 
-        if (Config.getFirefoxHome() != null) {
-            capability.setCapability("binary", Config.getFirefoxHome());
-            System.setProperty("webdriver.gecko.driver", Config.getFirefoxHome());
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            LOG.info("WIN os recognized. Loading geckodriver from " + FF_WIN_HOME);
+            capability.setCapability("binary", FF_WIN_HOME);
+            System.setProperty("webdriver.gecko.driver", FF_WIN_HOME);
+        } else {
+            LOG.info("LINUX os recognized. Loading geckodriver from " + FF_LIN_HOME);
+            capability.setCapability("binary", FF_LIN_HOME);
+            System.setProperty("webdriver.gecko.driver", FF_LIN_HOME);
         }
-
         return capability;
     }
 }

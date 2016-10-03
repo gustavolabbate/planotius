@@ -17,7 +17,7 @@ public class SeleniumServerTest {
         try {
 
             String browser = "firefox";
-            String url = "http://www.lenovo.com/br/pt/";
+            String url = "http://www.google.com.br";
             String testServer = "localhost";
             String port = "5555";
 
@@ -48,7 +48,7 @@ public class SeleniumServerTest {
         try {
 
             String browser = "firefox";
-            String url = "http://www.lenovo.com/br/pt/";
+            String url = "http://www.google.com.br";
             String testServer = "10.35.102.136";
             String port = "4444";
 
@@ -70,6 +70,5 @@ public class SeleniumServerTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-
     }
 }

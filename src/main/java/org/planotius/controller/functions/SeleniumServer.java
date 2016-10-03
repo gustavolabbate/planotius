@@ -15,7 +15,7 @@ public class SeleniumServer {
 
     protected String testServer;
     protected String port;
-    private static final Logger log = Logger.getLogger(SeleniumServer.class.getName());
+    private static final Logger LOG = Logger.getLogger(SeleniumServer.class.getName());
 
     /**
      * Start the selenium server.
@@ -37,7 +37,7 @@ public class SeleniumServer {
      * @return
      */
     public WebDriver startServer() {
-        log.info(" browser: '" + browser + "' testServer: '" + testServer + "'");
+        LOG.info("browser: '" + browser + "' testServer: '" + testServer + "'");
         if (this.testServer.equalsIgnoreCase("localhost")) {
             return browserFactory.getBrowser(browser).getWebDriver();
         } else {

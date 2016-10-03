@@ -20,8 +20,13 @@ public class LocalTableTestSubmit {
     @BeforeClass
     public static void setup() {
         table = new LocalTable().init();
+        String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
 
-        Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+        if (Config.getBrowser().equals("firefox")) {
+            url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
+        }
+
+        Config.setUrl(url);
         controller.openUrl();
     }
 

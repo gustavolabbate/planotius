@@ -20,17 +20,26 @@ public class LocalTableTest {
     @BeforeClass
     public static void setup() {
         table = new LocalTable().init();
+        String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
+        
+        if (Config.getBrowser().equals("firefox")) {
+            url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
+        } 
 
-        Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+//        Config.setUrl("file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html");
+        Config.setUrl(url);
+        System.out.println("*********************************************¨*¨**");
+        System.out.println("URL: " + Config.getUrl());
+        System.out.println("*********************************************¨*¨**");
         controller.openUrl();
 
     }
 
     @Test
-    public void shouldVerifyTextOnPage(){
+    public void shouldVerifyTextOnPage() {
         assertTrue(controller.verifyMessage("Headless Table"));
     }
-    
+
     @Test
     public void shouldGetValuesBasedOnStringRow() {
 
@@ -97,7 +106,6 @@ public class LocalTableTest {
 //        controller.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getKeyValue() + "\");");
 //        assertEquals("teste", table.myInputText.getAttributeValue());
 //    }
-
     @Test
     public void clickMe() {
         table.clickMe();

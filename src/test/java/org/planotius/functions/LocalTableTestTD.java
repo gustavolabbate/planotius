@@ -22,7 +22,14 @@ public class LocalTableTestTD {
 
     @Test
     public void openSensorMonitor() {
-        Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
+        String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
+        
+        if (Config.getBrowser().equals("firefox")) {
+            url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
+        } 
+
+        
+        Config.setUrl(url);
         controller.openUrl();
 
         assertEquals("1", table.getTextfromTD());

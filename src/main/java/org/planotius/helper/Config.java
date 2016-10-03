@@ -21,6 +21,9 @@ public class Config {
     private static String firefoxLocale;
     private static String firefoxProfile;
     private static String firefoxHome;
+    private static String chromeBinaryHome;
+    private static String chromeHome;
+    private static String ieHome;
 
     public Config() {
         PropertiesLoader properties = new PropertiesLoader();
@@ -91,8 +94,26 @@ public class Config {
         } else if (properties.getValue("firefox.home") != null) {
             Config.firefoxHome = properties.getValue("firefox.home");
         } else {
-            Config.firefoxHome = "target/geckodriver.exe";
+            Config.firefoxHome = "target/browsers/gw64/geckodriver.exe";
             LOG.debug("'firefox.home' key not defined, using default '" + Config.firefoxHome + "'");
+        }
+
+        if (System.getProperty("chrome.binary.home") != null) {
+            Config.chromeBinaryHome = System.getProperty("chrome.binary.home");
+        } else if (properties.getValue("chrome.binary.home") != null) {
+            Config.chromeBinaryHome = properties.getValue("chrome.binary.home");
+        }
+
+        if (System.getProperty("chrome.home") != null) {
+            Config.chromeHome = System.getProperty("chrome.home");
+        } else if (properties.getValue("chrome.home") != null) {
+            Config.chromeHome = properties.getValue("chrome.home");
+        }
+
+        if (System.getProperty("ie.home") != null) {
+            Config.ieHome = System.getProperty("ie.home");
+        } else if (properties.getValue("ie.home") != null) {
+            Config.ieHome = properties.getValue("ie.home");
         }
 
     }
@@ -105,6 +126,33 @@ public class Config {
         return configuration.getValue(key);
     }
 
+//    private static String getOSinfo(){
+//        String osName = System.getProperty("os.name");
+//        String osArch = System.getProperty("os.arch");
+//        String defaultBrowser = "";
+//        
+//        if (osName.contains("windows")){
+//            osName = "windows";
+//        }
+//        
+//        if (osArch.contains("64")){
+//            osArch = "64";
+//        }
+//        else if (osArch.contains("32")){
+//            osArch = "32";
+//        }
+//        
+//        
+//        switch(osName.toLowerCase()) {
+//            case "windows":
+//                return 
+//                break;
+//            default:
+//                break;
+//        }
+//        
+//        return defaultBrowser;
+//    }
     public static String getTestServer() {
         return testServer;
     }
@@ -160,5 +208,32 @@ public class Config {
     public static void setFirefoxHome(String firefoxHome) {
         Config.firefoxHome = firefoxHome;
     }
+
+    public static String getChromeBinaryHome() {
+        return chromeBinaryHome;
+    }
+
+    public static void setChromeBinaryHome(String chromeBinaryHome) {
+        Config.chromeBinaryHome = chromeBinaryHome;
+    }
+
+    public static String getChromeHome() {
+        return chromeHome;
+    }
+
+    public static void setChromeHome(String chromeHome) {
+        Config.chromeHome = chromeHome;
+    }
+
+    public static String getIeHome() {
+        return ieHome;
+    }
+
+    public static void setIeHome(String ieHome) {
+        Config.ieHome = ieHome;
+    }
+    
+    
+    
 
 }
