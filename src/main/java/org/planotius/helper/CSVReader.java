@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,7 +30,7 @@ public class CSVReader {
         CSVReader.delimiter = Config.getConfiguration("csv.delimiter");
 
         if (CSVReader.delimiter == null) {
-            this.delimiter = ",";
+            CSVReader.delimiter = ",";
         }
 
         CSVReader.encoding = Config.getConfiguration("csv.encoding");
@@ -77,8 +76,8 @@ public class CSVReader {
      */
     public List<Map<String, String>> getList(String file) {
         List<String[]> rows = (List) openCSV(file);
-        Map<String, String> map = new HashMap<String, String>();
-        ArrayList<Map<String, String>> listMap = new ArrayList<Map<String, String>>();
+        Map<String, String> map = new HashMap<>();
+        ArrayList<Map<String, String>> listMap = new ArrayList<>();
 
         for (int x = 1; x < rows.size(); x++) {
 
@@ -87,15 +86,10 @@ public class CSVReader {
                         rows.get(x)[y]);
             }
             listMap.add(map);
-            map = new HashMap<String, String>();
+            map = new HashMap<>();
         }
 
         return listMap;
-    }
-
-    private Collection<Object[]> openCSV(BufferedReader bufferedReader) {
-
-        return createCollection(bufferedReader);
     }
 
     private Collection<Object[]> openCSV(String file) {
@@ -136,7 +130,7 @@ public class CSVReader {
     private Collection<Object[]> createCollection(BufferedReader br) {
         String line = "";
         try {
-            List<Object[]> rows = new ArrayList<Object[]>();
+            List<Object[]> rows = new ArrayList<>();
             while ((line = br.readLine()) != null) {
 
                 //Allows using the same character as the delimiter.

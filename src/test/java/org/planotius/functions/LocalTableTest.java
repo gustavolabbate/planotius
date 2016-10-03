@@ -28,9 +28,6 @@ public class LocalTableTest {
 
 //        Config.setUrl("file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html");
         Config.setUrl(url);
-        System.out.println("*********************************************¨*¨**");
-        System.out.println("URL: " + Config.getUrl());
-        System.out.println("*********************************************¨*¨**");
         controller.openUrl();
 
     }
