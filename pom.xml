@@ -12,8 +12,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--        <selenium.version>2.48.0</selenium.version>
         <selenium.server.version>[2.44.0,)</selenium.server.version>-->
-        <selenium.version>3.0.0-beta2</selenium.version>
-        <selenium.server.version>3.0.0-beta2</selenium.server.version>
+        <selenium.version>3.0.0-beta3</selenium.version>
+        <selenium.server.version>3.0.0-beta3</selenium.server.version>
                 <jackson-2-version>2.8.1</jackson-2-version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -117,6 +117,33 @@
                                     <outputDirectory>target/browsers/ie32</outputDirectory>
                                 </artifactItem>
                                 
+                                
+                                <artifactItem>
+                                    <groupId>org.selenium</groupId>
+                                    <artifactId>phantomJS_win</artifactId>
+                                    <version>2.1.1</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target/browsers/pw</outputDirectory>
+                                </artifactItem>
+                                
+                                <artifactItem>
+                                    <groupId>org.selenium</groupId>
+                                    <artifactId>phantomJS_linux_64</artifactId>
+                                    <version>2.1.1</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target/browsers/pl64</outputDirectory>
+                                </artifactItem>
+                                
+                                <artifactItem>
+                                    <groupId>org.selenium</groupId>
+                                    <artifactId>phantomJS_linux_32</artifactId>
+                                    <version>2.1.1</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target/browsers/pl32</outputDirectory>
+                                </artifactItem>
                                 
                             </artifactItems>
                         </configuration>
@@ -237,6 +264,12 @@
         </dependency>
         -->
         
+        
+        <!--        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.2.1</version>
+        </dependency>-->
         
         <!-- RestAPI -->
         <dependency>

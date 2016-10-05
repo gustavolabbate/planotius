@@ -1,9 +1,6 @@
 package org.planotius.functions;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.planotius.controller.Controller;
-import org.planotius.pageobjects.LocalTable;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +17,6 @@ public class OpenGoogleTest {
 
     @BeforeClass
     public static void setup() {
-
         Config.setUrl("http://www.google.com");
         controller.openUrl();
 

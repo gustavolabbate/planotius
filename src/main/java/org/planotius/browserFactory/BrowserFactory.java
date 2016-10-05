@@ -20,15 +20,15 @@ public class BrowserFactory {
         } else if (browser.equalsIgnoreCase("googlechrome") || browser.equalsIgnoreCase("chromium")) {
             LOG.debug("Using GOOGLE CHROME browser.");
             return new GoogleChrome();
-        } else if (browser.equalsIgnoreCase("htmlunitdriver") || browser.equalsIgnoreCase("phantom")) {
-            LOG.debug("Using HTML UNIT browser.");
-            return new HtmlUnit();
         } else if (browser.equalsIgnoreCase("iexplore")) {
             LOG.debug("Using INTERNET EXPLORER browser.");
             return new InternetExplorer();
         } else if (browser.equalsIgnoreCase("edge")) {
             LOG.debug("Using EDGE browser.");
             return new Edge();
+        } else if (browser.equalsIgnoreCase("phantomjs")) {
+            LOG.debug("Using PhantomJS browser.");
+            return new PhantomJS();
         }
 
         return null;

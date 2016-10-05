@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 import org.planotius.browserFactory.Edge;
 import org.planotius.browserFactory.Firefox;
 import org.planotius.browserFactory.GoogleChrome;
-import org.planotius.browserFactory.HtmlUnit;
 import org.planotius.browserFactory.InternetExplorer;
+import org.planotius.browserFactory.PhantomJS;
 
 public class BrowserFactoryTest {
 
@@ -40,10 +40,10 @@ public class BrowserFactoryTest {
     }
 
     @Test
-    public void browserShouldBeHtmlUnit() {
+    public void browserShouldPhantomJS() {
         BrowserFactory browserFactory = new BrowserFactory();
-        Browser browser = browserFactory.getBrowser("htmlunitdriver");
-        assertTrue(browser instanceof HtmlUnit);
+        Browser browser = browserFactory.getBrowser("phantomjs");
+        assertTrue(browser instanceof PhantomJS);
     }
     
     @Test
