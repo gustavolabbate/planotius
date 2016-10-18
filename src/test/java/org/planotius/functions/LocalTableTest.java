@@ -97,12 +97,6 @@ public class LocalTableTest {
 
     }
 
-//    @Test
-//    public void shouldVerifyJavascriptExecution() {
-//        assertEquals("valor", table.myInputText.getAttribute("value"));
-//        controller.runJavaScript("return changeInputTextValue(\"teste\", \"" + table.myInputText.getKeyValue() + "\");");
-//        assertEquals("teste", table.myInputText.getAttributeValue());
-//    }
     @Test
     public void clickMe() {
         table.clickMe();
