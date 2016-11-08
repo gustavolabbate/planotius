@@ -189,10 +189,14 @@ public class PageObjectFactory {
             return element;
         }
 
-        element = findBy.name(value);
-        if (element != null) {
-            LOG.debug("Found '" + value + "'by 'name'.");
-            return element;
+        try {
+            element = findBy.name(value);
+            if (element != null) {
+                LOG.debug("Found '" + value + "'by 'name'.");
+                return element;
+            }
+        } catch (Exception e) {
+            LOG.debug("browser may have died when trying to findBy 'name'.");
         }
 
         element = findBy.linkText(value);
@@ -207,10 +211,14 @@ public class PageObjectFactory {
             return element;
         }
 
-        element = findBy.cssSelector(value);
-        if (element != null) {
-            LOG.debug("Found '" + value + "'by 'css'.");
-            return element;
+        try {
+            element = findBy.cssSelector(value);
+            if (element != null) {
+                LOG.debug("Found '" + value + "'by 'css'.");
+                return element;
+            }
+        } catch (Exception e1) {
+            LOG.debug("browser may have died when trying to findBy 'CSS'.");
         }
 
         element = findBy.xpath(value);
