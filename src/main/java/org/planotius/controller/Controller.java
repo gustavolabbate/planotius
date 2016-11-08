@@ -28,8 +28,9 @@ public class Controller {
 
     public void quit() {
         try {
+            Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
             driver.quit();
-        } catch (UnreachableBrowserException ube) {
+        } catch (IOException | UnreachableBrowserException ube) {
             LOG.warn("Unreachable browser exception raised (Selenium bug).");
         }
     }
@@ -162,10 +163,9 @@ public class Controller {
      * @return
      */
     public Controller openUrl() {
-        try{
+        try {
             driver.get(Config.getUrl().replace("\"", ""));
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             LOG.error(e);
         }
         driver.manage().window().maximize();

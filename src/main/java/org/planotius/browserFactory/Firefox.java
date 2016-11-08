@@ -68,7 +68,7 @@ public class Firefox extends BrowserDecorator {
         } else {
 
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                LOG.info("WIN os recognized. Loading geckodriver from " + Config.getFirefoxHome());
+                LOG.info("WIN os recognized. Loading geckodriver from " + FF_WIN_HOME);
                 capability.setCapability("binary", FF_WIN_HOME);
                 System.setProperty("webdriver.gecko.driver", FF_WIN_HOME);
                 browserLocation = FF_WIN_HOME;
