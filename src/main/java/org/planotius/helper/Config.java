@@ -94,8 +94,7 @@ public class Config {
         } else if (properties.getValue("firefox.home") != null) {
             Config.firefoxHome = properties.getValue("firefox.home");
         } else {
-            Config.firefoxHome = "target/browsers/gw64/geckodriver.exe";
-            LOG.debug("'firefox.home' key not defined, using default '" + Config.firefoxHome + "'");
+            Config.firefoxHome = null;
         }
 
         if (System.getProperty("chrome.binary.home") != null) {
@@ -232,8 +231,5 @@ public class Config {
     public static void setIeHome(String ieHome) {
         Config.ieHome = ieHome;
     }
-    
-    
-    
 
 }

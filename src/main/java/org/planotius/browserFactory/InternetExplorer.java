@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.planotius.helper.Config;
 
 /**
  *
@@ -40,6 +39,11 @@ public class InternetExplorer extends BrowserDecorator {
         System.setProperty("webdriver.ie.driver", IE_HOME);
 
         return capability;
+    }
+
+    @Override
+    public String getBrowserLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

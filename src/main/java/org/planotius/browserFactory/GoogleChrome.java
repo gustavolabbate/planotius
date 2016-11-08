@@ -106,4 +106,9 @@ public class GoogleChrome extends BrowserDecorator {
         return capability;
     }
 
+    @Override
+    public String getBrowserLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -43,4 +43,9 @@ public class Edge extends BrowserDecorator {
         }
         return capability;
     }
+
+    @Override
+    public String getBrowserLocation() {
+        return EDGE_HOME;
+    }
 }
