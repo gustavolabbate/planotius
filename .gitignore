@@ -1,3 +1,5 @@
 target/
 .sonar/
 /web/nbproject/private/
+planotius.iml
+.idea

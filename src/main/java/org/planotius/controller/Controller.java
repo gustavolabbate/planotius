@@ -1,5 +1,6 @@
 package org.planotius.controller;
 
+import org.openqa.selenium.internal.BuildInfo;
 import org.planotius.controller.functions.SeleniumServer;
 import org.planotius.helper.Config;
 import java.io.File;
@@ -44,10 +45,12 @@ public class Controller {
     }
 
     public Controller() {
-
+        BuildInfo buildInfo = new BuildInfo();
+        String revision = buildInfo.getBuildRevision();
+        String version = buildInfo.getReleaseLabel();
         LOG.debug("--------------------------------------------------");
-        LOG.debug("Build-Version: 2.0.0-SNAPSHOT");
-        LOG.debug("Selenium-Version: 3.0.0-beta2");
+        LOG.debug("Build-Version: " + this.getClass().getPackage().getImplementationVersion());
+        LOG.debug("Selenium-Version: " + version + " revision: " + revision);
         LOG.debug("Release-date: september, 2016");
         LOG.debug("--------------------------------------------------");
 

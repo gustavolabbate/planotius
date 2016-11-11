@@ -4,7 +4,7 @@
     <groupId>org.planotius</groupId>
     <artifactId>planotius</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.1-SNAPSHOT</version>
     <name>planotius</name>
     <url>http://maven.apache.org</url>
     
@@ -39,6 +39,18 @@
                     <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
             
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -51,7 +63,7 @@
                         </goals>
                         <configuration>
                             <artifactItems>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>geckodriver_win_64</artifactId>
@@ -60,7 +72,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/gw64</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>geckodriver_linux_64</artifactId>
@@ -69,7 +81,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/gl64</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>chromedriver_win_32</artifactId>
@@ -78,7 +90,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/cw32</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>chromedriver_linux_32</artifactId>
@@ -87,7 +99,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/cl32</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>chromedriver_linux_64</artifactId>
@@ -96,8 +108,8 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/cl64</outputDirectory>
                                 </artifactItem>
-                                
-                                
+
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>iedriver_64</artifactId>
@@ -106,8 +118,8 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/ie64</outputDirectory>
                                 </artifactItem>
-                                
-                                
+
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>iedriver_32</artifactId>
@@ -116,8 +128,8 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/ie32</outputDirectory>
                                 </artifactItem>
-                                
-                                
+
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>phantomJS_win</artifactId>
@@ -126,7 +138,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/pw</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>phantomJS_linux_64</artifactId>
@@ -135,7 +147,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/pl64</outputDirectory>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>org.selenium</groupId>
                                     <artifactId>phantomJS_linux_32</artifactId>
@@ -144,7 +156,7 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target/browsers/pl32</outputDirectory>
                                 </artifactItem>
-                                
+
                             </artifactItems>
                         </configuration>
                     </execution>
