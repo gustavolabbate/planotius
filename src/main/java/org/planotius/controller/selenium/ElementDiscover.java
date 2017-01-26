@@ -1,4 +1,4 @@
-package org.planotius.controller.functions;
+package org.planotius.controller.selenium;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

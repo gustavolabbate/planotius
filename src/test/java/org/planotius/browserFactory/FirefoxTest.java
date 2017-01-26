@@ -1,5 +1,7 @@
 package org.planotius.browserFactory;
 
+import org.planotius.browser.factory.BrowserFactory;
+import org.planotius.browser.Browser;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.planotius.helper.Config;

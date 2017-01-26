@@ -1,4 +1,4 @@
-package org.planotius.controller.functions;
+package org.planotius.controller.selenium;
 
 import org.planotius.controller.Controller;
 

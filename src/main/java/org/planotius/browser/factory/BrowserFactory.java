@@ -1,5 +1,11 @@
-package org.planotius.browserFactory;
+package org.planotius.browser.factory;
 
+import org.planotius.browser.instances.Edge;
+import org.planotius.browser.instances.InternetExplorer;
+import org.planotius.browser.instances.GoogleChrome;
+import org.planotius.browser.instances.PhantomJS;
+import org.planotius.browser.instances.Firefox;
+import org.planotius.browser.Browser;
 import org.apache.log4j.Logger;
 
 /**

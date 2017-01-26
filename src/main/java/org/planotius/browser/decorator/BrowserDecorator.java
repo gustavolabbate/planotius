@@ -1,5 +1,6 @@
-package org.planotius.browserFactory;
+package org.planotius.browser.decorator;
 
+import org.planotius.browser.Browser;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.log4j.Logger;

@@ -1,6 +1,6 @@
 package org.planotius.controller;
 
-import org.planotius.controller.functions.SeleniumServer;
+import org.planotius.controller.selenium.SeleniumServer;
 import org.planotius.helper.Config;
 import java.io.File;
 import java.io.FileOutputStream;

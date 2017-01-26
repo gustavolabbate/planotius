@@ -1,4 +1,4 @@
-package org.planotius.browserFactory;
+package org.planotius.browser.instances;
 
 import java.io.IOException;
 import org.apache.log4j.Logger;
@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.planotius.browser.decorator.BrowserDecorator;
 import org.planotius.helper.Config;
 
 /**

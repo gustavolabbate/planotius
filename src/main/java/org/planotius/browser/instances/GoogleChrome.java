@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.planotius.browserFactory;
+package org.planotius.browser.instances;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.planotius.browser.decorator.BrowserDecorator;
 import org.planotius.helper.Config;
 
 /**

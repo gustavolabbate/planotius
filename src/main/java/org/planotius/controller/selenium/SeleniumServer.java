@@ -1,6 +1,6 @@
-package org.planotius.controller.functions;
+package org.planotius.controller.selenium;
 
-import org.planotius.browserFactory.BrowserFactory;
+import org.planotius.browser.factory.BrowserFactory;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
