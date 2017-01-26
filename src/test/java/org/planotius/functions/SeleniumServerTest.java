@@ -1,7 +1,7 @@
 package org.planotius.functions;
 
 import org.apache.log4j.Logger;
-import org.planotius.controller.functions.SeleniumServer;
+import org.planotius.controller.selenium.SeleniumServer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;

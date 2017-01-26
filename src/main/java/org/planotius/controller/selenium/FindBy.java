@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.planotius.controller.functions;
+package org.planotius.controller.selenium;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

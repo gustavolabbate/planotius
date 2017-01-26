@@ -2,9 +2,9 @@ package org.planotius.pageobjects;
 
 import org.openqa.selenium.Keys;
 import org.planotius.pageobjectfactory.PageObjectFactory;
-import org.planotius.controller.functions.Element;
-import org.planotius.controller.functions.ElementDiscover;
-import org.planotius.controller.functions.Locator;
+import org.planotius.controller.selenium.Element;
+import org.planotius.controller.selenium.ElementDiscover;
+import org.planotius.controller.selenium.Locator;
 
 /**
  *

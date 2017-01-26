@@ -1,10 +1,11 @@
-package org.planotius.browserFactory;
+package org.planotius.browser.instances;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.planotius.browser.decorator.BrowserDecorator;
 
 /**
  *

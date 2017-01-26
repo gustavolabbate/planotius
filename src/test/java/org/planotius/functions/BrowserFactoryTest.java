@@ -1,14 +1,14 @@
 package org.planotius.functions;
 
-import org.planotius.browserFactory.Browser;
-import org.planotius.browserFactory.BrowserFactory;
+import org.planotius.browser.Browser;
+import org.planotius.browser.factory.BrowserFactory;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.planotius.browserFactory.Edge;
-import org.planotius.browserFactory.Firefox;
-import org.planotius.browserFactory.GoogleChrome;
-import org.planotius.browserFactory.InternetExplorer;
-import org.planotius.browserFactory.PhantomJS;
+import org.planotius.browser.instances.Edge;
+import org.planotius.browser.instances.Firefox;
+import org.planotius.browser.instances.GoogleChrome;
+import org.planotius.browser.instances.InternetExplorer;
+import org.planotius.browser.instances.PhantomJS;
 
 public class BrowserFactoryTest {
 

@@ -1,4 +1,4 @@
-package org.planotius.controller;
+package org.planotius.controller.http;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
