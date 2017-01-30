@@ -26,6 +26,7 @@ public class Element extends Controller implements WebElement {
     String key;
     String keyValue;
     String frame;
+    String locator;
     public WebElement webElement;
     Class aclass;
     Field field;
@@ -102,6 +103,14 @@ public class Element extends Controller implements WebElement {
         this.frame = frame;
     }
 
+    public String getLocator() {
+        return locator;
+    }
+
+    public void setLocator(String locator) {
+        this.locator = locator;
+}
+    
     private void reload() {
         if (this.webElement == null) {
             this.webElement = loadInputData(this);
