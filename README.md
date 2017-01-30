@@ -17,8 +17,12 @@ Only minor coding is needed on the test codes!
 * You can provide all your test data in csv files;
 * Maven compiled and maven provided;
 
+####Latest improvements:
 
-
+* Now it is possible to hint a locator when using @ElementDiscover:
+```
+@ElementDiscover(value = "submit_button", locator = Locator.ID) 
+```
 
 
 #### Install

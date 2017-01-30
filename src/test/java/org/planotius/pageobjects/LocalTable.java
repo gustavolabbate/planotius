@@ -4,6 +4,7 @@ import org.openqa.selenium.Keys;
 import org.planotius.controller.Controller;
 import org.planotius.controller.functions.Element;
 import org.planotius.controller.functions.ElementDiscover;
+import org.planotius.controller.functions.Locator;
 
 /**
  *
@@ -27,7 +28,7 @@ public class LocalTable extends Controller {
     @ElementDiscover("changedByjs")
     public Element myInputText;
 
-    @ElementDiscover("complete")
+    @ElementDiscover(value = "complete", locator = Locator.ID)
     public Element autoCompleteField;
 
     public String getTextfromTD() {

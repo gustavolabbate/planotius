@@ -15,6 +15,7 @@ public @interface ElementDiscover {
     String value() default "";
     String key() default "";
     String frame() default "";
+    String locator() default "";
     
     
 }
