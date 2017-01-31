@@ -99,16 +99,19 @@ public class CSVReader {
             try {
                 stream = new FileInputStream(file);
             } catch (FileNotFoundException ex) {
+                LOG.debug(ex.getMessage(), ex);
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                 stream = loader.getResourceAsStream(file);
             }
 
             BufferedReader br = null;
-            try {
-                br = new BufferedReader(new InputStreamReader(stream, CSVReader.encoding));
-            } catch (NullPointerException npe) {
-                LOG.error("The file '" + file + "' was not found. Check if exists or is acessible.", npe);
+
+            if (stream == null) {
+                LOG.error("The file '" + file + "' was not found. Check if exists or is acessible.");
+                return null;
             }
+
+            br = new BufferedReader(new InputStreamReader(stream, CSVReader.encoding));
 
             return createCollection(br);
 

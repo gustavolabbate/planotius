@@ -20,7 +20,7 @@ public class Firefox extends BrowserDecorator {
     private static final String FF_BROWSER = "firefox";
     private static final String FF_WIN_HOME = "target/browsers/gw64/geckodriver.exe";
     private static final String FF_LIN_HOME = "target/browsers/gl64/geckodriver";
-    private static String browserLocation;
+    private static volatile String  browserLocation;
     private static final Logger LOG = Logger.getLogger(Firefox.class.getName());
 
     @Override

@@ -11,8 +11,7 @@ public class Config {
 
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
 
-    private static Config config = null;
-    private static PropertiesLoader configuration;
+    private static volatile PropertiesLoader configuration;
 
     private static String testServer;
     private static String port;
@@ -118,10 +117,10 @@ public class Config {
     }
 
     public static String getConfiguration(String key) {
-        if (config == null) {
-            config = new Config();
+//        if (config == null) {
+//            config = new Config();
             configuration = new PropertiesLoader();
-        }
+//        }
         return configuration.getValue(key);
     }
 
