@@ -20,6 +20,7 @@
         
         <!-- SONARQUBE PROPERTIES -->
         <sonar.projectKey>org.planotius:planotius2.0.1</sonar.projectKey>
+        <sonar.exclusions>target/test-classes/*, src/test/*</sonar.exclusions>
         <!--<sonar.sources>src</sonar.sources>-->
         <!--<sonar.tests>src/test</sonar.tests>-->
         <!--<sonar.binaries>target/classes, target/test-classes</sonar.binaries>-->
