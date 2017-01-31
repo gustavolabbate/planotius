@@ -1,5 +1,6 @@
 package org.planotius.controller.selenium;
 
+import java.net.MalformedURLException;
 import org.planotius.browser.factory.BrowserFactory;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +37,7 @@ public class SeleniumServer {
      *
      * @return
      */
-    public WebDriver startServer() {
+    public WebDriver startServer() throws MalformedURLException {
         LOG.info("browser: '" + browser + "' testServer: '" + testServer + "'");
         if (this.testServer.equalsIgnoreCase("localhost")) {
             return browserFactory.getBrowser(browser).getWebDriver();
