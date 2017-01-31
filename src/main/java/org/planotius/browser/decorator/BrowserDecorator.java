@@ -16,15 +16,10 @@ public abstract class BrowserDecorator implements Browser {
     private static final Logger LOG = Logger.getLogger(BrowserDecorator.class.getName());
 
     @Override
-    public WebDriver getRemoteWebDriver(String testServer, String port) {
-        try {
-            LOG.info("Browser is going remote on http://" + testServer + ":" + port + "/wd/hub");
-            RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
-            return remote;
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage());
-        }
-        return null;
+    public WebDriver getRemoteWebDriver(String testServer, String port) throws MalformedURLException {
+        LOG.info("Browser is going remote on http://" + testServer + ":" + port + "/wd/hub");
+        RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
+        return remote;
     }
 
 }
