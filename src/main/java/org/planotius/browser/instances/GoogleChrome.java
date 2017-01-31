@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.planotius.browser.decorator.BrowserDecorator;
-import org.planotius.helper.Config;
+import org.planotius.helper.*;
 
 /**
  *
@@ -24,7 +24,7 @@ public class GoogleChrome extends BrowserDecorator {
     private static final String CHROME_WIN_HOME = "target/browsers/cw32/chromedriver.exe";
     private static final String CHROME_LIN64_HOME = "target/browsers/cl64/chromedriver";
     private static final String CHROME_LIN32_HOME = "target/browsers/cl32/chromedriver";
-    private static String binary = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
+    private static volatile String binary = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
 
     private static final Logger LOG = Logger.getLogger(GoogleChrome.class.getName());
 

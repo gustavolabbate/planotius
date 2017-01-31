@@ -14,7 +14,7 @@ public class PropertiesLoader {
 
     private static final Logger LOG = Logger.getLogger(PropertiesLoader.class.getName());
 
-    private static Properties props;
+    private static volatile Properties props;
 
     public String getValue(String key) {
         //Try to load from system environments first
@@ -77,13 +77,14 @@ public class PropertiesLoader {
             input = new FileInputStream(propertiesFileName);
             props.load(input);
         } catch (IOException e) {
+            LOG.debug("Trying to get file from Classloader... ", e);
             try {
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                 try (InputStream stream = loader.getResourceAsStream(propertiesFileName)) {
                     props.load(stream);
                 }
             } catch (IOException e1) {
-                LOG.error(e.getMessage(), e);
+                LOG.error(e1.getMessage(), e1);
             }
 
         }

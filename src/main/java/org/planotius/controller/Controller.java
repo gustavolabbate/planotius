@@ -1,7 +1,7 @@
 package org.planotius.controller;
 
 import org.planotius.controller.selenium.SeleniumServer;
-import org.planotius.helper.Config;
+import org.planotius.helper.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,16 +22,16 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 public class Controller {
 
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
-    public static SeleniumServer server;
-    private static WebDriver driver;
-    public static Config config;
+    public static volatile SeleniumServer server;
+    private static volatile WebDriver driver;
+    public static volatile Config config;
 
     public void quit() {
         try {
             Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
             driver.quit();
         } catch (IOException | UnreachableBrowserException ube) {
-            LOG.warn("Unreachable browser exception raised (Selenium bug).");
+            LOG.warn("Unreachable browser exception raised (Selenium bug).", ube);
         }
     }
 
@@ -75,6 +75,7 @@ public class Controller {
             String alertMessage = alert.getText();
             return alertMessage;
         } catch (Exception e) {
+            LOG.debug("No alert found", e);
             return "no alert found.";
         }
     }
@@ -86,6 +87,7 @@ public class Controller {
             alert.accept();
             return msg;
         } catch (Exception e) {
+            LOG.debug("No alert found", e);
             LOG.info("no alert found.");
             return null;
         }

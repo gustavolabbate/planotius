@@ -5,9 +5,12 @@ import org.apache.log4j.Logger;
 
 import javax.net.ssl.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -63,7 +66,7 @@ public class HTTPSController extends HTTPHelper {
      * @param rest - Rest api path.
      * @return String of get response
      */
-    public String get(String rest) throws Exception {
+    public String get(String rest) throws IOException, KeyManagementException, NoSuchAlgorithmException {
         String urlPath = String.format("%s%s", this.httpsUrl, rest);
         return doRequest("GET", new URL(urlPath), null);
     }
@@ -75,7 +78,7 @@ public class HTTPSController extends HTTPHelper {
      * @param data
      * @return String of post response
      */
-    public String post(String rest, String data) throws Exception {
+    public String post(String rest, String data) throws IOException, KeyManagementException, NoSuchAlgorithmException  {
         String urlPath = String.format("%s%s", this.httpsUrl, rest);
         return doRequest("POST", new URL(urlPath), data);
     }
@@ -87,7 +90,7 @@ public class HTTPSController extends HTTPHelper {
      * @param data
      * @return String of put response
      */
-    public String put(String rest, String data) throws Exception {
+    public String put(String rest, String data) throws IOException, KeyManagementException, NoSuchAlgorithmException  {
         String urlPath = String.format("%s%s", this.httpsUrl, rest);
         return doRequest("PUT", new URL(urlPath), data);
     }
@@ -99,7 +102,7 @@ public class HTTPSController extends HTTPHelper {
      * @param url - Full url path to send the resquest.
      * @return A String with response content.
      */
-    private String doRequest(String method, URL url, String data) throws Exception {
+    private String doRequest(String method, URL url, String data) throws IOException, KeyManagementException, NoSuchAlgorithmException  {
         LOG.debug("Trying request with method " + method + " url " + url + " and data " + data);
         // Result request
         String result = "";
@@ -141,9 +144,9 @@ public class HTTPSController extends HTTPHelper {
      * Generate a SSL context to https conection.
      *
      * @return SSLSocketFactory with ssl context.
-     * @throws Exception
+     * @throws KeyManagementException, NoSuchAlgorithmException
      */
-    private SSLSocketFactory createTrustAllSslSocketFactory() throws Exception {
+    private SSLSocketFactory createTrustAllSslSocketFactory() throws KeyManagementException, NoSuchAlgorithmException {
         TrustManager[] byPassTrustManagers = new TrustManager[]{
             new X509TrustManager() {
                 public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {

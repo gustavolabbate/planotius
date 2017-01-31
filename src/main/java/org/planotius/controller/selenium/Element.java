@@ -26,13 +26,13 @@ public class Element implements WebElement {
 
     private static final Logger LOG = Logger.getLogger(Element.class.getName());
 
-    String key;
-    String keyValue;
-    String frame;
-    String locator;
+    private String key;
+    private String keyValue;
+    private String frame;
+    private String locator;
     public WebElement webElement;
-    Class aclass;
-    Field field;
+    private Class aclass;
+    private Field field;
 
     public Element(WebElement element) {
         this.webElement = element;
