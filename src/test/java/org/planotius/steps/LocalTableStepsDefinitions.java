@@ -8,7 +8,7 @@ import org.planotius.pageobjects.LocalTable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.planotius.controller.Controller;
-import org.planotius.helper.Config;
+import org.planotius.helper.*;
 
 /**
  *
@@ -16,7 +16,7 @@ import org.planotius.helper.Config;
  */
 public class LocalTableStepsDefinitions {
 
-    private static LocalTable localTable;
+    private static LocalTable localTable = new LocalTable().init();
     static Controller controller = new Controller();
 
     private int rowNumber;
@@ -32,7 +32,7 @@ public class LocalTableStepsDefinitions {
 
     @Given("^I am in the local table page$")
     public void openBrowserAndUrl(){
-        localTable = new LocalTable().init();
+        
         Config.setUrl("file:" + System.getProperty("user.dir") + "/src/test/resources/localTable.html");
         controller.openUrl();
     }
