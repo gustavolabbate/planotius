@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.planotius.controller.Controller;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.planotius.helper.Config;
+import org.planotius.helper.*;
 
 /**
  *
@@ -17,11 +17,10 @@ public class ControllerTest {
 
     private static final Logger LOG = Logger.getLogger(ControllerTest.class.getName());
 
-    static Controller controller;
+    static Controller controller = new Controller();
 
     @BeforeClass
     public static void setUp() {
-        controller = new Controller();
         String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
 
         if (Config.getBrowser().equals("firefox")) {
