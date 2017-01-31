@@ -1,5 +1,6 @@
 package org.planotius.browser;
 
+import java.net.MalformedURLException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -36,8 +37,9 @@ public interface Browser {
      * @param testServer
      * @param port
      * @return
+     * @throws java.net.MalformedURLException
      */
-    WebDriver getRemoteWebDriver(String testServer, String port);
+    WebDriver getRemoteWebDriver(String testServer, String port) throws MalformedURLException;
 
     /**
      * Here is where you define your capabilities...
