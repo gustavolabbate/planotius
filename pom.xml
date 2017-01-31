@@ -17,6 +17,13 @@
                 <jackson-2-version>2.8.1</jackson-2-version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- SONARQUBE PROPERTIES -->
+        <sonar.projectKey>org.planotius:planotius2.0.1</sonar.projectKey>
+        <!--<sonar.sources>src</sonar.sources>-->
+        <!--<sonar.tests>src/test</sonar.tests>-->
+        <!--<sonar.binaries>target/classes, target/test-classes</sonar.binaries>-->
+        
     </properties>
 	
     <reporting>
