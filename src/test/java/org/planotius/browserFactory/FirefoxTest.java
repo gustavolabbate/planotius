@@ -1,13 +1,11 @@
 package org.planotius.browserFactory;
 
 import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.planotius.browser.factory.BrowserFactory;
 import org.planotius.browser.Browser;
 import org.junit.AfterClass;
 import org.junit.Test;
-import org.planotius.helper.Config;
+import org.planotius.helper.*;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
@@ -22,7 +20,7 @@ public class FirefoxTest {
     @Test
     public void setFirefoxHomeLocationCustom() {
         System.setProperty("firefox.home", "C:\\myBrowserDir\\firefox.exe");
-
+        Config configCustom = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         browser.defineCapabilities();
@@ -43,16 +41,14 @@ public class FirefoxTest {
         assertEquals("target/browsers/gw64/geckodriver.exe", browser.getBrowserLocation());
     }
 
-    @Test
-    public void getRemoteWebDriver() {
+    @Test(expected = MalformedURLException.class)
+    public void getRemoteWebDriver() throws MalformedURLException {
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         browser.defineCapabilities();
-        try {
-            browser.getRemoteWebDriver("bla", "blo");
-        } catch (MalformedURLException ex) {
-            fail(ex.getMessage());
-        }
+
+        browser.getRemoteWebDriver("bla", "blo");
+
     }
 
     @AfterClass
