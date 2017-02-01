@@ -5,6 +5,8 @@ import org.planotius.helper.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -43,7 +45,7 @@ public class Controller {
         return driver;
     }
 
-    public Controller() {
+    public Controller()  {
 
         LOG.debug("--------------------------------------------------");
         LOG.debug("Build-Version: 2.0.0-SNAPSHOT");
@@ -60,10 +62,14 @@ public class Controller {
         LOG.info("port: " + Config.getPort());
         LOG.info("--------------------------------------------------");
 
-        connectServer();
+        try {
+            connectServer();
+        } catch (MalformedURLException ex) {
+            LOG.error(ex.getMessage(), ex);
+        }
     }
 
-    private void connectServer() {
+    private void connectServer() throws MalformedURLException {
         server = new SeleniumServer(Config.getBrowser(), Config.getTestServer(), Config.getPort());
         driver = server.startServer();
         LOG.info("Selenium started: [" + Config.getBrowser() + ", " + Config.getTestServer() + ", " + Config.getPort() + "]");
