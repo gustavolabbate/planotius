@@ -38,8 +38,13 @@ public class Firefox extends BrowserDecorator {
 
         if (Config.getFirefoxProfile() != null) {
             ProfilesIni profIni = new ProfilesIni();
-            profile = profIni.getProfile(Config.getFirefoxProfile());
 
+            if (profIni.getProfile(Config.getFirefoxProfile()) == null) {
+                LOG.warn("Firefox profile: " + Config.getFirefoxProfile() + " doesn´t exist. Please provide a valid one. Continuing with default profile.");
+            } else {
+                profile = profIni.getProfile(Config.getFirefoxProfile());
+                LOG.info("Firefox profile: " + Config.getFirefoxProfile() + " sucessfull loaded");
+            }
         }
 
         DesiredCapabilities capability = DesiredCapabilities.firefox();
