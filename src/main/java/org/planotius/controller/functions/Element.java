@@ -1,6 +1,7 @@
 package org.planotius.controller.functions;
 
 import org.planotius.controller.Controller;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.planotius.helper.Config;
 import org.planotius.pageobjectfactory.PageObjectFactory;
 
 /**
@@ -33,6 +35,23 @@ public class Element implements WebElement {
     public WebElement webElement;
     Class aclass;
     Field field;
+
+    private static long implicitWait;
+    private static long pageLoadTimeout;
+    private static long explicitWait;
+
+    private static final long DEFAULT_IMPLICIT_WAIT = 0;
+    private static final long DEFAULT_EXPLICIT_WAIT = 0;
+    private static final long DEFAULT_PAGE_LOAD_TIMEOUT = 30;
+
+    static {
+        implicitWait = ((Config.getConfiguration("implicitWait") == null) ? DEFAULT_IMPLICIT_WAIT :
+                Long.valueOf(Config.getConfiguration("implicitWait")));
+        explicitWait = ((Config.getConfiguration("explicitWait") == null) ? DEFAULT_EXPLICIT_WAIT :
+                Long.valueOf(Config.getConfiguration("explicitWait")));
+        pageLoadTimeout = (Config.getConfiguration("pageLoadTimeout") == null) ? DEFAULT_PAGE_LOAD_TIMEOUT :
+                Long.valueOf(Config.getConfiguration("pageLoadTimeout"));
+    }
 
     public Element(WebElement element) {
         this.webElement = element;
@@ -252,7 +271,9 @@ public class Element implements WebElement {
 
     private void waitCurrentPageLoad() {
         try {
-            Controller.getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+            Controller.getDriver().manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
+            Controller.getDriver().manage().timeouts().implicitlyWait(implicitWait, TimeUnit.MILLISECONDS);
+            Thread.sleep(explicitWait);
         } catch (Exception e) {
             LOG.error(e.getMessage());
 
@@ -273,7 +294,6 @@ public class Element implements WebElement {
 
     /**
      * Cause a webDriver wait until all elements is visible.
-     *
      */
     public void waitPageLoad() {
         try {
