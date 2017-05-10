@@ -8,21 +8,20 @@ import java.util.regex.Pattern;
  */
 public class Regex {
 
-    /**
-     * get drivers count on storage's inventory
+    /*
+     * return a string from value using regular expression
      * @param value
      * @param pattern
      * @param group
-     * @return int
      */
-    public int getDrives(String value, String pattern, int group) {
+    public String getGroupByIndex(String value, String pattern, int group) {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(value);
         if(m.find()) {
             value = m.group(group);
             value = value.replaceAll("\\(", "").replaceAll("\\)","");
         }
-        return Integer.parseInt(value);
+        return value;
     }
 
 }
