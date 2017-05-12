@@ -26,7 +26,7 @@ public class Controller {
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     public static volatile SeleniumServer server;
     private static volatile WebDriver driver;
-    public static volatile Config config;
+    public static volatile Config config = new Config();
 
     public void quit() {
         try {
@@ -52,8 +52,6 @@ public class Controller {
         LOG.debug("Selenium-Version: 3.0.0-beta2");
         LOG.debug("Release-date: september, 2016");
         LOG.debug("--------------------------------------------------");
-
-        config = new Config();
 
         LOG.info("--------------------------------------------------");
         LOG.info("Properties loaded by Controller:");

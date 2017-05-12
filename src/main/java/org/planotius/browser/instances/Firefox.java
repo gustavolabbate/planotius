@@ -20,7 +20,7 @@ public class Firefox extends BrowserDecorator {
     private static final String FF_BROWSER = "firefox";
     private static final String FF_WIN_HOME = "target/browsers/gw64/geckodriver.exe";
     private static final String FF_LIN_HOME = "target/browsers/gl64/geckodriver";
-    private static volatile String  browserLocation;
+    private static volatile String browserLocation;
     private static final Logger LOG = Logger.getLogger(Firefox.class.getName());
 
     @Override
@@ -65,6 +65,10 @@ public class Firefox extends BrowserDecorator {
             capability.setCapability("firefox_profile", profile.toJson());
         } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);
+        }
+
+        if (System.getProperty("firefox.home") != null) {
+            Config.setFirefoxHome(System.getProperty("firefox.home"));
         }
 
         if (Config.getFirefoxHome() != null) {
