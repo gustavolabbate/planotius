@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.logging.Level;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -16,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.openqa.selenium.internal.BuildInfo;
 
 /**
  *
@@ -45,11 +45,14 @@ public class Controller {
         return driver;
     }
 
-    public Controller()  {
+    public Controller() {
+        BuildInfo buildInfo = new BuildInfo();
+        String revision = buildInfo.getBuildRevision();
+        String version = buildInfo.getReleaseLabel();
 
         LOG.debug("--------------------------------------------------");
-        LOG.debug("Build-Version: 2.0.0-SNAPSHOT");
-        LOG.debug("Selenium-Version: 3.0.0-beta2");
+        LOG.debug("Build-Version: " + this.getClass().getPackage().getImplementationVersion());
+        LOG.debug("Selenium-Version: " + version + " revision: " + revision);
         LOG.debug("Release-date: september, 2016");
         LOG.debug("--------------------------------------------------");
 

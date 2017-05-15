@@ -1,7 +1,6 @@
 package org.planotius.helper;
 
 import org.apache.log4j.Logger;
-import org.planotius.controller.Controller;
 
 /**
  *
@@ -9,7 +8,7 @@ import org.planotius.controller.Controller;
  */
 public class Config {
 
-    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
+    private static final Logger LOG = Logger.getLogger(Config.class.getName());
 
     private static volatile PropertiesLoader configuration;
 

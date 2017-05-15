@@ -17,8 +17,9 @@ public abstract class BrowserDecorator implements Browser {
 
     @Override
     public WebDriver getRemoteWebDriver(String testServer, String port) throws MalformedURLException {
-        LOG.info("Browser is going remote on http://" + testServer + ":" + port + "/wd/hub");
-        RemoteWebDriver remote = new RemoteWebDriver(new URL("http://" + testServer + ":" + port + "/wd/hub"), defineCapabilities());
+        String url = "http://" + testServer + ":" + port + "/wd/hub";
+        LOG.info("Browser is going remote on " + url);
+        WebDriver remote = new RemoteWebDriver(new URL(url), defineCapabilities());
         return remote;
     }
 
