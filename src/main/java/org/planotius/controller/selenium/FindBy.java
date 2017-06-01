@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.planotius.controller.selenium;
 
 import java.util.List;
@@ -34,6 +29,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using ID.");
         return element;
     }
 
@@ -44,6 +40,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using NAME.");
         return element;
     }
 
@@ -54,6 +51,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using PARTIALLINKTEXT.");
         return element;
     }
 
@@ -64,6 +62,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using XPATH.");
         return element;
     }
 
@@ -74,6 +73,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using CSS.");
         return element;
     }
 
@@ -84,6 +84,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using LINKTEXT.");
         return element;
     }
 
@@ -94,6 +95,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using TAGNAME.");
         return element;
     }
 
@@ -104,6 +106,7 @@ public class FindBy {
         } catch (NoSuchElementException nse) {
             return null;
         }
+        LOG.debug("Element [" + value + "] found using CLASSNAME.");
         return element;
     }
 
@@ -119,8 +122,10 @@ public class FindBy {
                 }
             }
         } catch (NoSuchElementException nse) {
+            LOG.debug(nse);
             return null;
         }
+        LOG.debug("Element [" + value + "] found using ALT_of_IMAGE.");
         return element;
     }
 
