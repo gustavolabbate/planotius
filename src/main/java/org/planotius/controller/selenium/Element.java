@@ -274,7 +274,7 @@ public class Element implements WebElement {
             Controller.getDriver().manage().timeouts().pageLoadTimeout(pageLoadTimeout, TimeUnit.SECONDS);
             Controller.getDriver().manage().timeouts().implicitlyWait(implicitWait, TimeUnit.MILLISECONDS);
             Thread.sleep(explicitWait);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             LOG.error(e.getMessage());
 
         }
@@ -329,8 +329,8 @@ public class Element implements WebElement {
             int rowNum, colNum, headerNum;
             rowNum = 0;
 
-            ArrayList<String> columns = new ArrayList<String>();
-            ArrayList<ArrayList<String>> rows = new ArrayList<ArrayList<String>>();
+            ArrayList<String> columns = new ArrayList<>();
+            ArrayList<ArrayList<String>> rows = new ArrayList<>();
 
             int lookupColumIndex = 0;
             int lookupRowIndex = 0;
@@ -385,7 +385,7 @@ public class Element implements WebElement {
                     colNum++;
                 }
                 rows.add(columns);
-                columns = new ArrayList<String>();
+                columns = new ArrayList<>();
                 rowNum++;
             }
 
