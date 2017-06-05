@@ -33,7 +33,6 @@ public class FindByTest {
 
     @Before
     public void betweenTest() {
-        System.out.println("Apagando o conteudo do webElement...");
         webElement = null;
     }
 
@@ -98,6 +97,63 @@ public class FindByTest {
         webElement = findBy.name("this_name");
         Assert.assertNotNull(webElement);
         Assert.assertEquals("using name", webElement.getAttribute("value"));
+    }
+
+    /*
+    Tests to when element is not there...
+     */
+    @Test
+    public void testShouldNotFindByImageAltAndShouldReturnNull() {
+        webElement = findBy.imageAlt("octopusNotExistent");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByIDAndShouldReturnNull() {
+        webElement = findBy.id("completeNotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByPartialLinkTextAndShouldReturnNull() {
+        webElement = findBy.partialLinkText("nowhereNotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByXpathAndShouldReturnNull() {
+        webElement = findBy.xpath("html/body/div[1]/input[3]NotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindBylinkTextAndShouldReturnNull() {
+        webElement = findBy.linkText("NotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByClassNameAndShouldReturnNull() {
+        webElement = findBy.className("myClassNameNotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByCssSelectorAndShouldReturnNull() {
+        webElement = findBy.cssSelector("input[name=\"useCSSselectorNotExist\"]");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByTagNameAndShouldReturnNull() {
+        webElement = findBy.tagName("imgNotExist");
+        Assert.assertNull(webElement);
+    }
+
+    @Test
+    public void testShouldNotFindByNameAndShouldReturnNull() {
+        webElement = findBy.name("this_nameNotExist");
+        Assert.assertNull(webElement);
     }
 
     @AfterClass

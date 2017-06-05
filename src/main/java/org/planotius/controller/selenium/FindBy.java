@@ -23,110 +23,103 @@ public class FindBy {
     }
 
     public WebElement id(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.id(value));
+            WebElement element = driver.findElement(By.id(value));
+            LOG.debug("Element [" + value + "] found using ID.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using ID.");
-        return element;
+
     }
 
     public WebElement name(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.name(value));
+            WebElement element = driver.findElement(By.name(value));
+            LOG.debug("Element [" + value + "] found using NAME.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using NAME.");
-        return element;
+
     }
 
     public WebElement partialLinkText(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.partialLinkText(value));
+            WebElement element = driver.findElement(By.partialLinkText(value));
+            LOG.debug("Element [" + value + "] found using PARTIALLINKTEXT.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using PARTIALLINKTEXT.");
-        return element;
     }
 
     public WebElement xpath(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.xpath(value));
+            WebElement element = driver.findElement(By.xpath(value));
+            LOG.debug("Element [" + value + "] found using XPATH.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using XPATH.");
-        return element;
     }
 
     public WebElement cssSelector(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.cssSelector(value));
+            WebElement element = driver.findElement(By.cssSelector(value));
+            LOG.debug("Element [" + value + "] found using CSS.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using CSS.");
-        return element;
     }
 
     public WebElement linkText(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.linkText(value));
+            WebElement element = driver.findElement(By.linkText(value));
+            LOG.debug("Element [" + value + "] found using LINKTEXT.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using LINKTEXT.");
-        return element;
     }
 
     public WebElement tagName(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.tagName(value));
+            WebElement element = driver.findElement(By.tagName(value));
+            LOG.debug("Element [" + value + "] found using TAGNAME.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using TAGNAME.");
-        return element;
     }
 
     public WebElement className(String value) {
-        WebElement element = null;
         try {
-            element = driver.findElement(By.className(value));
+            WebElement element = driver.findElement(By.className(value));
+            LOG.debug("Element [" + value + "] found using CLASSNAME.");
+            return element;
         } catch (NoSuchElementException nse) {
             return null;
         }
-        LOG.debug("Element [" + value + "] found using CLASSNAME.");
-        return element;
     }
 
     public WebElement imageAlt(String value) {
-        WebElement element = null;
         try {
+            WebElement element = null;
             List<WebElement> allImages = driver.findElements(By.tagName("img"));
             for (WebElement image : allImages) {
                 if (image.getAttribute("alt").equals(value)) {
                     element = image;
-                } else {
-                    throw new NoSuchElementException("element not found");
+                    LOG.debug("Element [" + value + "] found using ALT_of_IMAGE.");
+                    return element;
                 }
             }
+
         } catch (NoSuchElementException nse) {
             LOG.debug(nse);
-            return null;
         }
-        LOG.debug("Element [" + value + "] found using ALT_of_IMAGE.");
-        return element;
+        return null;
     }
 
 }
