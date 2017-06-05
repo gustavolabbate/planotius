@@ -16,7 +16,7 @@ public class LocalTable extends PageObjectFactory {
     @ElementDiscover("//table[@id='table_test']/tbody/tr[2]/td[2]")
     public Element elementFromSecondTD;
 
-    @ElementDiscover("table_test")
+    @ElementDiscover(value = "table_test", locator = Locator.ID)
     public Element tableWithHeader;
 
     @ElementDiscover("headless")

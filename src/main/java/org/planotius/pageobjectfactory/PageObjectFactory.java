@@ -28,23 +28,19 @@ public class PageObjectFactory {
         Class<?> poClass = this.getClass();
         T page = (T) aClass;
 
+        /*
+        Get the constructor from the Page Object Class.
+         */
         try {
             Constructor<T> constructor = aClass.getConstructor();
             page = constructor.newInstance();
-        } catch (NoSuchMethodException ex) {
-            LOG.error(ex.getMessage(), ex);
-        } catch (SecurityException ex) {
-            LOG.error(ex.getMessage(), ex);
-        } catch (InstantiationException ex) {
-            LOG.error(ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            LOG.error(ex.getMessage(), ex);
-        } catch (IllegalArgumentException ex) {
-            LOG.error(ex.getMessage(), ex);
-        } catch (InvocationTargetException ex) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             LOG.error(ex.getMessage(), ex);
         }
 
+        /*
+        Get all fields from page object class that contains the @ElementDiscover annotation
+         */
         Field[] fields = poClass.getDeclaredFields();
         for (Field field : fields) {
             try {
@@ -53,9 +49,7 @@ public class PageObjectFactory {
                 if (element.getKey() != null) {
                     field.set(page, element);
                 }
-            } catch (IllegalArgumentException ex) {
-                LOG.error(ex.getMessage(), ex);
-            } catch (IllegalAccessException ex) {
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
                 LOG.error(ex.getMessage(), ex);
             }
         }
@@ -69,12 +63,19 @@ public class PageObjectFactory {
 
         field.setAccessible(true);
         Annotation[] annotations = field.getDeclaredAnnotations();
+
+        /*
+        For each field, check if the annotation is from the type of ElementDiscover 
+        and set the key, key value the class and the field to the element. 
+         */
         for (Annotation annotation : annotations) {
 
             if (annotation instanceof ElementDiscover) {
                 ElementDiscover myAnnotation = (ElementDiscover) annotation;
-
-                //[init] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
+                /*
+                [init] [TAM-3] Skip the external file. 
+                You can set the value directly on the ElementDiscover annotation
+                 */
                 if (myAnnotation.key().equals("")) {
                     element.setKeyValue(myAnnotation.value());
                     element.setKey(myAnnotation.value());
@@ -83,8 +84,10 @@ public class PageObjectFactory {
                     element.setKey(myAnnotation.key());
                     element.setKeyValue(map.getValue(myAnnotation.key()));
                 }
-                //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
-
+                /*
+                [finish] [TAM-3] Skip the external file. 
+                You can set the value directly on the ElementDiscover annotation
+                 */
                 if (!myAnnotation.frame().equals("")) {
                     element.setFrame(myAnnotation.frame());
                 }
@@ -112,7 +115,9 @@ public class PageObjectFactory {
             if (annotation instanceof ElementDiscover) {
                 ElementDiscover myAnnotation = (ElementDiscover) annotation;
 
-                //[init] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
+                /*[init] [TAM-3] Skip the external file. 
+                You can set the value directly on the ElementDiscover annotation
+                 */
                 if (myAnnotation.key().equals("")) {
                     value = myAnnotation.value();
                 } else {
@@ -173,26 +178,22 @@ public class PageObjectFactory {
         WebElement element = null;
         element = findBy.id(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'id'.");
             return element;
         }
 
         element = findBy.className(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'className'.");
             return element;
         }
 
         element = findBy.tagName(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'tagName'.");
             return element;
         }
 
         try {
             element = findBy.name(value);
             if (element != null) {
-                LOG.debug("Found '" + value + "'by 'name'.");
                 return element;
             }
         } catch (Exception e) {
@@ -201,20 +202,17 @@ public class PageObjectFactory {
 
         element = findBy.linkText(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'linkText'.");
             return element;
         }
 
         element = findBy.partialLinkText(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'partialLinkText'.");
             return element;
         }
 
         try {
             element = findBy.cssSelector(value);
             if (element != null) {
-                LOG.debug("Found '" + value + "'by 'css'.");
                 return element;
             }
         } catch (Exception e1) {
@@ -223,13 +221,11 @@ public class PageObjectFactory {
 
         element = findBy.xpath(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'xpath'.");
             return element;
         }
 
         element = findBy.imageAlt(value);
         if (element != null) {
-            LOG.debug("Found '" + value + "'by 'imageAlt'.");
             return element;
         }
         return null;
