@@ -16,22 +16,20 @@ import org.slf4j.LoggerFactory;
 @RunWith(Parameterized.class)
 public class ParameterizedTest {
 
-    private static final Logger log = LoggerFactory.getLogger(ParameterizedTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTest.class.getName());
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> loadParameters() {
-        CSVReader csv = new CSVReader();
-        return csv.read("src/test/resources/geoIp");
-    }
-
-    String ipComeco;
-    String ipFim;
-    String latitude;
-    String longitude;
-    String codigo;
-    String pais;
-
-    public ParameterizedTest(String ipComeco, String ipFim, String latitude, String longitude, String codigo, String pais) {
+    /**
+     * Default constructor
+     *
+     * @param ipComeco
+     * @param ipFim
+     * @param latitude
+     * @param longitude
+     * @param codigo
+     * @param pais
+     */
+    public ParameterizedTest(String ipComeco, String ipFim, String latitude,
+            String longitude, String codigo, String pais) {
 
         this.ipComeco = ipComeco;
         this.ipFim = ipFim;
@@ -42,16 +40,34 @@ public class ParameterizedTest {
     }
 
     /**
+     * Default reader of parameters
+     *
+     * @return
+     */
+    @Parameterized.Parameters
+    public static Collection<Object[]> loadParameters() {
+        CSVReader csv = new CSVReader();
+        return csv.read("src/test/resources/geoIp");
+    }
+
+    private String ipComeco;
+    private String ipFim;
+    private String latitude;
+    private String longitude;
+    private String codigo;
+    private String pais;
+
+    /**
      * Should read a csv file
      */
     @Test
     public void shouldReadCSVFile() {
-        System.out.println(ipComeco);
-        System.out.println(ipFim);
-        System.out.println(latitude);
-        System.out.println(longitude);
-        System.out.println(codigo);
-        System.out.println(pais);
+        LOG.info(ipComeco);
+        LOG.info(ipFim);
+        LOG.info(latitude);
+        LOG.info(longitude);
+        LOG.info(codigo);
+        LOG.info(pais);
 
     }
 }
