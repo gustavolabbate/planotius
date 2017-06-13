@@ -15,15 +15,15 @@ import org.planotius.helper.Config;
  */
 public class FindByTest {
 
-    static Controller controller = new Controller();
-    static FindBy findBy = new FindBy(Controller.getDriver());
+    private static final Controller controller = new Controller();
+    private static final FindBy findBy = new FindBy(Controller.getDriver());
     private WebElement webElement;
 
     @BeforeClass
     public static void setup() {
         String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
 
-        if (Config.getBrowser().equals("firefox")) {
+        if ("firefox".equals(Config.getBrowser())) {
             url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
         }
 
