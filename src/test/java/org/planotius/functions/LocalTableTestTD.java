@@ -13,8 +13,8 @@ import org.planotius.helper.Config;
  */
 public class LocalTableTestTD {
 
-    LocalTable table;
-    static Controller controller = new Controller();
+    private LocalTable table;
+    private static Controller controller = new Controller();
 
     public LocalTableTestTD() {
         table = new LocalTable().init();
@@ -24,7 +24,7 @@ public class LocalTableTestTD {
     public void openSensorMonitor() {
         String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
         
-        if (Config.getBrowser().equals("firefox")) {
+        if ("firefox".equals(Config.getBrowser())) {
             url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
         } 
 

@@ -52,7 +52,6 @@ public class PropertiesLoaderTest {
     @AfterClass
     public static void after(){
         System.setProperty("config.properties", "");
-        PropertiesLoader properties = new PropertiesLoader();
     }
     
 }

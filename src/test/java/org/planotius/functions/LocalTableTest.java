@@ -14,18 +14,17 @@ import org.planotius.helper.*;
  */
 public class LocalTableTest {
 
-    static LocalTable table = new LocalTable().init();;
-    static Controller controller = new Controller();
+    private static LocalTable table = new LocalTable().init();;
+    private static Controller controller = new Controller();
 
     @BeforeClass
     public static void setup() {
         String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
 
-        if (Config.getBrowser().equals("firefox")) {
+        if ("firefox".equals(Config.getBrowser())) {
             url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
         }
 
-//        Config.setUrl("file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html");
         Config.setUrl(url);
         controller.openUrl();
 

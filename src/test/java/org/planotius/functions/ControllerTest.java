@@ -17,17 +17,17 @@ public class ControllerTest {
 
     private static final Logger LOG = Logger.getLogger(ControllerTest.class.getName());
 
-    static Controller controller = new Controller();
+    private static Controller controller = new Controller();
 
     @BeforeClass
     public static void setUp() {
         String url = System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
 
-        if (Config.getBrowser().equals("firefox")) {
+        if ("firefox".equals(Config.getBrowser())) {
             url = "file:" + System.getProperty("user.dir") + "\\src\\test\\resources\\localTable.html";
         }
 
-        System.out.println("URL: " + url);
+        LOG.info("URL: " + url);
         Config.setUrl(url);
         controller.openUrl();
 

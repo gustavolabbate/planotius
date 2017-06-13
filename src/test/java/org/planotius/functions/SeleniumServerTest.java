@@ -1,5 +1,6 @@
 package org.planotius.functions;
 
+import java.net.MalformedURLException;
 import org.apache.log4j.Logger;
 import org.planotius.controller.selenium.SeleniumServer;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class SeleniumServerTest {
         try {
 
             String browser = "firefox";
-            String url = "http://www.google.com.br";
+                String url = "http://www.google.com.br";
             String testServer = "localhost";
             String port = "5555";
 
@@ -35,18 +36,17 @@ public class SeleniumServerTest {
 
             WebDriver driver = server.startServer();
             driver.get(url);
-
-            try {
-                LOG.info(driver.getTitle());
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-
+            
+            assertEquals("Google",driver.getTitle()); 
+            
+            
             driver.quit();
 
         } catch (UnreachableBrowserException ube) {
             LOG.error("Unreachable browser exception...");
-        } catch (Exception e) {
+            LOG.error(ube);
+        } catch (MalformedURLException e) {
+            LOG.error(e);
             fail(e.getMessage());
         }
 
@@ -60,7 +60,7 @@ public class SeleniumServerTest {
             
             String browser = "firefox";
             String url = "http://www.google.com.br";
-            String testServer = "10.35.102.136";
+            String testServer = Config.getConfiguration("remoteTestServer");
             String port = "4444";
 
             SeleniumServer server = new SeleniumServer(browser, testServer, port);

@@ -13,7 +13,7 @@ import org.planotius.helper.Config;
  */
 public class OpenGoogleTest {
 
-    static Controller controller = new Controller();
+    private static Controller controller = new Controller();
 
     @BeforeClass
     public static void setup() {
