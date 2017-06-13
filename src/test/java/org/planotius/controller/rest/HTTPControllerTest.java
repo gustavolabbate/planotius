@@ -18,7 +18,7 @@ public class HTTPControllerTest {
     private static final Logger LOG = Logger.getLogger(HTTPControllerTest.class.getName());
 
     @Test
-    public void verifyIDfromGitHubUser() throws IOException, Exception {
+    public void verifyIDfromGitHubUser() throws IOException  {
         String name = "gustavolabbate";
         String rest = "/users/";
         httpController = new HTTPController("https://api.github.com" + rest + name);
@@ -29,17 +29,15 @@ public class HTTPControllerTest {
                         httpController.retrieveJsonAsString()
                 );
 
-//        System.out.println(restController.retrieveJsonAsString());
         LOG.info(user.getLogin() + " - " + user.getHtml_url());
 
         assertEquals(user.getId(), "2988441");
     }
 
     @Test
-    public void getCurrency() throws IOException, Exception {
+    public void getCurrency() throws IOException {
         String rest = "/latest";
         httpController = new HTTPController("http://api.fixer.io" + rest);
-//        httpController.retrieveJsonAsString();
 
         assertEquals(HttpStatus.SC_OK, httpController.getHttpResponse().getStatusLine().getStatusCode());
 
