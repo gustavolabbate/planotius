@@ -26,7 +26,6 @@ public class Controller {
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static volatile SeleniumServer server;
     private static volatile WebDriver driver;
-    private static volatile Config config = new Config();
 
     /**
      * Controller constructor
