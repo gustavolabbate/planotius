@@ -26,6 +26,7 @@ public class Controller {
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
     private static volatile SeleniumServer server;
     private static volatile WebDriver driver;
+    private static Config config = new Config();
 
     /**
      * Controller constructor
@@ -43,9 +44,9 @@ public class Controller {
 
         LOG.info("--------------------------------------------------");
         LOG.info("Properties loaded by Controller:");
-        LOG.info("browser: " + Config.getBrowser());
-        LOG.info("testServer: " + Config.getTestServer());
-        LOG.info("port: " + Config.getPort());
+        LOG.info("browser: " + config.getBrowser());
+        LOG.info("testServer: " + config.getTestServer());
+        LOG.info("port: " + config.getPort());
         LOG.info("--------------------------------------------------");
 
         try {
