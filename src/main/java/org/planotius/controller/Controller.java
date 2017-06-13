@@ -24,27 +24,13 @@ import org.openqa.selenium.internal.BuildInfo;
 public class Controller {
 
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
-    public static volatile SeleniumServer server;
+    private static volatile SeleniumServer server;
     private static volatile WebDriver driver;
-    public static volatile Config config = new Config();
+    private static volatile Config config = new Config();
 
-    public void quit() {
-        try {
-            Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
-            driver.quit();
-        } catch (IOException | UnreachableBrowserException ube) {
-            LOG.warn("Unreachable browser exception raised (Selenium bug).", ube);
-        }
-    }
-
-    public SeleniumServer getServer() {
-        return server;
-    }
-
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
+    /**
+     * Controller constructor
+     */
     public Controller() {
         BuildInfo buildInfo = new BuildInfo();
         String revision = buildInfo.getBuildRevision();
@@ -70,23 +56,53 @@ public class Controller {
         }
     }
 
+    /**
+     * driver.quit
+     */
+    public void quit() {
+        try {
+            Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
+            driver.quit();
+        } catch (IOException | UnreachableBrowserException ube) {
+            LOG.warn("Unreachable browser exception raised (Selenium bug).", ube);
+        }
+    }
+
+    public SeleniumServer getServer() {
+        return server;
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
     private void connectServer() throws MalformedURLException {
         server = new SeleniumServer(Config.getBrowser(), Config.getTestServer(), Config.getPort());
         driver = server.startServer();
-        LOG.info("Selenium started: [" + Config.getBrowser() + ", " + Config.getTestServer() + ", " + Config.getPort() + "]");
+        LOG.info("Selenium started: [" + Config.getBrowser() + ", "
+                + Config.getTestServer() + ", " + Config.getPort() + "]");
     }
 
+    /**
+     * get message from an alert
+     *
+     * @return
+     */
     public String getAlertMessage() {
         try {
             Alert alert = driver.switchTo().alert();
-            String alertMessage = alert.getText();
-            return alertMessage;
+            return alert.getText();
         } catch (Exception e) {
             LOG.debug("No alert found", e);
             return "no alert found.";
         }
     }
 
+    /**
+     * Click on the alert
+     *
+     * @return
+     */
     public String clickAlert() {
         try {
             Alert alert = driver.switchTo().alert();
@@ -158,10 +174,12 @@ public class Controller {
             }
 
             File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            LOG.debug(f.getAbsolutePath());
             LOG.info("Screenshot from server '" + server.getTestServer() + "' saved in: '" + fileName + "'");
             return fileName;
         } catch (WebDriverException | IOException e) {
-            LOG.error(e.getMessage() + " Error when getting screenshot from server '" + server.getTestServer() + "' in: '" + fileName + "'", e);
+            LOG.error(e.getMessage() + " Error when getting screenshot from server '"
+                    + server.getTestServer() + "' in: '" + fileName + "'", e);
             return null;
         }
     }
