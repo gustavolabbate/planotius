@@ -36,6 +36,16 @@ public class LocalTableTest {
     }
 
     @Test
+    public void shouldSelectFirefoxOnAutocompleteField() {
+        assertEquals("Firefox", table.isValueInAutocompleteField("Fire", 1));
+    }
+
+    @Test
+    public void shouldSelectSafariOnAutocompleteField() {
+        assertEquals("Safari", table.isValueInAutocompleteField("Saf", 2));
+    }
+
+    @Test
     public void shouldVerifyTextOnPage() {
         assertTrue(controller.verifyMessage("Headless Table"));
     }
