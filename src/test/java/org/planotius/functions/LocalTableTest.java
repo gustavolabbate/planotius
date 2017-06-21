@@ -14,7 +14,7 @@ import org.planotius.helper.*;
  */
 public class LocalTableTest {
 
-    private static LocalTable table = new LocalTable().init();;
+    private static LocalTable table = new LocalTable().init();
     private static Controller controller = new Controller();
 
     @BeforeClass
@@ -28,6 +28,11 @@ public class LocalTableTest {
         Config.setUrl(url);
         controller.openUrl();
 
+    }
+
+    @Test
+    public void openSensorMonitor() {
+        assertEquals("1", table.getTextfromTD());
     }
 
     @Test
@@ -93,6 +98,13 @@ public class LocalTableTest {
         assertEquals("1", table.getTextfromTD());
         assertEquals("Eve", table.getTextfromSecondWithoutElementDiscoverExtFile());
 
+    }
+
+    @Test
+    public void shouldClickSubmitButton() {
+        table.clickMe();
+        assertEquals("button clicked!", table.textFieldforButton.getAttributeValue());
+        assertEquals("Jackson", table.getCellValueFromTableWithHeader("1", "Last Name"));
     }
 
     @Test
