@@ -1,17 +1,17 @@
-#Planotius 
-####test framework tool
+# Planotius 
+#### test framework tool
 
 This framework will provide common features that other frameworks provides, but in a friendly way to use.
 The purpose is to write few lines of code to get automation running!
 
-####Frameworks available:
+#### Frameworks available:
 
 * Selenium
 * Junit
 * RestAPI testing
 * BDD with cucumber
 
-####Features available:
+#### Features available:
 
 * Easy to use with the Page Object Pattern;
 * Smart FindBy elements: you only have to provide one identifier, the framework search by any means;
@@ -19,7 +19,7 @@ The purpose is to write few lines of code to get automation running!
 * You can provide all your test data in csv files;
 * Maven compiled and maven provided;
 
-####Latest improvements:
+#### Latest improvements:
 
 * Now it is possible to hint a locator when using @ElementDiscover:
 ```
