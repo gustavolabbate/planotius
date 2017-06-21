@@ -45,12 +45,12 @@ public class Element implements WebElement {
     private static final long DEFAULT_PAGE_LOAD_TIMEOUT = 30;
 
     static {
-        implicitWait = ((Config.getConfiguration("implicitWait") == null) ? DEFAULT_IMPLICIT_WAIT :
-                Long.valueOf(Config.getConfiguration("implicitWait")));
-        explicitWait = ((Config.getConfiguration("explicitWait") == null) ? DEFAULT_EXPLICIT_WAIT :
-                Long.valueOf(Config.getConfiguration("explicitWait")));
-        pageLoadTimeout = (Config.getConfiguration("pageLoadTimeout") == null) ? DEFAULT_PAGE_LOAD_TIMEOUT :
-                Long.valueOf(Config.getConfiguration("pageLoadTimeout"));
+        implicitWait = ((Config.getConfiguration("implicitWait") == null) ? DEFAULT_IMPLICIT_WAIT
+                : Long.valueOf(Config.getConfiguration("implicitWait")));
+        explicitWait = ((Config.getConfiguration("explicitWait") == null) ? DEFAULT_EXPLICIT_WAIT
+                : Long.valueOf(Config.getConfiguration("explicitWait")));
+        pageLoadTimeout = (Config.getConfiguration("pageLoadTimeout") == null) ? DEFAULT_PAGE_LOAD_TIMEOUT
+                : Long.valueOf(Config.getConfiguration("pageLoadTimeout"));
     }
 
     public Element(WebElement element) {
@@ -401,11 +401,13 @@ public class Element implements WebElement {
 
     @Override
     public Rectangle getRect() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> ot) throws WebDriverException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

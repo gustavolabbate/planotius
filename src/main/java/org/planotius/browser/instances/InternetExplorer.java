@@ -38,13 +38,12 @@ public class InternetExplorer extends BrowserDecorator {
 
         capability.setCapability("binary", IE_HOME);
         System.setProperty("webdriver.ie.driver", IE_HOME);
-
         return capability;
     }
 
     @Override
     public String getBrowserLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return IE_HOME;
     }
 
 }
