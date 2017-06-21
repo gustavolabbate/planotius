@@ -16,6 +16,7 @@ public class PhantomJS extends BrowserDecorator {
     private static final String PHANTOM_BROWSER = "phantomJS";
     private static final String PHANTOM_WIN_HOME = "target/browsers/pw/phantomjs.exe";
     private static final String PHANTOM_LIN_HOME = "target/browsers/pl64/phantomjs";
+    private static volatile String browserLocation;
     private static final Logger LOG = Logger.getLogger(PhantomJS.class.getName());
 
     @Override
@@ -39,11 +40,13 @@ public class PhantomJS extends BrowserDecorator {
             capability.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_WIN_HOME);
             capability.setCapability("binary", PHANTOM_WIN_HOME);
             System.setProperty("phantomjs.binary.path", PHANTOM_WIN_HOME);
+            browserLocation = PHANTOM_WIN_HOME;
         } else {
             LOG.info("LINUX os recognized. Loading phantomJS from " + PHANTOM_LIN_HOME);
             capability.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_LIN_HOME);
             capability.setCapability("binary", PHANTOM_LIN_HOME);
             System.setProperty("phantomjs.binary.path", PHANTOM_LIN_HOME);
+            browserLocation = PHANTOM_LIN_HOME;
         }
 
         return capability;
@@ -51,6 +54,6 @@ public class PhantomJS extends BrowserDecorator {
 
     @Override
     public String getBrowserLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return browserLocation;
     }
 }
