@@ -1,7 +1,7 @@
-package org.planotius.browserFactory;
+package org.planotius.browser.factory;
 
 import java.net.MalformedURLException;
-import org.planotius.browser.factory.BrowserFactory;
+import org.apache.log4j.Logger;
 import org.planotius.browser.Browser;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -15,18 +15,20 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author gustavolabbate
  */
 public class FirefoxTest {
+    private static final Logger LOG = Logger.getLogger(FirefoxTest.class.getName());
 
     private static Config config = new Config();
+    
 
     @Test
     public void setFirefoxHomeLocationCustom() {
         System.setProperty("firefox.home", "C:\\myBrowserDir\\firefox.exe");
-        Config configCustom = new Config();
+        config = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         browser.defineCapabilities();
 
-        System.out.println("BROWSER IS AT: " + browser.getBrowserLocation());
+        LOG.info("BROWSER IS AT: " + browser.getBrowserLocation());
 
         assertEquals("C:\\myBrowserDir\\firefox.exe", browser.getBrowserLocation());
 
@@ -38,7 +40,7 @@ public class FirefoxTest {
         Browser browser = browserFactory.getBrowser("firefox");
         browser.defineCapabilities();
 
-        System.out.println("BROWSER IS AT: " + browser.getBrowserLocation());
+        LOG.info("BROWSER IS AT: " + browser.getBrowserLocation());
         assertEquals("target/browsers/gw64/geckodriver.exe", browser.getBrowserLocation());
     }
 
@@ -55,7 +57,7 @@ public class FirefoxTest {
     @Test
     public void shouldLoadDefaultProfile() {
         System.setProperty("firefox.profile", "inexistentProfile");
-        Config configCustom = new Config();
+        config = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         browser.defineCapabilities();
@@ -65,8 +67,8 @@ public class FirefoxTest {
     public void shouldLoadCustomProfilefromFile() {
         System.setProperty("firefox.profile.path", "src\\test\\resources\\FirefoxProfile\\7lmpxvfi.QAautomation");
         System.setProperty("firefox.profile", "QAautomation");
-        Config configCustom = new Config();
-        configCustom.setFirefoxProfile(null);
+        config = new Config();
+        config.setFirefoxProfile(null);
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
@@ -75,10 +77,10 @@ public class FirefoxTest {
     @Test
     public void shouldLoadCustomProfile() {
         System.setProperty("firefox.profile", "QAautomation");
-        Config configCustom = new Config();
+        config = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
-        DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
+        browser.defineCapabilities();
     }
     
     

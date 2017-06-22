@@ -64,10 +64,6 @@ public class ControllerTest {
         assertTrue(controller.searchHtmlContents("<td>Number</td>"));
     }
 
-//    @Test
-//    public void shouldVerifyJavascriptExecution() {
-//        assertEquals("teste", controller.runJavaScript("return changeInputTextValue(\"teste\", \"changedByjs\");"));
-//    }
     @AfterClass
     public static void tearDown() {
         controller.quit();

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @author ggodoy
  */
 public class CSVReaderTest {
-    private static final Logger log = LoggerFactory.getLogger(CSVReaderTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(CSVReaderTest.class.getName());
 
     /**
      * Should read a csv file
@@ -30,11 +30,10 @@ public class CSVReaderTest {
                 for (Object object : objects) {
                     String value = (String) object;
                     assertNotNull(value);
-                    System.out.println("Valor: " + value);
                 }
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
             fail(e.getMessage());
             
         }
@@ -60,7 +59,7 @@ public class CSVReaderTest {
                 assertNotNull(map.get("pais"));
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
             fail(e.getMessage());
             
         }
