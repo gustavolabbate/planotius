@@ -18,6 +18,7 @@ public class Config {
     private static String url;
     private static String firefoxLocale;
     private static String firefoxProfile;
+    private static String firefoxProfilePath;
     private static String firefoxHome;
     private static String chromeBinaryHome;
     private static String chromeHome;
@@ -87,6 +88,19 @@ public class Config {
             }
         }
 
+        if (Config.firefoxProfilePath == null) {
+            if (System.getProperty("firefox.profile.path") != null) {
+                Config.firefoxProfilePath = System.getProperty("firefox.profile.path");
+                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
+            } else if (properties.getValue("firefox.profile.path") != null) {
+                Config.firefoxProfilePath = properties.getValue("firefox.profile.path");
+                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
+            } else {
+                Config.firefoxProfilePath = null;
+                LOG.debug("'firefox.profile.path' key not defined, will not use any profile.");
+            }
+        }
+
         if (System.getProperty("firefox.home") != null) {
             Config.firefoxHome = System.getProperty("firefox.home");
         } else if (properties.getValue("firefox.home") != null) {
@@ -116,40 +130,10 @@ public class Config {
     }
 
     public static String getConfiguration(String key) {
-//        if (config == null) {
-//            config = new Config();
-            configuration = new PropertiesLoader();
-//        }
+        configuration = new PropertiesLoader();
         return configuration.getValue(key);
     }
 
-//    private static String getOSinfo(){
-//        String osName = System.getProperty("os.name");
-//        String osArch = System.getProperty("os.arch");
-//        String defaultBrowser = "";
-//        
-//        if (osName.contains("windows")){
-//            osName = "windows";
-//        }
-//        
-//        if (osArch.contains("64")){
-//            osArch = "64";
-//        }
-//        else if (osArch.contains("32")){
-//            osArch = "32";
-//        }
-//        
-//        
-//        switch(osName.toLowerCase()) {
-//            case "windows":
-//                return 
-//                break;
-//            default:
-//                break;
-//        }
-//        
-//        return defaultBrowser;
-//    }
     public static String getTestServer() {
         return testServer;
     }
@@ -172,6 +156,10 @@ public class Config {
 
     public static String getFirefoxProfile() {
         return firefoxProfile;
+    }
+
+    public static String getFirefoxProfilePath() {
+        return firefoxProfilePath;
     }
 
     public static String getFirefoxHome() {
@@ -200,6 +188,10 @@ public class Config {
 
     public static void setFirefoxProfile(String firefoxProfile) {
         Config.firefoxProfile = firefoxProfile;
+    }
+
+    public static void setFirefoxProfilePath(String firefoxProfilePath) {
+        Config.firefoxProfilePath = firefoxProfilePath;
     }
 
     public static void setFirefoxHome(String firefoxHome) {

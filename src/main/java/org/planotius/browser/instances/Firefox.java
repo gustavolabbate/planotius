@@ -1,5 +1,6 @@
 package org.planotius.browser.instances;
 
+import java.io.File;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +37,13 @@ public class Firefox extends BrowserDecorator {
     @Override
     public DesiredCapabilities defineCapabilities() {
         FirefoxProfile profile = new FirefoxProfile();
+
+        if (Config.getFirefoxProfilePath() != null) {
+            File profilePath = new File(Config.getFirefoxProfilePath());
+            if (profilePath.exists()) {
+                profile = new FirefoxProfile(profilePath);
+            }
+        }
 
         if (Config.getFirefoxProfile() != null) {
             ProfilesIni profIni = new ProfilesIni();

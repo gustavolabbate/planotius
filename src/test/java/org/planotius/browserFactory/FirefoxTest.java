@@ -54,7 +54,6 @@ public class FirefoxTest {
 
     @Test
     public void shouldLoadDefaultProfile() {
-//        System.clearProperty("firefox.profile");
         System.setProperty("firefox.profile", "inexistentProfile");
         Config configCustom = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
@@ -63,17 +62,25 @@ public class FirefoxTest {
     }
     
     @Test
+    public void shouldLoadCustomProfilefromFile() {
+        System.setProperty("firefox.profile.path", "src\\test\\resources\\FirefoxProfile\\7lmpxvfi.QAautomation");
+        System.setProperty("firefox.profile", "QAautomation");
+        Config configCustom = new Config();
+        configCustom.setFirefoxProfile(null);
+        BrowserFactory browserFactory = new BrowserFactory();
+        Browser browser = browserFactory.getBrowser("firefox");
+        DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
+    }
+    
+    @Test
     public void shouldLoadCustomProfile() {
-//        System.clearProperty("firefox.profile");
         System.setProperty("firefox.profile", "QAautomation");
         Config configCustom = new Config();
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
         DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
-        
-        Object whatIam = desiredCapabilities.getCapability("firefox_profile");
-        System.out.println(whatIam);
     }
+    
     
 
     @AfterClass
