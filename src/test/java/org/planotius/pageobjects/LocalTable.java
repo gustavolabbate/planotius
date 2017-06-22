@@ -1,5 +1,6 @@
 package org.planotius.pageobjects;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.planotius.pageobjectfactory.PageObjectFactory;
 import org.planotius.controller.selenium.Element;
@@ -12,97 +13,116 @@ import org.planotius.controller.selenium.Locator;
  */
 public class LocalTable extends PageObjectFactory {
 
+    private static final Logger LOG = Logger.getLogger(LocalTable.class.getName());
+
     //Tables
     @ElementDiscover("//table[@id='table_test']/tbody/tr[2]/td[2]")
-    public Element elementFromSecondTD;
+    private Element elementFromSecondTD;
 
     @ElementDiscover(value = "table_test", locator = Locator.ID)
-    public Element tableWithHeader;
+    private Element tableWithHeader;
 
     @ElementDiscover("headless")
-    public Element headlessTable;
+    private Element headlessTable;
 
     @ElementDiscover("myNumber1")
-    public Element elementFromTDID;
+    private Element elementFromTDID;
 
     @ElementDiscover("changedByjs")
-    public Element myInputText;
+    private Element myInputText;
 
     @ElementDiscover("complete")
-    public Element autoCompleteField;
-    
+    private Element autoCompleteField;
+
     @ElementDiscover(value = "submit_button", locator = Locator.ID)
-    public Element submitButton;
-    
+    private Element submitButton;
+
     @ElementDiscover(value = "filledByButton", locator = Locator.ID)
-    public Element textFieldforButton;
+    private Element textFieldforButton;
     
+    private String ATTRIBUTE = "value";
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getTextFieldforButton() {
+        return textFieldforButton.getAttributeValue();
+    }
+    
+    /**
+     * Get a text from a TD tag
+     * @return 
+     */
     public String getTextfromTD() {
         return elementFromTDID.getText();
     }
 
+    /**
+     * Get text from element without a external file
+     * @return 
+     */
     public String getTextfromSecondWithoutElementDiscoverExtFile() {
         return elementFromSecondTD.getText();
     }
 
-    public void clickMe(){
+    /**
+     * click on submit
+     */
+    public void clickMe() {
         submitButton.click();
     }
-    
-    public String isValueInAutocompleteField(String stripedString, int down) {
-        
-        autoCompleteField.sendKeys(stripedString);
 
-        //System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-        //printScreen("target/localTableAutoComplete.png");
-        
-        //System.out.println(down);
+    /**
+     * get value attribute from element
+     * @param stripedString
+     * @param down
+     * @return 
+     */
+    public String isValueInAutocompleteField(String stripedString, int down) {
+
+        autoCompleteField.sendKeys(stripedString);
         for (int i = 1; i <= down; i++) {
             autoCompleteField.sendKeys(Keys.ARROW_DOWN);
-          //  System.out.print("|");
         }
 
         autoCompleteField.sendKeys(Keys.ENTER);
-        
-        return autoCompleteField.getAttribute("value");
+
+        return autoCompleteField.getAttribute(ATTRIBUTE);
     }
 
+    /**
+     * get value from autocomplete element
+     * @param stripedString
+     * @return 
+     */
     public String isValueInAutocompleteField(String stripedString) {
 
         autoCompleteField.sendKeys(stripedString);
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
         autoCompleteField.sendKeys(Keys.ARROW_DOWN);
         autoCompleteField.sendKeys(Keys.ENTER);
-//        autoCompleteField.click();
-        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-        return autoCompleteField.getAttribute("value");
-//        if (autoCompleteField.getAttribute("value").equals(expectedString)){
-//            return true;
-//        }
-
-//        
-//        System.out.println("Check1");
-////        if (listSugestion.isDisplayed()) {
-//        System.out.println("Check2");
-//        List<WebElement> options = getDriver().findElements(By.name("browsers"));
-//
-//        for (WebElement option : options) {
-//            System.out.println("CheckOption: " + option.getAttribute("value"));
-//        }
-//        System.out.println("Check3");
-//        System.out.println("aComplete>> " + options.contains(expectedString));
-//        System.out.println("-->> " + autoCompleteField.getAttribute("value"));
-////        }
-//        return false;
+        LOG.info("-->> " + autoCompleteField.getAttribute(ATTRIBUTE));
+        return autoCompleteField.getAttribute(ATTRIBUTE);
     }
 
+    /**
+     * get cell value from a table with headers
+     * @param row
+     * @param column
+     * @return 
+     */
     public String getCellValueFromTableWithHeader(Object row, Object column) {
         return tableWithHeader.getCellValueFromTable(row, column);
     }
-
+    
+    /**
+     * get cell value from a table without headers
+     * @param row
+     * @param column
+     * @return 
+     */
     public String getCellValueFromHeadlessTable(Object row, Object column) {
         return headlessTable.getCellValueFromTable(row, column);
     }
-
-
 }

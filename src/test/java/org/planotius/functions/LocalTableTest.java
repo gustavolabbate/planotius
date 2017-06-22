@@ -103,7 +103,7 @@ public class LocalTableTest {
     @Test
     public void shouldClickSubmitButton() {
         table.clickMe();
-        assertEquals("button clicked!", table.textFieldforButton.getAttributeValue());
+        assertEquals("button clicked!", table.getTextFieldforButton());
         assertEquals("Jackson", table.getCellValueFromTableWithHeader("1", "Last Name"));
     }
 
