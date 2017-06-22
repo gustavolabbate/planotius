@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,6 @@ public class CSVReader {
      */
     public Collection<Object[]> read(String file) {
         try {
-//            BufferedReader br = new BufferedReader(new FileReader(file));
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), CSVReader.encoding));
 
             Collection<Object[]> rows = createCollection(br);
@@ -64,7 +64,7 @@ public class CSVReader {
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             LOG.error(ex.getMessage());
         }
-        return null;
+        return Collections.<Object[]>emptyList();
     }
 
     /**
@@ -108,7 +108,7 @@ public class CSVReader {
 
             if (stream == null) {
                 LOG.error("The file '" + file + "' was not found. Check if exists or is acessible.");
-                return null;
+                return Collections.<Object[]>emptyList();
             }
 
             br = new BufferedReader(new InputStreamReader(stream, CSVReader.encoding));
@@ -127,7 +127,7 @@ public class CSVReader {
             }
         }
 
-        return null;
+        return Collections.<Object[]>emptyList();
     }
 
     private Collection<Object[]> createCollection(BufferedReader br) {
@@ -157,7 +157,7 @@ public class CSVReader {
             LOG.error("IO Exception", ex);
 
         }
-        return null;
+        return Collections.<Object[]>emptyList();
 
     }
 }

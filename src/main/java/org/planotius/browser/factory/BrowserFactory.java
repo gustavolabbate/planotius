@@ -20,19 +20,19 @@ public class BrowserFactory {
 
     public Browser getBrowser(String browser) {
 
-        if (browser == null || browser.equalsIgnoreCase("firefox")) {
+        if (browser == null || "firefox".equalsIgnoreCase(browser)) {
             LOG.debug("Using FIREFOX browser.");
             return new Firefox();
-        } else if (browser.equalsIgnoreCase("googlechrome") || browser.equalsIgnoreCase("chromium")) {
+        } else if ( "googlechrome".equalsIgnoreCase(browser) || "chromium".equalsIgnoreCase(browser)) {
             LOG.debug("Using GOOGLE CHROME browser.");
             return new GoogleChrome();
-        } else if (browser.equalsIgnoreCase("iexplore")) {
+        } else if ( "iexplore".equalsIgnoreCase(browser)) {
             LOG.debug("Using INTERNET EXPLORER browser.");
             return new InternetExplorer();
-        } else if (browser.equalsIgnoreCase("edge")) {
+        } else if ( "edge".equalsIgnoreCase(browser)) {
             LOG.debug("Using EDGE browser.");
             return new Edge();
-        } else if (browser.equalsIgnoreCase("phantomjs")) {
+        } else if ( "phantomjs".equalsIgnoreCase(browser)) {
             LOG.debug("Using PhantomJS browser.");
             return new PhantomJS();
         }

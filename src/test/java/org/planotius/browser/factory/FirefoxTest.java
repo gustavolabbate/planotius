@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.planotius.helper.*;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  *

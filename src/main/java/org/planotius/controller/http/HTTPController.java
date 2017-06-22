@@ -24,6 +24,7 @@ public class HTTPController extends HTTPHelper {
     public HTTPController(String httpUrl) throws IOException {
         this.httpUrl = httpUrl;
         setHttpResponse(getResponseFromRequest());
+        LOG.debug("httpUrl: " + httpUrl);
     }
 
     public HTTPController(String httpUrl, String method, StringEntity params) throws IOException {

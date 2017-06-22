@@ -42,6 +42,7 @@ public class Edge extends BrowserDecorator {
             capability.setCapability("binary", Config.getConfiguration(EDGE_HOME));
             System.setProperty("webdriver.ie.driver", Config.getConfiguration(EDGE_HOME));
         }
+        LOG.info("Edge browser parameters loaded.");
         return capability;
     }
 

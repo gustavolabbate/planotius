@@ -17,6 +17,14 @@ public class RegexTest {
         assertEquals("123",
                 regex.getGroupByIndex("AbcDef123GH", "[0-9]+", 0));
     }
+    
+    @Test
+    public void shouldNotMatchByIndex() {
+        Regex regex = new Regex();
+
+        assertEquals("Value didn´t match!",
+                regex.getGroupByIndex("AbcDef123GH", "[NO]+", 0));
+    }
 
     @Test
     public void shouldMatchWithoutGroup() {
@@ -27,7 +35,7 @@ public class RegexTest {
     }
 
     @Test
-    public void shouldDidntMatch() {
+    public void shouldNotMatch() {
         Regex regex = new Regex();
 
         assertEquals("Value didn´t match!",

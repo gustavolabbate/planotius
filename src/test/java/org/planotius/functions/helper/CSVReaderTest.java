@@ -61,9 +61,6 @@ public class CSVReaderTest {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             fail(e.getMessage());
-            
         }
-
-
     }
 }

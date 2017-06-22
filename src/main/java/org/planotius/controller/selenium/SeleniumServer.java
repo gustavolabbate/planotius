@@ -39,7 +39,7 @@ public class SeleniumServer {
      */
     public WebDriver startServer() throws MalformedURLException {
         LOG.info("browser: '" + browser + "' testServer: '" + testServer + "'");
-        if (this.testServer.equalsIgnoreCase("localhost")) {
+        if ("localhost".equalsIgnoreCase(this.testServer)) {
             return browserFactory.getBrowser(browser).getWebDriver();
         } else {
             return browserFactory.getBrowser(browser).getRemoteWebDriver(testServer, port);

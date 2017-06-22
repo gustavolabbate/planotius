@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class CSVInputDataReader implements InputDataReader {
 
-    private static final Logger log = Logger.getLogger(CSVInputDataReader.class.getName());
+    private static final Logger LOG = Logger.getLogger(CSVInputDataReader.class.getName());
 
     @Override
     public InputData read(String file) {
@@ -32,8 +32,8 @@ public class CSVInputDataReader implements InputDataReader {
             }
         }
 
-        inputData.InputData = csv.getList(filename);
-        log.info("CSV file: " + file);
+        inputData.setDataList(csv.getList(filename));
+        LOG.info("CSV file: " + file);
         return inputData;
     }
 

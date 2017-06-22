@@ -39,7 +39,7 @@ public class PropertiesLoader {
                 appContext = System.getProperty("config.properties");
             }
 
-            if (!appContext.equalsIgnoreCase("")) {
+            if (!"".equals(appContext)) {
                 input = new FileInputStream(appContext);
                 props.load(input);
 
