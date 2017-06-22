@@ -127,7 +127,7 @@ public class Config {
                 LOG.debug("'firefox.profile' key not defined, will not use any profile.");
             }
         }
-        
+
         if (Config.firefoxProfilePath == null) {
             if (System.getProperty("firefox.profile.path") != null) {
                 Config.firefoxProfilePath = System.getProperty("firefox.profile.path");
