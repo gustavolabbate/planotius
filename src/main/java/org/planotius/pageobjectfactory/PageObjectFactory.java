@@ -20,6 +20,12 @@ public class PageObjectFactory {
 
     private static final Logger LOG = Logger.getLogger(PageObjectFactory.class.getName());
 
+    /**
+     * Init the page object
+     *
+     * @param <T>
+     * @return
+     */
     public <T> T init() {
         return (T) init(this.getClass());
     }
@@ -34,7 +40,8 @@ public class PageObjectFactory {
         try {
             Constructor<T> constructor = aClass.getConstructor();
             page = constructor.newInstance();
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException
+                | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             LOG.error(ex.getMessage(), ex);
         }
 
@@ -76,7 +83,7 @@ public class PageObjectFactory {
                 [init] [TAM-3] Skip the external file. 
                 You can set the value directly on the ElementDiscover annotation
                  */
-                if (myAnnotation.key().equals("")) {
+                if ("".equals(myAnnotation.key())) {
                     element.setKeyValue(myAnnotation.value());
                     element.setKey(myAnnotation.value());
                 } else {
@@ -88,12 +95,12 @@ public class PageObjectFactory {
                 [finish] [TAM-3] Skip the external file. 
                 You can set the value directly on the ElementDiscover annotation
                  */
-                if (!myAnnotation.frame().equals("")) {
+                if (!"".equals(myAnnotation.frame())) {
                     element.setFrame(myAnnotation.frame());
                 }
 
                 //Setting locator
-                if (!myAnnotation.locator().equals("")) {
+                if (!"".equals(myAnnotation.locator())) {
                     element.setLocator(myAnnotation.locator());
                 }
 
@@ -104,10 +111,15 @@ public class PageObjectFactory {
         return element;
     }
 
+    /**
+     * Load all Elements from annotated fields.
+     *
+     * @param myElement
+     * @return
+     */
     public static WebElement loadInputData(Element myElement) {
-        String value;
-        String locator;
-        FindBy findBy = new FindBy(Controller.getDriver());
+        String value = "";
+        String locator = "";
 
         String interfaceMapName = myElement.getAclass().getSimpleName();
         Annotation[] annotations = myElement.getField().getDeclaredAnnotations();
@@ -118,7 +130,7 @@ public class PageObjectFactory {
                 /*[init] [TAM-3] Skip the external file. 
                 You can set the value directly on the ElementDiscover annotation
                  */
-                if (myAnnotation.key().equals("")) {
+                if ("".equals(myAnnotation.key())) {
                     value = myAnnotation.value();
                 } else {
                     PropertiesLoader map = new PropertiesLoader(interfaceMapName);
@@ -127,48 +139,45 @@ public class PageObjectFactory {
 
                 locator = myAnnotation.locator();
                 //[finish] [TAM-3] Skip the external file. You can set the value directly on the ElementDiscover annotation
+            }
+        }
+        return getWebelementByLocator(value, locator);
+    }
 
-                /*if (myElement.getFrame() != "") {
-                 try {
-                 Controller.getDriver().switchTo().frame(myElement.getFrame());
-                 } catch (Exception e) {
-                 log.error(e.getMessage() + " BLABLABLABA");
-                 }
-                 }*/
-                if (value != null) {
-                    switch (locator.toLowerCase()) {
-                        case "id":
-                            LOG.debug("Using 'id' to find '" + value + "'.");
-                            return findBy.id(value);
-                        case "name":
-                            LOG.debug("Using 'name' to find '" + value + "'.");
-                            return findBy.name(value);
-                        case "partiallinktest":
-                            LOG.debug("Using 'partialLinkText' to find '" + value + "'.");
-                            return findBy.partialLinkText(value);
-                        case "xpath":
-                            LOG.debug("Using 'xpath' to find '" + value + "'.");
-                            return findBy.xpath(value);
-                        case "css":
-                            LOG.debug("Using 'css' to find '" + value + "'.");
-                            return findBy.cssSelector(value);
-                        case "linktext":
-                            LOG.debug("Using 'linkText' to find '" + value + "'.");
-                            return findBy.linkText(value);
-                        case "tag":
-                            LOG.debug("Using 'tagName' to find '" + value + "'.");
-                            return findBy.tagName(value);
-                        case "class":
-                            LOG.debug("Using 'className' to find '" + value + "'.");
-                            return findBy.className(value);
-                        case "imageAlt":
-                            LOG.debug("Using 'imageAlt' to find '" + value + "'.");
-                            return findBy.imageAlt(value);
-                        default:
-                            LOG.debug("Locator undefined, trying to search a locator for '" + value + "'.");
-                            return searchAll(findBy, value);
-                    }
-                }
+    private static WebElement getWebelementByLocator(String value, String locator) {
+        FindBy findBy = new FindBy(Controller.getDriver());
+        if (value != null) {
+            switch (locator.toLowerCase()) {
+                case "id":
+                    LOG.debug("Using 'id' to find '" + value + "'.");
+                    return findBy.id(value);
+                case "name":
+                    LOG.debug("Using 'name' to find '" + value + "'.");
+                    return findBy.name(value);
+                case "partiallinktest":
+                    LOG.debug("Using 'partialLinkText' to find '" + value + "'.");
+                    return findBy.partialLinkText(value);
+                case "xpath":
+                    LOG.debug("Using 'xpath' to find '" + value + "'.");
+                    return findBy.xpath(value);
+                case "css":
+                    LOG.debug("Using 'css' to find '" + value + "'.");
+                    return findBy.cssSelector(value);
+                case "linktext":
+                    LOG.debug("Using 'linkText' to find '" + value + "'.");
+                    return findBy.linkText(value);
+                case "tag":
+                    LOG.debug("Using 'tagName' to find '" + value + "'.");
+                    return findBy.tagName(value);
+                case "class":
+                    LOG.debug("Using 'className' to find '" + value + "'.");
+                    return findBy.className(value);
+                case "imageAlt":
+                    LOG.debug("Using 'imageAlt' to find '" + value + "'.");
+                    return findBy.imageAlt(value);
+                default:
+                    LOG.debug("Locator undefined, trying to search a locator for '" + value + "'.");
+                    return searchAll(findBy, value);
             }
         }
         return null;

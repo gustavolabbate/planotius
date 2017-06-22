@@ -4,14 +4,13 @@ import org.planotius.input.InputDataReader;
 import org.planotius.input.InputData;
 import org.planotius.helper.CSVReader;
 import java.io.File;
-import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author ggodoy
  */
-public class CSVInputDataReader extends InputDataReader {
+public class CSVInputDataReader implements InputDataReader {
 
     private static final Logger log = Logger.getLogger(CSVInputDataReader.class.getName());
 

@@ -66,7 +66,7 @@ public class FirefoxTest extends Config {
         Config.setFirefoxProfile(null);
         BrowserFactory browserFactory = new BrowserFactory();
         Browser browser = browserFactory.getBrowser("firefox");
-        DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
+        browser.defineCapabilities();
     }
 
     @Test
