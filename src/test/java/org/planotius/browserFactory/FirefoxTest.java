@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.planotius.helper.*;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  *
@@ -50,6 +51,30 @@ public class FirefoxTest {
         browser.getRemoteWebDriver("bla", "blo");
 
     }
+
+    @Test
+    public void shouldLoadDefaultProfile() {
+//        System.clearProperty("firefox.profile");
+        System.setProperty("firefox.profile", "inexistentProfile");
+        Config configCustom = new Config();
+        BrowserFactory browserFactory = new BrowserFactory();
+        Browser browser = browserFactory.getBrowser("firefox");
+        browser.defineCapabilities();
+    }
+    
+    @Test
+    public void shouldLoadCustomProfile() {
+//        System.clearProperty("firefox.profile");
+        System.setProperty("firefox.profile", "QAautomation");
+        Config configCustom = new Config();
+        BrowserFactory browserFactory = new BrowserFactory();
+        Browser browser = browserFactory.getBrowser("firefox");
+        DesiredCapabilities desiredCapabilities = browser.defineCapabilities();
+        
+        Object whatIam = desiredCapabilities.getCapability("firefox_profile");
+        System.out.println(whatIam);
+    }
+    
 
     @AfterClass
     public static void tearDown() {

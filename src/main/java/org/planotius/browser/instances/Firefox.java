@@ -41,7 +41,8 @@ public class Firefox extends BrowserDecorator {
             ProfilesIni profIni = new ProfilesIni();
 
             if (profIni.getProfile(Config.getFirefoxProfile()) == null) {
-                LOG.warn("Firefox profile: " + Config.getFirefoxProfile() + " doesn´t exist. Please provide a valid one. Continuing with default profile.");
+                LOG.warn("Firefox profile: " + Config.getFirefoxProfile()
+                        + " doesn´t exist. Please provide a valid one. Continuing with default profile.");
             } else {
                 profile = profIni.getProfile(Config.getFirefoxProfile());
                 LOG.info("Firefox profile: " + Config.getFirefoxProfile() + " sucessfull loaded");
