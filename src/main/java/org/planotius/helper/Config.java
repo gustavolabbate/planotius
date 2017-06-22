@@ -23,9 +23,19 @@ public class Config {
     private static String chromeBinaryHome;
     private static String chromeHome;
     private static String ieHome;
+    private static PropertiesLoader properties = new PropertiesLoader();
 
+    /**
+     * Prepare all configuration from config.properties file or by System
+     * properties
+     */
     public Config() {
-        PropertiesLoader properties = new PropertiesLoader();
+        checkSeleniumProperties();
+        checkFirefoxProperties();
+        checkBrowsersHome();
+    }
+
+    private void checkSeleniumProperties() {
         Config.browser = properties.getValue("browser");
 
         if (System.getProperty("browser") != null) {
@@ -65,42 +75,9 @@ public class Config {
                 LOG.debug("'url' key not defined, using empty.");
             }
         }
+    }
 
-        if (System.getProperty("firefox.locale") != null) {
-            Config.firefoxLocale = System.getProperty("firefox.locale");
-        } else if (properties.getValue("firefox.locale") != null) {
-            Config.firefoxLocale = properties.getValue("firefox.locale");
-        } else {
-            Config.firefoxLocale = "en_US";
-            LOG.debug("'firefox.locale' key not defined, using default '" + Config.firefoxLocale + "'");
-        }
-
-        if (Config.firefoxProfile == null) {
-            if (System.getProperty("firefox.profile") != null) {
-                Config.firefoxProfile = System.getProperty("firefox.profile");
-                LOG.info("firefox Profile: " + Config.firefoxProfile);
-            } else if (properties.getValue("firefox.profile") != null) {
-                Config.firefoxProfile = properties.getValue("firefox.profile");
-                LOG.info("firefox Profile: " + Config.firefoxProfile);
-            } else {
-                Config.firefoxProfile = null;
-                LOG.debug("'firefox.profile' key not defined, will not use any profile.");
-            }
-        }
-
-        if (Config.firefoxProfilePath == null) {
-            if (System.getProperty("firefox.profile.path") != null) {
-                Config.firefoxProfilePath = System.getProperty("firefox.profile.path");
-                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
-            } else if (properties.getValue("firefox.profile.path") != null) {
-                Config.firefoxProfilePath = properties.getValue("firefox.profile.path");
-                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
-            } else {
-                Config.firefoxProfilePath = null;
-                LOG.debug("'firefox.profile.path' key not defined, will not use any profile.");
-            }
-        }
-
+    private void checkBrowsersHome() {
         if (System.getProperty("firefox.home") != null) {
             Config.firefoxHome = System.getProperty("firefox.home");
         } else if (properties.getValue("firefox.home") != null) {
@@ -126,7 +103,43 @@ public class Config {
         } else if (properties.getValue("ie.home") != null) {
             Config.ieHome = properties.getValue("ie.home");
         }
+    }
 
+    private void checkFirefoxProperties() {
+        if (System.getProperty("firefox.locale") != null) {
+            Config.firefoxLocale = System.getProperty("firefox.locale");
+        } else if (properties.getValue("firefox.locale") != null) {
+            Config.firefoxLocale = properties.getValue("firefox.locale");
+        } else {
+            Config.firefoxLocale = "en_US";
+            LOG.debug("'firefox.locale' key not defined, using default '" + Config.firefoxLocale + "'");
+        }
+
+        if (Config.firefoxProfile == null) {
+            if (System.getProperty("firefox.profile") != null) {
+                Config.firefoxProfile = System.getProperty("firefox.profile");
+                LOG.info("firefox Profile: " + Config.firefoxProfile);
+            } else if (properties.getValue("firefox.profile") != null) {
+                Config.firefoxProfile = properties.getValue("firefox.profile");
+                LOG.info("firefox Profile: " + Config.firefoxProfile);
+            } else {
+                Config.firefoxProfile = null;
+                LOG.debug("'firefox.profile' key not defined, will not use any profile.");
+            }
+        }
+        
+        if (Config.firefoxProfilePath == null) {
+            if (System.getProperty("firefox.profile.path") != null) {
+                Config.firefoxProfilePath = System.getProperty("firefox.profile.path");
+                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
+            } else if (properties.getValue("firefox.profile.path") != null) {
+                Config.firefoxProfilePath = properties.getValue("firefox.profile.path");
+                LOG.info("firefox Profile path: " + Config.firefoxProfilePath);
+            } else {
+                Config.firefoxProfilePath = null;
+                LOG.debug("'firefox.profile.path' key not defined, will not use any profile.");
+            }
+        }
     }
 
     public static String getConfiguration(String key) {
@@ -221,5 +234,4 @@ public class Config {
     public static void setIeHome(String ieHome) {
         Config.ieHome = ieHome;
     }
-
 }
