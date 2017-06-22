@@ -40,7 +40,7 @@ public class LocalTable extends PageObjectFactory {
     @ElementDiscover(value = "filledByButton", locator = Locator.ID)
     private Element textFieldforButton;
     
-    private final String ATTRIBUTE = "value";
+    private static final String ATTRIBUTE = "value";
     
     /**
      * 
