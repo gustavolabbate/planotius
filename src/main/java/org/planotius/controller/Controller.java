@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -168,7 +169,7 @@ public class Controller {
         try {
             String base64Screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
 
-            byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes());
+            byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes(StandardCharsets.UTF_8));
             try (FileOutputStream fos = new FileOutputStream(new File(fileName))) {
                 fos.write(decodedScreenshot);
             }

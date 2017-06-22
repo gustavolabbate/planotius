@@ -8,13 +8,19 @@ import java.util.Map;
  * @author ggodoy
  */
 public class InputData {
+
     private List<Map<String, String>> dataList;
 
     public void setDataList(List<Map<String, String>> dataList) {
         this.dataList = dataList;
     }
-    
-    
-    
-    
+
+    /**
+     * get DataList
+     * @return 
+     */
+    public List<Map<String, String>> getDataList() {
+        return dataList;
+    }
+
 }

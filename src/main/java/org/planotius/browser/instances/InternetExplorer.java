@@ -38,6 +38,8 @@ public class InternetExplorer extends BrowserDecorator {
 
         capability.setCapability("binary", IE_HOME);
         System.setProperty("webdriver.ie.driver", IE_HOME);
+        
+        LOG.debug("Internet Explorer parameters loaded.");
         return capability;
     }
 
